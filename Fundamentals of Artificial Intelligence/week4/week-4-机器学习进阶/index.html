@@ -1,0 +1,2606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>机器学习进阶 · 第4周互动学习</title>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🧠</text></svg>">
+<style>
+/* ==================== DESIGN TOKENS ==================== */
+:root {
+  /* Type Scale */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Content widths */
+  --content-narrow: 640px;
+  --content-default: 960px;
+  --content-wide: 1200px;
+
+  /* Font families */
+  --font-body: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'General Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ==================== LIGHT MODE ==================== */
+:root, [data-theme="light"] {
+  --color-bg:             #f7f6f2;
+  --color-surface:        #f9f8f5;
+  --color-surface-2:      #fbfbf9;
+  --color-surface-offset: #f3f0ec;
+  --color-surface-offset-2: #edeae5;
+  --color-surface-dynamic: #e6e4df;
+  --color-divider:        #dcd9d5;
+  --color-border:         #d4d1ca;
+  --color-text:           #28251d;
+  --color-text-muted:     #7a7974;
+  --color-text-faint:     #bab9b4;
+  --color-text-inverse:   #f9f8f4;
+  --color-primary:        #20808D;
+  --color-primary-hover:  #01696F;
+  --color-primary-active: #0f3638;
+  --color-primary-highlight: #cedcd8;
+  --color-primary-light:  rgba(32, 128, 141, 0.1);
+  --color-primary-medium: rgba(32, 128, 141, 0.15);
+  --color-success:        #437a22;
+  --color-success-light:  rgba(67, 122, 34, 0.1);
+  --color-error:          #a13544;
+  --color-error-light:    rgba(161, 53, 68, 0.1);
+  --color-warning:        #964219;
+  --color-warning-light:  rgba(150, 66, 25, 0.1);
+  --color-blue:           #006494;
+  --color-purple:         #7a39bb;
+  --color-orange:         #da7101;
+  --color-gold:           #d19900;
+
+  --shadow-sm: 0 1px 2px rgba(40, 37, 29, 0.06);
+  --shadow-md: 0 4px 12px rgba(40, 37, 29, 0.08);
+  --shadow-lg: 0 12px 32px rgba(40, 37, 29, 0.12);
+
+  --code-bg: #2d2d2d;
+  --code-text: #f8f8f2;
+  --code-green: #a6e22e;
+  --code-blue: #66d9ef;
+  --code-orange: #fd971f;
+  --code-string: #e6db74;
+  --code-purple: #ae81ff;
+}
+
+/* ==================== DARK MODE ==================== */
+[data-theme="dark"] {
+  --color-bg:             #171614;
+  --color-surface:        #1c1b19;
+  --color-surface-2:      #201f1d;
+  --color-surface-offset: #1d1c1a;
+  --color-surface-offset-2: #22211f;
+  --color-surface-dynamic: #2d2c2a;
+  --color-divider:        #262523;
+  --color-border:         #393836;
+  --color-text:           #cdccca;
+  --color-text-muted:     #797876;
+  --color-text-faint:     #5a5957;
+  --color-text-inverse:   #2b2a28;
+  --color-primary:        #4f98a3;
+  --color-primary-hover:  #227f8b;
+  --color-primary-active: #1a626b;
+  --color-primary-highlight: #313b3b;
+  --color-primary-light:  rgba(79, 152, 163, 0.12);
+  --color-primary-medium: rgba(79, 152, 163, 0.18);
+  --color-success:        #6daa45;
+  --color-success-light:  rgba(109, 170, 69, 0.15);
+  --color-error:          #dd6974;
+  --color-error-light:    rgba(221, 105, 116, 0.15);
+  --color-warning:        #bb653b;
+  --color-warning-light:  rgba(187, 101, 59, 0.15);
+  --color-blue:           #5591c7;
+  --color-purple:         #a86fdf;
+  --color-orange:         #fdab43;
+  --color-gold:           #e8af34;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.4);
+
+  --code-bg: #1a1a1a;
+  --code-text: #e0e0e0;
+  --code-green: #a6e22e;
+  --code-blue: #66d9ef;
+  --code-orange: #fd971f;
+  --code-string: #e6db74;
+  --code-purple: #ae81ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg:             #171614;
+    --color-surface:        #1c1b19;
+    --color-surface-2:      #201f1d;
+    --color-surface-offset: #1d1c1a;
+    --color-surface-offset-2: #22211f;
+    --color-surface-dynamic: #2d2c2a;
+    --color-divider:        #262523;
+    --color-border:         #393836;
+    --color-text:           #cdccca;
+    --color-text-muted:     #797876;
+    --color-text-faint:     #5a5957;
+    --color-text-inverse:   #2b2a28;
+    --color-primary:        #4f98a3;
+    --color-primary-hover:  #227f8b;
+    --color-primary-active: #1a626b;
+    --color-primary-highlight: #313b3b;
+    --color-primary-light:  rgba(79, 152, 163, 0.12);
+    --color-primary-medium: rgba(79, 152, 163, 0.18);
+    --color-success:        #6daa45;
+    --color-success-light:  rgba(109, 170, 69, 0.15);
+    --color-error:          #dd6974;
+    --color-error-light:    rgba(221, 105, 116, 0.15);
+    --color-warning:        #bb653b;
+    --color-warning-light:  rgba(187, 101, 59, 0.15);
+    --color-blue:           #5591c7;
+    --color-purple:         #a86fdf;
+    --color-orange:         #fdab43;
+    --color-gold:           #e8af34;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.4);
+    --code-bg: #1a1a1a;
+    --code-text: #e0e0e0;
+  }
+}
+
+/* ==================== BASE RESET ==================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4 { text-wrap: balance; line-height: 1.2; }
+p, li, figcaption { text-wrap: pretty; max-width: 72ch; }
+
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+button { cursor: pointer; background: none; border: none; }
+
+a, button, [role="button"], input, textarea, select {
+  transition: color var(--transition-interactive),
+              background var(--transition-interactive),
+              border-color var(--transition-interactive),
+              box-shadow var(--transition-interactive);
+}
+
+/* ==================== LAYOUT ==================== */
+.container {
+  width: 100%;
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.container--narrow {
+  max-width: var(--content-default);
+}
+
+/* ==================== HEADER / NAV ==================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-divider);
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  max-width: var(--content-wide);
+  margin: 0 auto;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.header-logo svg {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.header-logo-text {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-1);
+  list-style: none;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.nav-links a {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-interactive);
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  transition: all var(--transition-interactive);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: var(--color-surface-dynamic);
+  color: var(--color-text);
+}
+
+/* Mobile hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-divider);
+    padding: var(--space-4) var(--space-6);
+    gap: var(--space-1);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+}
+
+/* ==================== HERO ==================== */
+.hero {
+  padding: clamp(var(--space-12), 8vw, var(--space-24)) 0 clamp(var(--space-8), 5vw, var(--space-16));
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-6);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+}
+
+.hero p {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ==================== SECTION ==================== */
+.module-section {
+  padding: clamp(var(--space-10), 6vw, var(--space-20)) 0;
+}
+
+.module-section:nth-child(even) {
+  background: var(--color-surface);
+}
+
+.section-header {
+  margin-bottom: var(--space-8);
+}
+
+.section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+}
+
+.section-header h2 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-2);
+}
+
+.section-header p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ==================== CARDS & PANELS ==================== */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: box-shadow var(--transition-interactive);
+}
+
+[data-theme="dark"] .module-section:nth-child(even) .card,
+[data-theme="dark"] .module-section:nth-child(even) .quiz-card {
+  background: var(--color-surface-2);
+}
+
+.card--elevated {
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-interactive);
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn--secondary {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.btn--secondary:hover {
+  background: var(--color-surface-offset);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn--outline:hover {
+  background: var(--color-primary-light);
+}
+
+.btn--sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: none;
+  padding: var(--space-1) var(--space-3);
+}
+
+.btn--ghost:hover {
+  color: var(--color-text);
+  background: var(--color-surface-dynamic);
+}
+
+.btn:disabled, .btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==================== MODULE 1: ERROR ATTRIBUTION ==================== */
+.quiz-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.progress-bar {
+  flex: 1;
+  height: 4px;
+  background: var(--color-surface-dynamic);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width 0.4s var(--ease-out);
+}
+
+.progress-text {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.quiz-message-box {
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.quiz-message-text {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+.quiz-labels {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.quiz-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.quiz-label-tag {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.quiz-label-tag--true {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.quiz-label-tag--pred {
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.quiz-prompt {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.attribution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 600px) {
+  .attribution-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.attr-btn {
+  padding: var(--space-3) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-interactive);
+  text-align: center;
+}
+
+.attr-btn:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.attr-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.attr-btn.correct {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+  color: var(--color-success);
+  font-weight: 700;
+}
+
+.attr-btn.incorrect {
+  border-color: var(--color-error);
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.attr-btn.highlight-correct {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.quiz-feedback {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  animation: fadeSlideUp 0.3s var(--ease-out);
+}
+
+.quiz-feedback--correct {
+  background: var(--color-success-light);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.quiz-feedback--incorrect {
+  background: var(--color-error-light);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+.quiz-score {
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-top: var(--space-4);
+}
+
+.quiz-next-btn {
+  display: block;
+  margin: var(--space-5) auto 0;
+}
+
+/* Summary */
+.summary-card {
+  max-width: 700px;
+  margin: 0 auto;
+  animation: fadeSlideUp 0.4s var(--ease-out);
+}
+
+.summary-score {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.summary-score-big {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.summary-score-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  margin-top: var(--space-6);
+}
+
+/* ==================== MODULE 2: DATA AUGMENTATION ==================== */
+.aug-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .aug-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aug-input-area textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: var(--space-4);
+  font-size: var(--text-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  resize: vertical;
+  transition: border-color var(--transition-interactive);
+}
+
+.aug-input-area textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.presets-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+  margin-top: var(--space-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.preset-chip {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-interactive);
+}
+
+.preset-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.aug-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.method-btn {
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-interactive);
+  text-align: center;
+}
+
+.method-btn:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.method-btn:active {
+  transform: translateY(0);
+}
+
+.aug-result-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.aug-result-box {
+  flex: 1;
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.aug-result-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-3);
+}
+
+.aug-original {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.aug-augmented {
+  font-size: var(--text-base);
+  color: var(--color-primary);
+  font-weight: 600;
+  min-height: 24px;
+}
+
+.aug-augmented.animate {
+  animation: augFlash 0.5s var(--ease-out);
+}
+
+@keyframes augFlash {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.aug-counter {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.aug-counter-num {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.aug-history {
+  margin-top: var(--space-4);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.aug-history-item {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-divider);
+  animation: fadeSlideUp 0.3s var(--ease-out);
+}
+
+.aug-history-item:last-child { border-bottom: none; }
+
+.aug-history-method {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* ==================== MODULE 3: TRANSFER LEARNING ==================== */
+.tl-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tl-step {
+  animation: fadeSlideUp 0.4s var(--ease-out);
+}
+
+.tl-question {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.tl-slider-container {
+  margin: var(--space-6) 0;
+  text-align: center;
+}
+
+.tl-slider-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  font-variant-numeric: tabular-nums;
+}
+
+.tl-slider {
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--color-surface-dynamic);
+  border-radius: var(--radius-full);
+  outline: none;
+}
+
+.tl-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-interactive);
+}
+
+.tl-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.tl-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  cursor: pointer;
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.tl-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  margin-top: var(--space-2);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tl-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.tl-option {
+  padding: var(--space-5) var(--space-4);
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: all var(--transition-interactive);
+  text-align: center;
+}
+
+.tl-option:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.tl-option:active {
+  transform: translateY(0);
+}
+
+.tl-step-indicator {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-surface-dynamic);
+  transition: all var(--transition-interactive);
+}
+
+.tl-dot.active {
+  background: var(--color-primary);
+  width: 24px;
+  border-radius: var(--radius-full);
+}
+
+.tl-dot.done {
+  background: var(--color-primary);
+}
+
+/* Result card */
+.tl-result {
+  animation: fadeSlideUp 0.5s var(--ease-out);
+}
+
+.tl-result-card {
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-surface));
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  text-align: center;
+}
+
+.tl-result-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-5);
+  background: var(--color-primary);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tl-result-icon svg {
+  width: 32px;
+  height: 32px;
+  color: white;
+}
+
+.tl-result-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.tl-result-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tl-result-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.tl-metric {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.tl-metric-value {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.tl-metric-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.tl-restart-btn {
+  margin-top: var(--space-6);
+}
+
+/* ==================== MODULE 4: API SIMULATOR ==================== */
+.api-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .api-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.api-endpoint {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: var(--text-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.api-method {
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.api-input textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: var(--space-4);
+  font-size: var(--text-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  resize: vertical;
+  transition: border-color var(--transition-interactive);
+}
+
+.api-input textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.api-send-btn {
+  margin-top: var(--space-4);
+  width: 100%;
+}
+
+.api-response {
+  background: var(--code-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: var(--text-sm);
+  color: var(--code-text);
+  min-height: 200px;
+  overflow-x: auto;
+  position: relative;
+}
+
+.api-response-placeholder {
+  color: #666;
+  font-style: italic;
+}
+
+.json-key { color: var(--code-blue); }
+.json-string { color: var(--code-string); }
+.json-number { color: var(--code-purple); }
+.json-brace { color: var(--code-text); }
+
+.api-response.animate .json-line {
+  animation: typeLine 0.3s var(--ease-out) both;
+}
+
+.api-response.animate .json-line:nth-child(1) { animation-delay: 0ms; }
+.api-response.animate .json-line:nth-child(2) { animation-delay: 60ms; }
+.api-response.animate .json-line:nth-child(3) { animation-delay: 120ms; }
+.api-response.animate .json-line:nth-child(4) { animation-delay: 180ms; }
+.api-response.animate .json-line:nth-child(5) { animation-delay: 240ms; }
+.api-response.animate .json-line:nth-child(6) { animation-delay: 300ms; }
+.api-response.animate .json-line:nth-child(7) { animation-delay: 360ms; }
+
+@keyframes typeLine {
+  0% { opacity: 0; transform: translateX(-8px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Monitor panel */
+.monitor-panel {
+  margin-top: var(--space-8);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.monitor-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.monitor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.monitor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 600px) {
+  .monitor-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.monitor-stat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.monitor-stat-value {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.monitor-stat-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-1);
+}
+
+.drift-alert {
+  padding: var(--space-4);
+  background: var(--color-warning-light);
+  border: 1px solid var(--color-warning);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--color-warning);
+  display: none;
+  animation: fadeSlideUp 0.3s var(--ease-out);
+  margin-top: var(--space-4);
+}
+
+.drift-alert.show {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.monitor-chart-container {
+  position: relative;
+  height: 250px;
+}
+
+/* ==================== MODULE 5: AI ETHICS ==================== */
+.ethics-card {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.scenario-box {
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+.scenario-icon {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-3);
+}
+
+.ethics-question {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.ethics-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+@media (max-width: 500px) {
+  .ethics-options { grid-template-columns: 1fr; }
+}
+
+.ethics-opt {
+  padding: var(--space-4);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-interactive);
+  text-align: center;
+}
+
+.ethics-opt:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.ethics-opt.correct {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.ethics-opt.incorrect {
+  border-color: var(--color-error);
+  background: var(--color-error-light);
+  color: var(--color-error);
+}
+
+.ethics-opt.highlight-correct {
+  border-color: var(--color-success);
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.ethics-feedback {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  animation: fadeSlideUp 0.3s var(--ease-out);
+}
+
+.ethics-feedback strong {
+  color: var(--color-primary);
+}
+
+/* Checklist */
+.checklist {
+  max-width: 700px;
+  margin: var(--space-8) auto 0;
+}
+
+.checklist-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.checklist-items {
+  list-style: none;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-divider);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.checklist-item:last-child { border-bottom: none; }
+
+.checklist-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  margin-top: 2px;
+}
+
+/* Ethics summary */
+.ethics-summary {
+  animation: fadeSlideUp 0.4s var(--ease-out);
+}
+
+.ethics-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 500px) {
+  .ethics-summary-grid { grid-template-columns: 1fr; }
+}
+
+.ethics-principle {
+  padding: var(--space-4);
+  background: var(--color-surface-offset);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+}
+
+.ethics-principle-name {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.ethics-principle-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* ==================== FOOTER ==================== */
+.site-footer {
+  padding: var(--space-10) 0;
+  border-top: 1px solid var(--color-divider);
+  text-align: center;
+}
+
+.footer-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.footer-link {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-link:hover {
+  color: var(--color-primary);
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes fadeSlideUp {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@supports (animation-timeline: scroll()) {
+  .fade-in {
+    opacity: 0;
+    animation: revealFade linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  @keyframes revealFade {
+    to { opacity: 1; }
+  }
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-surface-dynamic); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-faint); }
+</style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="header-logo">
+      <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="8" fill="currentColor" opacity="0.1"/>
+        <path d="M10 18 L14 12 L18 16 L22 10 L26 14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.4"/>
+        <path d="M10 24 L14 20 L18 22 L22 16 L26 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="26" cy="20" r="2.5" fill="var(--color-primary)"/>
+      </svg>
+      <span class="header-logo-text">ML Week 4</span>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="切换菜单">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#module-1">错误归因</a></li>
+        <li><a href="#module-2">数据增强</a></li>
+        <li><a href="#module-3">迁移学习</a></li>
+        <li><a href="#module-4">API模拟</a></li>
+        <li><a href="#module-5">AI伦理</a></li>
+        <li>
+          <button class="theme-toggle" data-theme-toggle aria-label="切换深色模式">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">Week 4</div>
+    <h1>机器学习进阶 · 互动学习</h1>
+    <p>第4周 · 迭代改进与部署伦理</p>
+  </div>
+</section>
+
+<!-- ==================== MODULE 1: ERROR ATTRIBUTION ==================== -->
+<section class="module-section" id="module-1">
+  <div class="container container--narrow">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <h2>错误归因练习</h2>
+      <p>分析模型的错误预测，找出每条错误分类背后的真实原因</p>
+    </div>
+    <div id="errorQuizArea"></div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 2: DATA AUGMENTATION ==================== -->
+<section class="module-section" id="module-2">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2>数据增强演示器</h2>
+      <p>使用四种文本增强方法，体验如何扩充训练数据</p>
+    </div>
+    <div class="aug-layout">
+      <div class="aug-input-area">
+        <label>
+          <textarea id="augInput" placeholder="输入一个中文句子，或选择下方预设...">我想查一下快递到哪了</textarea>
+        </label>
+        <div class="presets-label">预设句子</div>
+        <div class="preset-chips" id="presetChips"></div>
+        <div class="aug-methods">
+          <button class="method-btn" data-method="synonym" id="btnSynonym">🔄 同义词替换</button>
+          <button class="method-btn" data-method="delete" id="btnDelete">✂️ 随机删除</button>
+          <button class="method-btn" data-method="swap" id="btnSwap">🔀 随机交换</button>
+          <button class="method-btn" data-method="insert" id="btnInsert">➕ 随机插入</button>
+        </div>
+      </div>
+      <div class="aug-result-area">
+        <div class="aug-result-box">
+          <div class="aug-result-label">原始文本</div>
+          <div class="aug-original" id="augOriginal">我想查一下快递到哪了</div>
+          <div class="aug-result-label">增强结果</div>
+          <div class="aug-augmented" id="augResult">点击左侧增强方法查看结果</div>
+        </div>
+        <div class="aug-counter">
+          已生成 <span class="aug-counter-num" id="augCount">0</span> 条增强数据
+        </div>
+        <div class="aug-history" id="augHistory"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 3: TRANSFER LEARNING ==================== -->
+<section class="module-section" id="module-3">
+  <div class="container container--narrow">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2>迁移学习决策器</h2>
+      <p>回答几个简单问题，获得最适合你场景的迁移学习策略</p>
+    </div>
+    <div class="tl-container card card--elevated" id="tlArea"></div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 4: API SIMULATOR ==================== -->
+<section class="module-section" id="module-4">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2>API模拟器</h2>
+      <p>模拟真实的模型预测API，体验从请求到响应的完整流程</p>
+    </div>
+    <div class="api-layout">
+      <div class="api-input-panel card">
+        <div class="api-endpoint">
+          <span class="api-method">POST</span>
+          /v1/predict
+        </div>
+        <div class="api-input">
+          <textarea id="apiInput" placeholder="输入客服消息...">我的包裹三天了还没到</textarea>
+        </div>
+        <button class="btn btn--primary api-send-btn" id="apiSendBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+          发送请求
+        </button>
+      </div>
+      <div>
+        <div class="api-response" id="apiResponse">
+          <span class="api-response-placeholder">// 点击「发送请求」查看响应</span>
+        </div>
+      </div>
+    </div>
+    <div class="monitor-panel">
+      <div class="monitor-title">
+        <span class="monitor-dot"></span>
+        模型监控面板
+      </div>
+      <div class="monitor-grid">
+        <div class="monitor-stat card">
+          <div class="monitor-stat-value" id="predCount">0</div>
+          <div class="monitor-stat-label">预测次数</div>
+        </div>
+        <div class="monitor-stat card">
+          <div class="monitor-stat-value" id="avgConf">--%</div>
+          <div class="monitor-stat-label">平均置信度</div>
+        </div>
+        <div class="monitor-stat card">
+          <div class="monitor-stat-value" id="topLabel">--</div>
+          <div class="monitor-stat-label">最多预测类别</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="monitor-chart-container">
+          <canvas id="monitorChart"></canvas>
+        </div>
+      </div>
+      <div class="drift-alert" id="driftAlert">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span id="driftText">⚠️ 数据漂移警告：预测分布严重偏移，请检查输入数据质量</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MODULE 5: AI ETHICS ==================== -->
+<section class="module-section" id="module-5">
+  <div class="container container--narrow">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2>AI伦理情景判断</h2>
+      <p>分析真实的AI伦理案例，培养负责任的AI开发意识</p>
+    </div>
+    <div id="ethicsArea"></div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <p class="footer-text">机器学习进阶课程 · 第4周互动学习工具</p>
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" class="footer-link">Created with Perplexity Computer</a>
+  </div>
+</footer>
+
+<script>
+// ==================== DARK MODE ====================
+(function(){
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  r.setAttribute('data-theme', d);
+  updateIcon();
+  t && t.addEventListener('click', () => {
+    d = d === 'dark' ? 'light' : 'dark';
+    r.setAttribute('data-theme', d);
+    updateIcon();
+  });
+  function updateIcon() {
+    if (!t) return;
+    t.innerHTML = d === 'dark'
+      ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+      : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  }
+})();
+
+// ==================== HAMBURGER ====================
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// Close menu on link click (mobile)
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ==================== MODULE 1: ERROR ATTRIBUTION ====================
+const errorData = [
+  { msg: "退款", trueLabel: "退款", predLabel: "咨询", answer: "文本太短", explanation: "这条消息只有两个字，模型无法从如此短的文本中提取足够的特征来准确分类。短文本是NLP系统的常见挑战。" },
+  { msg: "你们的服务太差了吧", trueLabel: "投诉", predLabel: "咨询", answer: "标注不一致", explanation: "标注者对「投诉」和「咨询」的界限理解不同。有的标注者可能认为只要带有问号语气就是咨询。这反映了标注规范不够清晰。" },
+  { msg: "要退款，而且配送也太慢了", trueLabel: "退款", predLabel: "物流", answer: "多意图混合", explanation: "这条消息同时包含退款诉求和物流投诉两个意图。模型捕捉到了「配送慢」这个物流关键词，忽略了退款这个主要意图。" },
+  { msg: "快递咋还没到啊兄弟", trueLabel: "物流", predLabel: "咨询", answer: "罕见表述", explanation: "「咋还没到啊兄弟」是口语化的罕见表述，训练数据中类似的非正式表达较少，导致模型无法正确识别其物流查询的本质。" },
+  { msg: "我想问一下退货流程", trueLabel: "咨询", predLabel: "退款", answer: "类别边界模糊", explanation: "虽然包含「退货」关键词，但用户只是咨询流程，并未实际要求退款。「咨询退款流程」和「要求退款」之间的边界本身就很模糊。" },
+  { msg: "刚买的手机屏幕碎了", trueLabel: "技术支持", predLabel: "退款", answer: "标签错误", explanation: "用户描述的是产品质量问题，应归类为技术支持而非退款。这可能是标注者或模型过度关联了「产品问题→退款」这一模式。但首先标注应该纠正。" },
+  { msg: "帮我看下单号SF1234567到哪了", trueLabel: "物流", predLabel: "咨询", answer: "类别边界模糊", explanation: "「查询物流」是一种咨询行为，但本系统将物流查询独立为一个类别。模型难以区分「物流咨询」和「一般咨询」。" },
+  { msg: "差评！！！", trueLabel: "投诉", predLabel: "咨询", answer: "文本太短", explanation: "只有两个字加标点符号，虽然情感倾向明显，但文本过短导致模型难以稳定分类。标点符号的情感信号未被充分利用。" },
+  { msg: "你们这个app闪退怎么办用着用着就关了而且还把我的数据弄没了", trueLabel: "技术支持", predLabel: "投诉", answer: "多意图混合", explanation: "消息同时包含技术问题描述（闪退、数据丢失）和隐含的不满情绪。模型被情绪词干扰，将技术问题错误归因为投诉。" },
+  { msg: "退退退退退退", trueLabel: "退款", predLabel: "咨询", answer: "罕见表述", explanation: "重复文字在训练数据中非常罕见。虽然人类能理解这是强烈的退款意愿，但模型从未学习过这种重复模式的语义。" }
+];
+
+let errorStep = 0;
+let errorScore = 0;
+let errorAnswered = false;
+const errorDistribution = {};
+
+function renderErrorQuiz() {
+  const area = document.getElementById('errorQuizArea');
+  if (errorStep >= errorData.length) {
+    renderErrorSummary();
+    return;
+  }
+  const d = errorData[errorStep];
+  const pct = ((errorStep) / errorData.length * 100).toFixed(0);
+  const options = ['标注不一致', '类别边界模糊', '文本太短', '多意图混合', '标签错误', '罕见表述'];
+  area.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-progress">
+        <div class="progress-bar"><div class="progress-fill" style="width: ${pct}%"></div></div>
+        <span class="progress-text">${errorStep + 1} / ${errorData.length}</span>
+      </div>
+      <div class="quiz-message-box">
+        <div class="quiz-message-text">"${d.msg}"</div>
+        <div class="quiz-labels">
+          <div class="quiz-label">
+            真实标签：<span class="quiz-label-tag quiz-label-tag--true">${d.trueLabel}</span>
+          </div>
+          <div class="quiz-label">
+            预测标签：<span class="quiz-label-tag quiz-label-tag--pred">${d.predLabel}</span>
+          </div>
+        </div>
+      </div>
+      <div class="quiz-prompt">这个错误最可能的归因是什么？</div>
+      <div class="attribution-grid" id="attrGrid">
+        ${options.map(o => `<button class="attr-btn" data-attr="${o}">${o}</button>`).join('')}
+      </div>
+      <div id="feedbackArea"></div>
+      <div class="quiz-score">当前得分：${errorScore} / ${errorStep}</div>
+    </div>
+  `;
+  errorAnswered = false;
+  document.querySelectorAll('#attrGrid .attr-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleErrorAnswer(btn));
+  });
+}
+
+function handleErrorAnswer(btn) {
+  if (errorAnswered) return;
+  errorAnswered = true;
+  const d = errorData[errorStep];
+  const chosen = btn.dataset.attr;
+  const correct = chosen === d.answer;
+
+  if (correct) {
+    errorScore++;
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('incorrect');
+    document.querySelector(`#attrGrid .attr-btn[data-attr="${d.answer}"]`).classList.add('highlight-correct');
+  }
+
+  // Track distribution
+  errorDistribution[d.answer] = (errorDistribution[d.answer] || 0) + 1;
+
+  // Disable all
+  document.querySelectorAll('#attrGrid .attr-btn').forEach(b => b.disabled = true);
+
+  // Show feedback
+  const fb = document.getElementById('feedbackArea');
+  fb.innerHTML = `
+    <div class="quiz-feedback quiz-feedback--${correct ? 'correct' : 'incorrect'}">
+      ${correct ? '✓ 正确！' : '✗ 不正确。'}${d.explanation}
+    </div>
+    <button class="btn btn--primary btn--sm quiz-next-btn" id="nextBtn">${errorStep < errorData.length - 1 ? '下一题 →' : '查看总结'}</button>
+  `;
+  // Update score
+  document.querySelector('.quiz-score').textContent = `当前得分：${errorScore} / ${errorStep + 1}`;
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    errorStep++;
+    renderErrorQuiz();
+  });
+}
+
+function renderErrorSummary() {
+  const area = document.getElementById('errorQuizArea');
+  const allTypes = ['标注不一致', '类别边界模糊', '文本太短', '多意图混合', '标签错误', '罕见表述'];
+  const counts = allTypes.map(t => {
+    let c = 0;
+    errorData.forEach(d => { if (d.answer === t) c++; });
+    return c;
+  });
+
+  area.innerHTML = `
+    <div class="summary-card card card--elevated">
+      <div class="summary-score">
+        <div class="summary-score-big">${errorScore} / ${errorData.length}</div>
+        <div class="summary-score-label">最终得分</div>
+      </div>
+      <div class="chart-container">
+        <canvas id="errorChart"></canvas>
+      </div>
+      <div style="text-align:center; margin-top: var(--space-6);">
+        <button class="btn btn--outline" onclick="errorStep=0;errorScore=0;renderErrorQuiz();">重新开始</button>
+      </div>
+    </div>
+  `;
+
+  const cs = getComputedStyle(document.documentElement);
+  const primaryColor = cs.getPropertyValue('--color-primary').trim();
+  const textColor = cs.getPropertyValue('--color-text').trim();
+  const textMuted = cs.getPropertyValue('--color-text-muted').trim();
+  const borderColor = cs.getPropertyValue('--color-border').trim();
+
+  new Chart(document.getElementById('errorChart'), {
+    type: 'bar',
+    data: {
+      labels: allTypes,
+      datasets: [{
+        label: '错误数量',
+        data: counts,
+        backgroundColor: primaryColor + '40',
+        borderColor: primaryColor,
+        borderWidth: 2,
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: '错误类型分布',
+          color: textColor,
+          font: { family: "'General Sans', sans-serif", size: 16, weight: 600 }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, color: textMuted, font: { family: "'General Sans', sans-serif" } },
+          grid: { color: borderColor }
+        },
+        x: {
+          ticks: { color: textMuted, font: { family: "'General Sans', sans-serif", size: 11 } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+renderErrorQuiz();
+
+// ==================== MODULE 2: DATA AUGMENTATION ====================
+const synonymDict = {
+  '查': '查询', '看': '查看', '快递': '包裹', '到': '抵达', '想': '希望',
+  '退款': '退钱', '退货': '退回', '问题': '故障', '坏': '损坏', '帮': '协助',
+  '买': '购买', '收到': '签收', '慢': '缓慢', '快': '迅速', '好': '优质',
+  '差': '糟糕', '发': '寄出', '付': '支付', '换': '更换', '修': '维修',
+  '哪': '哪里', '多少': '几何', '下单': '购买', '手机': '电话', '电脑': '笔记本',
+  '查询': '查', '查看': '看', '包裹': '快递', '抵达': '到', '希望': '想',
+  '退钱': '退款', '退回': '退货', '故障': '问题', '损坏': '坏', '协助': '帮',
+  '购买': '买', '签收': '收到', '缓慢': '慢', '迅速': '快', '优质': '好'
+};
+
+const presetSentences = [
+  '我想查一下快递到哪了',
+  '这个手机屏幕坏了怎么办',
+  '帮我退款谢谢',
+  '发货速度太慢了吧',
+  '我要换一个新的产品'
+];
+
+let augCount = 0;
+
+// Render presets
+const presetContainer = document.getElementById('presetChips');
+presetSentences.forEach(s => {
+  const chip = document.createElement('button');
+  chip.className = 'preset-chip';
+  chip.textContent = s;
+  chip.addEventListener('click', () => {
+    document.getElementById('augInput').value = s;
+    document.getElementById('augOriginal').textContent = s;
+    document.getElementById('augResult').textContent = '点击增强方法查看结果';
+  });
+  presetContainer.appendChild(chip);
+});
+
+function segmentChinese(text) {
+  // Simple character-based "segmentation" for Chinese
+  // Try to match known words from synonym dict first
+  const words = [];
+  let i = 0;
+  while (i < text.length) {
+    let matched = false;
+    // Try longest match (up to 3 chars)
+    for (let len = 3; len >= 2; len--) {
+      const sub = text.substring(i, i + len);
+      if (synonymDict[sub]) {
+        words.push(sub);
+        i += len;
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      words.push(text[i]);
+      i++;
+    }
+  }
+  return words;
+}
+
+function augSynonym(text) {
+  const words = segmentChinese(text);
+  const replaceable = words.filter(w => synonymDict[w]);
+  if (replaceable.length === 0) return text + '（无可替换词）';
+  const target = replaceable[Math.floor(Math.random() * replaceable.length)];
+  const idx = words.indexOf(target);
+  words[idx] = synonymDict[target];
+  return words.join('');
+}
+
+function augDelete(text) {
+  const words = segmentChinese(text);
+  if (words.length <= 1) return text;
+  const idx = Math.floor(Math.random() * words.length);
+  words.splice(idx, 1);
+  return words.join('');
+}
+
+function augSwap(text) {
+  const words = segmentChinese(text);
+  if (words.length <= 1) return text;
+  const idx = Math.floor(Math.random() * (words.length - 1));
+  [words[idx], words[idx + 1]] = [words[idx + 1], words[idx]];
+  return words.join('');
+}
+
+function augInsert(text) {
+  const words = segmentChinese(text);
+  const candidates = words.filter(w => synonymDict[w]);
+  if (candidates.length === 0) return text + '（无可插入词）';
+  const target = candidates[Math.floor(Math.random() * candidates.length)];
+  const syn = synonymDict[target];
+  const idx = Math.floor(Math.random() * (words.length + 1));
+  words.splice(idx, 0, syn);
+  return words.join('');
+}
+
+const augMethods = { synonym: augSynonym, delete: augDelete, swap: augSwap, insert: augInsert };
+const methodNames = { synonym: '同义词替换', delete: '随机删除', swap: '随机交换', insert: '随机插入' };
+
+document.querySelectorAll('.method-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const method = btn.dataset.method;
+    const text = document.getElementById('augInput').value.trim();
+    if (!text) return;
+
+    document.getElementById('augOriginal').textContent = text;
+
+    const result = augMethods[method](text);
+    const resultEl = document.getElementById('augResult');
+    resultEl.textContent = result;
+    resultEl.classList.remove('animate');
+    void resultEl.offsetWidth; // reflow
+    resultEl.classList.add('animate');
+
+    augCount++;
+    document.getElementById('augCount').textContent = augCount;
+
+    // Add to history
+    const hist = document.getElementById('augHistory');
+    const item = document.createElement('div');
+    item.className = 'aug-history-item';
+    item.innerHTML = `<span class="aug-history-method">[${methodNames[method]}]</span> ${result}`;
+    hist.insertBefore(item, hist.firstChild);
+
+    // Keep max 20 items
+    while (hist.children.length > 20) {
+      hist.removeChild(hist.lastChild);
+    }
+  });
+});
+
+// ==================== MODULE 3: TRANSFER LEARNING ====================
+let tlStep = 0;
+let tlAnswers = {};
+
+const tlQuestions = [
+  {
+    q: '你有多少标注数据？',
+    type: 'slider',
+    min: 50, max: 10000, step: 50, default: 1000
+  },
+  { q: '有现成的预训练模型吗？', type: 'yesno' },
+  { q: '你的任务和预训练模型的领域接近吗？', type: 'yesno', condition: () => tlAnswers.pretrained === '是' },
+  { q: '你有GPU资源吗？', type: 'yesno' }
+];
+
+function renderTL() {
+  const area = document.getElementById('tlArea');
+
+  // Check if we need to skip step 2 (domain similarity) when no pretrained
+  if (tlStep === 2 && tlAnswers.pretrained === '否') {
+    tlStep = 3; // Skip to GPU question
+  }
+
+  if (tlStep >= tlQuestions.length) {
+    renderTLResult();
+    return;
+  }
+
+  const q = tlQuestions[tlStep];
+
+  // Step dots
+  const totalSteps = tlAnswers.pretrained === '否' ? 3 : 4;
+  const currentVisualStep = tlStep > 2 && tlAnswers.pretrained === '否' ? tlStep - 1 : tlStep;
+  let dots = '';
+  for (let i = 0; i < totalSteps; i++) {
+    const cls = i < currentVisualStep ? 'done' : i === currentVisualStep ? 'active' : '';
+    dots += `<div class="tl-dot ${cls}"></div>`;
+  }
+
+  let inputHTML = '';
+  if (q.type === 'slider') {
+    const val = tlAnswers.dataSize || q.default;
+    inputHTML = `
+      <div class="tl-slider-container">
+        <div class="tl-slider-value" id="sliderValue">${val}</div>
+        <input type="range" class="tl-slider" id="tlSlider" min="${q.min}" max="${q.max}" step="${q.step}" value="${val}">
+        <div class="tl-slider-labels"><span>${q.min}</span><span>${q.max}</span></div>
+      </div>
+      <div style="text-align:center; margin-top: var(--space-6);">
+        <button class="btn btn--primary" id="tlConfirm">确认 →</button>
+      </div>
+    `;
+  } else {
+    inputHTML = `
+      <div class="tl-options">
+        <button class="tl-option" data-val="是">✓ 是</button>
+        <button class="tl-option" data-val="否">✗ 否</button>
+      </div>
+    `;
+  }
+
+  area.innerHTML = `
+    <div class="tl-step">
+      <div class="tl-step-indicator">${dots}</div>
+      <div class="tl-question">${q.q}</div>
+      ${inputHTML}
+    </div>
+  `;
+
+  if (q.type === 'slider') {
+    const slider = document.getElementById('tlSlider');
+    const display = document.getElementById('sliderValue');
+    slider.addEventListener('input', () => {
+      display.textContent = slider.value;
+    });
+    document.getElementById('tlConfirm').addEventListener('click', () => {
+      tlAnswers.dataSize = parseInt(slider.value);
+      tlStep++;
+      renderTL();
+    });
+  } else {
+    document.querySelectorAll('.tl-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (tlStep === 1) tlAnswers.pretrained = btn.dataset.val;
+        else if (tlStep === 2) tlAnswers.domainClose = btn.dataset.val;
+        else if (tlStep === 3) tlAnswers.gpu = btn.dataset.val;
+        tlStep++;
+        renderTL();
+      });
+    });
+  }
+}
+
+function renderTLResult() {
+  const area = document.getElementById('tlArea');
+  const a = tlAnswers;
+  let strategy, desc, time, perf;
+  const dataAmount = a.dataSize || 1000;
+  const fewData = dataAmount < 1000;
+
+  if (a.pretrained === '是') {
+    if (fewData && a.domainClose === '是') {
+      strategy = '冻结底层，只训练顶层';
+      desc = '预训练模型的底层特征已经适用于你的任务。冻结这些层可以防止过拟合，同时利用少量数据训练分类头。';
+      time = '~30分钟';
+      perf = '较高 (85-92%)';
+    } else if (fewData && a.domainClose === '否') {
+      strategy = '冻结大部分层，微调顶部几层';
+      desc = '领域差异较大时，需要微调更多层来适应新领域的特征，但数据量限制了可训练的参数量。';
+      time = '~1小时';
+      perf = '中等 (75-85%)';
+    } else if (!fewData && a.domainClose === '是') {
+      strategy = '全模型微调';
+      desc = '充足的数据和相近的领域是全模型微调的理想条件。所有层都可以被调整以达到最优性能。';
+      time = '~2-4小时';
+      perf = '很高 (90-95%)';
+    } else {
+      strategy = '全模型微调（较低学习率）';
+      desc = '虽然领域差异较大，但充足的数据可以支持全模型微调。使用较低学习率避免破坏预训练知识。';
+      time = '~3-6小时';
+      perf = '较高 (85-92%)';
+    }
+  } else {
+    if (fewData) {
+      strategy = '数据增强 + 简单模型';
+      desc = '没有预训练模型且数据量少，建议先使用数据增强扩充数据，然后训练一个简单模型如SVM或浅层神经网络。';
+      time = '~1-2小时';
+      perf = '较低 (65-75%)';
+    } else {
+      strategy = '从零训练（需要大量数据和算力）';
+      desc = '没有预训练模型但有足够数据。可以从零开始训练，但需要更多的训练时间和计算资源。';
+      time = a.gpu === '是' ? '~6-12小时' : '~24-48小时';
+      perf = a.gpu === '是' ? '较高 (82-90%)' : '中等 (78-85%)';
+    }
+  }
+
+  area.innerHTML = `
+    <div class="tl-result">
+      <div class="tl-result-card">
+        <div class="tl-result-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="tl-result-title">${strategy}</div>
+        <div class="tl-result-desc">${desc}</div>
+        <div class="tl-result-metrics">
+          <div class="tl-metric">
+            <div class="tl-metric-value">${time}</div>
+            <div class="tl-metric-label">预估训练时间</div>
+          </div>
+          <div class="tl-metric">
+            <div class="tl-metric-value">${perf}</div>
+            <div class="tl-metric-label">预期性能区间</div>
+          </div>
+          <div class="tl-metric">
+            <div class="tl-metric-value">${dataAmount}</div>
+            <div class="tl-metric-label">数据量</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <button class="btn btn--outline tl-restart-btn" onclick="tlStep=0;tlAnswers={};renderTL();">重新决策</button>
+      </div>
+    </div>
+  `;
+}
+
+renderTL();
+
+// ==================== MODULE 4: API SIMULATOR ====================
+const categories = ['物流', '退款', '技术支持', '投诉', '咨询'];
+const categoryKeywords = {
+  '物流': ['快递', '包裹', '物流', '发货', '运输', '配送', '到了', '签收', '单号', '寄', '达', '到哪', '没到', '运费', '发出', '送达'],
+  '退款': ['退款', '退钱', '退货', '退回', '退', '返还', '取消订单', '不要了', '退掉'],
+  '技术支持': ['故障', '坏了', '修', '维修', '闪退', '不能用', '打不开', 'bug', '出错', '卡', '死机', '屏幕', '电池', '充电'],
+  '投诉': ['投诉', '差评', '不满', '太差', '垃圾', '骗', '举报', '生气', '恶心', '过分', '无语'],
+  '咨询': ['问一下', '请问', '怎么', '如何', '什么', '多少', '流程', '方法', '能不能', '可以吗', '哪里']
+};
+
+let predStats = { count: 0, totalConf: 0, labels: { '物流': 0, '退款': 0, '技术支持': 0, '投诉': 0, '咨询': 0 } };
+let monitorChart = null;
+
+function classify(text) {
+  let scores = {};
+  categories.forEach(cat => {
+    let score = 0;
+    categoryKeywords[cat].forEach(kw => {
+      if (text.includes(kw)) score += 1;
+    });
+    scores[cat] = score;
+  });
+
+  let maxCat = '咨询'; // default
+  let maxScore = 0;
+  for (const [cat, score] of Object.entries(scores)) {
+    if (score > maxScore) { maxScore = score; maxCat = cat; }
+  }
+
+  const confidence = maxScore > 0 ? Math.min(0.95, 0.6 + maxScore * 0.1 + Math.random() * 0.1) : 0.3 + Math.random() * 0.3;
+  const responseTime = Math.floor(20 + Math.random() * 60);
+
+  return { label: maxCat, confidence: parseFloat(confidence.toFixed(2)), responseTime: responseTime + 'ms' };
+}
+
+function initMonitorChart() {
+  const cs = getComputedStyle(document.documentElement);
+  const primaryColor = cs.getPropertyValue('--color-primary').trim();
+  const textMuted = cs.getPropertyValue('--color-text-muted').trim();
+  const borderColor = cs.getPropertyValue('--color-border').trim();
+
+  const colors = [primaryColor, '#da7101', '#437a22', '#a13544', '#7a39bb'];
+
+  monitorChart = new Chart(document.getElementById('monitorChart'), {
+    type: 'bar',
+    data: {
+      labels: categories,
+      datasets: [{
+        label: '预测次数',
+        data: categories.map(() => 0),
+        backgroundColor: colors.map(c => c + '50'),
+        borderColor: colors,
+        borderWidth: 2,
+        borderRadius: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: '预测标签分布',
+          color: cs.getPropertyValue('--color-text').trim(),
+          font: { family: "'General Sans', sans-serif", size: 16, weight: 600 }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, color: textMuted, font: { family: "'General Sans', sans-serif" } },
+          grid: { color: borderColor }
+        },
+        x: {
+          ticks: { color: textMuted, font: { family: "'General Sans', sans-serif" } },
+          grid: { display: false }
+        }
+      },
+      animation: { duration: 600 }
+    }
+  });
+}
+
+initMonitorChart();
+
+document.getElementById('apiSendBtn').addEventListener('click', () => {
+  const text = document.getElementById('apiInput').value.trim();
+  if (!text) return;
+
+  const responseEl = document.getElementById('apiResponse');
+  // Show loading
+  responseEl.innerHTML = '<span class="api-response-placeholder">处理中...</span>';
+
+  setTimeout(() => {
+    const result = classify(text);
+    predStats.count++;
+    predStats.totalConf += result.confidence;
+    predStats.labels[result.label]++;
+
+    // Render JSON
+    responseEl.classList.remove('animate');
+    void responseEl.offsetWidth;
+    responseEl.classList.add('animate');
+    responseEl.innerHTML = `
+      <div class="json-line"><span class="json-brace">{</span></div>
+      <div class="json-line">  <span class="json-key">"status"</span>: <span class="json-string">"success"</span>,</div>
+      <div class="json-line">  <span class="json-key">"label"</span>: <span class="json-string">"${result.label}"</span>,</div>
+      <div class="json-line">  <span class="json-key">"confidence"</span>: <span class="json-number">${result.confidence}</span>,</div>
+      <div class="json-line">  <span class="json-key">"response_time"</span>: <span class="json-string">"${result.responseTime}"</span>,</div>
+      <div class="json-line">  <span class="json-key">"model_version"</span>: <span class="json-string">"v1.2.3"</span></div>
+      <div class="json-line"><span class="json-brace">}</span></div>
+    `;
+
+    // Update stats
+    document.getElementById('predCount').textContent = predStats.count;
+    document.getElementById('avgConf').textContent = ((predStats.totalConf / predStats.count) * 100).toFixed(1) + '%';
+
+    // Find top label
+    let topL = '--', topC = 0;
+    for (const [l, c] of Object.entries(predStats.labels)) {
+      if (c > topC) { topC = c; topL = l; }
+    }
+    document.getElementById('topLabel').textContent = topL;
+
+    // Update chart
+    monitorChart.data.datasets[0].data = categories.map(c => predStats.labels[c]);
+    monitorChart.update();
+
+    // Check drift
+    if (predStats.count >= 5) {
+      const maxPct = topC / predStats.count;
+      if (maxPct > 0.6) {
+        document.getElementById('driftAlert').classList.add('show');
+        document.getElementById('driftText').textContent =
+          `⚠️ 数据漂移警告："${topL}"占比 ${(maxPct * 100).toFixed(0)}%，预测分布严重偏移，请检查输入数据质量`;
+      } else {
+        document.getElementById('driftAlert').classList.remove('show');
+      }
+    }
+  }, 400 + Math.random() * 300);
+});
+
+// ==================== MODULE 5: AI ETHICS ====================
+const ethicsData = [
+  {
+    icon: '📋',
+    scenario: '一家科技公司开发了AI简历筛选系统。分析发现，该系统对女性申请者的评分系统性偏低，因为训练数据主要来自过去十年——而那时该行业主要雇佣男性。',
+    options: ['公平性', '可解释性', '问责制', '隐私'],
+    answer: '公平性',
+    explanation: '这是一个典型的 <strong>公平性（Fairness）</strong>问题。AI系统复制并放大了历史数据中的性别偏见。训练数据反映的是过去的不平等，而非申请者的真实能力。解决方案包括：使用去偏算法、均衡训练数据、定期进行公平性审计。'
+  },
+  {
+    icon: '🏦',
+    scenario: '银行使用AI系统自动审批贷款申请。一位申请者被拒绝，但系统无法提供具体原因——只给出一个"高风险"的标签。申请者无法理解为什么被拒绝，也无法针对性地改善。',
+    options: ['公平性', '可解释性', '问责制', '隐私'],
+    answer: '可解释性',
+    explanation: '这是一个 <strong>可解释性（Explainability）</strong>问题。当AI系统做出影响个人的重要决策时，必须能够解释其推理过程。"黑箱"决策剥夺了用户理解和申诉的权利。GDPR等法规明确要求算法决策的"解释权"。'
+  },
+  {
+    icon: '🚗',
+    scenario: '一辆自动驾驶汽车在紧急情况下发生交通事故。受害者要求赔偿，但车辆制造商、AI系统开发者、传感器供应商和车主都声称事故不是自己的责任。',
+    options: ['公平性', '可解释性', '问责制', '隐私'],
+    answer: '问责制',
+    explanation: '这是一个 <strong>问责制（Accountability）</strong>问题。当AI系统造成损害时，必须有明确的责任链。自动驾驶涉及多个利益相关方，需要事先建立清晰的责任框架，确保受害者能够获得合理赔偿。'
+  },
+  {
+    icon: '📹',
+    scenario: '一家公司在办公室安装摄像头，使用AI实时分析员工的面部表情来评估工作满意度和情绪状态。员工不知道自己的情绪数据正在被收集和分析。',
+    options: ['公平性', '可解释性', '问责制', '隐私'],
+    answer: '隐私',
+    explanation: '这是一个严重的 <strong>隐私（Privacy）</strong>问题。未经员工知情同意采集生物特征数据（面部表情）违反了数据保护原则。情绪数据属于高度敏感的个人信息，工作场所的监控需要严格遵守知情同意和数据最小化原则。'
+  },
+  {
+    icon: '🔇',
+    scenario: 'AI内容审核系统自动删除了大量涉及政治议题的社交媒体帖子，其中包括合法的政治讨论和新闻报道。算法将激烈的政治辩论误判为"有害内容"，系统性地压制了某些政治观点。',
+    options: ['公平性', '可解释性', '问责制', '隐私'],
+    answer: '公平性',
+    explanation: '这是一个 <strong>公平性（Fairness）</strong>问题。AI审核系统对不同类型的言论处理不公平，系统性地偏向压制特定政治观点。这不仅涉及技术偏见，还关乎言论自由和信息公平获取。平台需要确保审核算法不会歧视特定观点。'
+  },
+  {
+    icon: '📱',
+    scenario: '金融科技公司通过分析用户的手机使用习惯（如深夜使用时间、应用切换频率、电池电量管理模式等）来评估信用评分，用户完全不知道这些行为数据被用于金融决策。',
+    options: ['公平性', '可解释性', '问责制', '隐私'],
+    answer: '隐私',
+    explanation: '这是一个 <strong>隐私（Privacy）</strong>问题。将用户的日常手机使用行为用于信用评分，超出了数据收集的原始目的。用户未被告知也未同意其行为数据被用于金融决策。这违反了目的限制和知情同意原则。'
+  }
+];
+
+let ethicsStep = 0;
+let ethicsScore = 0;
+let ethicsAnswered = false;
+
+function renderEthics() {
+  const area = document.getElementById('ethicsArea');
+  if (ethicsStep >= ethicsData.length) {
+    renderEthicsSummary();
+    return;
+  }
+
+  const d = ethicsData[ethicsStep];
+  const pct = ((ethicsStep) / ethicsData.length * 100).toFixed(0);
+
+  area.innerHTML = `
+    <div class="ethics-card card card--elevated">
+      <div class="quiz-progress">
+        <div class="progress-bar"><div class="progress-fill" style="width: ${pct}%"></div></div>
+        <span class="progress-text">${ethicsStep + 1} / ${ethicsData.length}</span>
+      </div>
+      <div class="scenario-box">
+        <div class="scenario-icon">${d.icon}</div>
+        ${d.scenario}
+      </div>
+      <div class="ethics-question">这个AI系统最大的伦理风险是什么？</div>
+      <div class="ethics-options" id="ethicsOpts">
+        ${d.options.map(o => `<button class="ethics-opt" data-val="${o}">${o}</button>`).join('')}
+      </div>
+      <div id="ethicsFeedback"></div>
+      <div class="quiz-score">当前得分：${ethicsScore} / ${ethicsStep}</div>
+    </div>
+  `;
+
+  ethicsAnswered = false;
+  document.querySelectorAll('#ethicsOpts .ethics-opt').forEach(btn => {
+    btn.addEventListener('click', () => handleEthicsAnswer(btn));
+  });
+}
+
+function handleEthicsAnswer(btn) {
+  if (ethicsAnswered) return;
+  ethicsAnswered = true;
+  const d = ethicsData[ethicsStep];
+  const chosen = btn.dataset.val;
+  const correct = chosen === d.answer;
+
+  if (correct) {
+    ethicsScore++;
+    btn.classList.add('correct');
+  } else {
+    btn.classList.add('incorrect');
+    document.querySelector(`#ethicsOpts .ethics-opt[data-val="${d.answer}"]`).classList.add('highlight-correct');
+  }
+
+  document.querySelectorAll('#ethicsOpts .ethics-opt').forEach(b => b.disabled = true);
+
+  const fb = document.getElementById('ethicsFeedback');
+  fb.innerHTML = `
+    <div class="ethics-feedback">
+      ${correct ? '✓ 正确！' : '✗ 不正确。'}${d.explanation}
+    </div>
+    <button class="btn btn--primary btn--sm quiz-next-btn" id="ethicsNext">${ethicsStep < ethicsData.length - 1 ? '下一题 →' : '查看总结'}</button>
+  `;
+
+  document.querySelector('.quiz-score').textContent = `当前得分：${ethicsScore} / ${ethicsStep + 1}`;
+
+  document.getElementById('ethicsNext').addEventListener('click', () => {
+    ethicsStep++;
+    renderEthics();
+  });
+}
+
+function renderEthicsSummary() {
+  const area = document.getElementById('ethicsArea');
+  area.innerHTML = `
+    <div class="ethics-summary">
+      <div class="card card--elevated" style="text-align:center; padding: var(--space-8);">
+        <div class="summary-score">
+          <div class="summary-score-big">${ethicsScore} / ${ethicsData.length}</div>
+          <div class="summary-score-label">伦理判断得分</div>
+        </div>
+        <div class="ethics-summary-grid">
+          <div class="ethics-principle">
+            <div class="ethics-principle-name">🤝 公平性 Fairness</div>
+            <div class="ethics-principle-desc">AI系统不应歧视或系统性地不利于特定群体。确保数据代表性和算法公平。</div>
+          </div>
+          <div class="ethics-principle">
+            <div class="ethics-principle-name">🔍 可解释性 Explainability</div>
+            <div class="ethics-principle-desc">AI决策过程应当透明可理解，特别是影响个人权益的重要决定。</div>
+          </div>
+          <div class="ethics-principle">
+            <div class="ethics-principle-name">⚖️ 问责制 Accountability</div>
+            <div class="ethics-principle-desc">AI系统造成损害时，必须有明确的责任归属和补救机制。</div>
+          </div>
+          <div class="ethics-principle">
+            <div class="ethics-principle-name">🔒 隐私 Privacy</div>
+            <div class="ethics-principle-desc">尊重用户的数据隐私，遵循知情同意和数据最小化原则。</div>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top: var(--space-6);">
+          <button class="btn btn--outline" onclick="ethicsStep=0;ethicsScore=0;renderEthics();">重新开始</button>
+        </div>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          伦理检查清单
+        </div>
+        <ul class="checklist-items">
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>训练数据是否具有代表性？是否存在对特定群体的系统性偏见？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>模型决策过程是否可解释？能否为用户提供有意义的解释？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>是否建立了明确的责任框架？系统出错时谁来负责？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>用户数据的收集和使用是否获得了知情同意？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>是否遵循了数据最小化原则？只收集必要的数据？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>是否定期对AI系统进行公平性和偏见审计？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>是否考虑了AI决策对弱势群体的潜在不良影响？</span>
+          </li>
+          <li class="checklist-item">
+            <svg class="checklist-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+            <span>是否建立了用户投诉和申诉机制？</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+renderEthics();
+</script>
+</body>
+</html>
