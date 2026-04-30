@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基础育儿助手原型</title>
+  <style>
+    :root {
+      --bg: #f6f2e9;
+      --panel: rgba(255, 251, 245, 0.92);
+      --line: #d9c9ae;
+      --text: #2d241c;
+      --muted: #6a5a49;
+      --accent: #c96d3d;
+      --accent-deep: #8d4425;
+      --warn: #a44b2f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(232, 175, 111, 0.32), transparent 34%),
+        radial-gradient(circle at right 20%, rgba(163, 205, 185, 0.28), transparent 28%),
+        linear-gradient(180deg, #f9f4ea 0%, var(--bg) 100%);
+    }
+
+    .shell {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 20px 64px;
+    }
+
+    .hero {
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 18px 50px rgba(95, 67, 38, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .ask-box {
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      font: inherit;
+      resize: vertical;
+      background: #fffdf8;
+      color: var(--text);
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    input[type="number"] {
+      width: 120px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font: inherit;
+      background: #fffdf8;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font: inherit;
+      font-weight: 700;
+      color: #fff7f1;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .quick-list {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    .quick-item {
+      border: 1px solid var(--line);
+      background: #fff8ef;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .result {
+      padding: 24px;
+    }
+
+    .meta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f1e2cc;
+      color: #6a4327;
+      font-size: 13px;
+    }
+
+    h2 {
+      margin: 18px 0 10px;
+      font-size: 20px;
+    }
+
+    p, li {
+      line-height: 1.7;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .warning {
+      color: var(--warn);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .sources a {
+      color: var(--accent-deep);
+    }
+
+    .empty {
+      color: var(--muted);
+      padding: 8px 0 0;
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        padding-top: 28px;
+      }
+
+      .ask-box,
+      .result {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <h1>基础育儿助手原型</h1>
+      <p>只回答基础育儿信息与就医分流问题，不做诊断，不提供个体化药物剂量建议。输入一个中文问题，查看 summary、advice、warning、sources 和 disclaimer。</p>
+    </section>
+
+    <section class="panel ask-box">
+      <label for="question"><strong>输入问题</strong></label>
+      <textarea id="question" placeholder="例如：宝宝6个月第一口辅食吃什么？"></textarea>
+
+      <div class="controls">
+        <input id="ageMonths" type="number" min="0" max="36" placeholder="月龄">
+        <button id="submitBtn" type="button">发送问题</button>
+        <span id="status" class="muted"></span>
+      </div>
+
+      <div class="quick-list">
+        <button class="quick-item" type="button" data-question="宝宝6个月第一口辅食吃什么？">第一口辅食</button>
+        <button class="quick-item" type="button" data-question="宝宝红屁屁怎么预防？">红屁屁</button>
+        <button class="quick-item" type="button" data-question="宝宝拉肚子一天很多次怎么办？">拉肚子</button>
+        <button class="quick-item" type="button" data-question="宝宝39.5度布洛芬吃几毫升？">风险边界</button>
+      </div>
+    </section>
+
+    <section class="panel result">
+      <div class="meta">
+        <span class="badge" id="categoryBadge">category: -</span>
+        <span class="badge" id="riskBadge">risk: -</span>
+      </div>
+
+      <h2>Summary</h2>
+      <p id="summary" class="empty">等待提问。</p>
+
+      <h2>Advice</h2>
+      <ul id="advice"></ul>
+
+      <h2>Warning</h2>
+      <ul id="warning" class="warning"></ul>
+
+      <h2>Sources</h2>
+      <ul id="sources" class="sources"></ul>
+
+      <h2>Disclaimer</h2>
+      <p id="disclaimer" class="muted">-</p>
+    </section>
+  </main>
+
+  <script>
+    const questionEl = document.getElementById("question");
+    const ageMonthsEl = document.getElementById("ageMonths");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusEl = document.getElementById("status");
+    const categoryBadge = document.getElementById("categoryBadge");
+    const riskBadge = document.getElementById("riskBadge");
+    const summaryEl = document.getElementById("summary");
+    const adviceEl = document.getElementById("advice");
+    const warningEl = document.getElementById("warning");
+    const sourcesEl = document.getElementById("sources");
+    const disclaimerEl = document.getElementById("disclaimer");
+
+    function renderList(container, items, renderItem) {
+      container.innerHTML = "";
+      if (!items || items.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "无";
+        container.appendChild(li);
+        return;
+      }
+
+      items.forEach((item) => {
+        const li = document.createElement("li");
+        renderItem(li, item);
+        container.appendChild(li);
+      });
+    }
+
+    async function ask() {
+      const question = questionEl.value.trim();
+      if (!question) {
+        statusEl.textContent = "请先输入问题。";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      statusEl.textContent = "正在请求接口...";
+
+      try {
+        const payload = {
+          question,
+          age_months: ageMonthsEl.value ? Number(ageMonthsEl.value) : null,
+          context: {}
+        };
+
+        const response = await fetch("/api/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+        categoryBadge.textContent = `category: ${data.category}`;
+        riskBadge.textContent = `risk: ${data.risk_level}`;
+        summaryEl.textContent = data.answer?.summary || "无";
+        disclaimerEl.textContent = data.disclaimer || "-";
+
+        renderList(adviceEl, data.answer?.advice || [], (li, item) => {
+          li.textContent = item;
+        });
+
+        renderList(warningEl, data.answer?.warning || [], (li, item) => {
+          li.textContent = item;
+        });
+
+        renderList(sourcesEl, data.sources || [], (li, item) => {
+          const a = document.createElement("a");
+          a.href = item.url;
+          a.target = "_blank";
+          a.rel = "noreferrer";
+          a.textContent = item.title || item.url;
+          li.appendChild(a);
+        });
+
+        statusEl.textContent = "已返回结果。";
+      } catch (error) {
+        statusEl.textContent = `请求失败：${error.message}`;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    }
+
+    submitBtn.addEventListener("click", ask);
+    questionEl.addEventListener("keydown", (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
+        ask();
+      }
+    });
+
+    document.querySelectorAll("[data-question]").forEach((button) => {
+      button.addEventListener("click", () => {
+        questionEl.value = button.dataset.question;
+        ask();
+      });
+    });
+  </script>
+</body>
+</html>

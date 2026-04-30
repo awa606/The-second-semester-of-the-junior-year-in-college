@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>电商商品质检助手</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 16px; }
+    .box { border: 1px solid #ddd; border-radius: 12px; padding: 20px; }
+    .row { margin-bottom: 16px; }
+    button { padding: 10px 16px; cursor: pointer; }
+    .bar-wrap { margin: 10px 0; }
+    .bar { height: 18px; background: #4caf50; border-radius: 9px; }
+    .muted { color: #666; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>电商商品质检助手</h1>
+  <p>上传退货商品图片，系统返回 Top-3 识别结果与处理建议。</p>
+
+  <div class="box">
+    <div class="row">
+      <label>后端地址：</label>
+      <input id="apiBase" style="width: 360px;" value="http://127.0.0.1:8000" />
+      <div class="muted">若后端运行在另一台电脑，请改成：例如 http://192.168.1.10:8000</div>
+    </div>
+
+    <div class="row">
+      <input id="fileInput" type="file" accept="image/*" />
+      <button onclick="submitImage()">开始识别</button>
+    </div>
+
+    <div class="row">
+      <img id="preview" style="max-width: 320px; display:none; border-radius: 8px;" />
+    </div>
+
+    <div class="row"><strong>系统建议：</strong> <span id="advice">等待上传图片</span></div>
+    <div id="top3"></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = 'block';
+    });
+
+    async function submitImage() {
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('请先选择图片');
+        return;
+      }
+
+      const apiBase = document.getElementById('apiBase').value.trim();
+      const formData = new FormData();
+      formData.append('file', file);
+
+      document.getElementById('advice').innerText = '识别中...';
+      document.getElementById('top3').innerHTML = '';
+
+      try {
+        const res = await fetch(`${apiBase}/predict`, {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+        document.getElementById('advice').innerText = data.advice;
+
+        const top3El = document.getElementById('top3');
+        top3El.innerHTML = '<h3>Top-3 结果</h3>';
+        data.top3.forEach(item => {
+          const pct = (item.score * 100).toFixed(1);
+          top3El.innerHTML += `
+            <div class="bar-wrap">
+              <div>${item.label}：${pct}%</div>
+              <div style="background:#eee;border-radius:9px;overflow:hidden;">
+                <div class="bar" style="width:${pct}%"></div>
+              </div>
+            </div>`;
+        });
+      } catch (err) {
+        document.getElementById('advice').innerText = '请求失败，请检查后端地址、端口和防火墙';
+      }
+    }
+  </script>
+</body>
+</html>

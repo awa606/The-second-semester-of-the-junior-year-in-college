@@ -1,0 +1,768 @@
+[
+  {
+    "card_id": "feeding_001",
+    "category": "feeding",
+    "subcategory": "breastfeeding",
+    "title": "0-6个月优先纯母乳喂养",
+    "age_scope": ["0-6月"],
+    "question_patterns": [
+      "宝宝出生后最好怎么喂养",
+      "0到6个月要不要加水",
+      "纯母乳喂养是什么意思"
+    ],
+    "answer_summary": "婴儿出生后前6个月一般建议纯母乳喂养。",
+    "answer_points": [
+      "前6个月优先纯母乳喂养",
+      "按需喂养",
+      "注意观察体重增长和精神状态"
+    ],
+    "do_list": ["按需喂养", "关注吃奶和排便情况"],
+    "dont_list": ["不要随意额外添加其他食物"],
+    "red_flags": ["吃奶明显减少", "精神差", "体重增长异常"],
+    "escalation_advice": "如喂养困难明显或婴儿状态异常，应及时咨询医生。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_core_feeding",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://example.org/nhc-core-feeding"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_002",
+    "category": "feeding",
+    "subcategory": "complementary_feeding",
+    "title": "满6个月开始添加辅食",
+    "age_scope": ["6-8月"],
+    "question_patterns": [
+      "宝宝6个月可以加辅食吗",
+      "什么时候开始吃辅食",
+      "辅食添加从几个月开始"
+    ],
+    "answer_summary": "一般满6个月开始添加辅食，同时继续母乳或配方奶喂养。",
+    "answer_points": [
+      "从满6个月开始添加辅食",
+      "由少到多、由一种到多种",
+      "继续奶类喂养"
+    ],
+    "do_list": ["先尝试单一食物", "记录新食物反应"],
+    "dont_list": ["不要一次引入多种新食物"],
+    "red_flags": ["呼吸困难", "持续呕吐", "明显皮疹"],
+    "escalation_advice": "若添加新食物后出现明显异常反应，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_complementary",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://example.org/nhc-complementary"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_003",
+    "category": "feeding",
+    "subcategory": "feeding_frequency",
+    "title": "6-8月龄辅食频次基础建议",
+    "age_scope": ["6-8月"],
+    "question_patterns": [
+      "6个月宝宝一天吃几次辅食",
+      "7个月辅食频率怎么安排",
+      "辅食一天喂几次"
+    ],
+    "answer_summary": "6-8月龄可从每天1-2次辅食开始，逐步根据接受情况调整。",
+    "answer_points": [
+      "从每天1-2次开始",
+      "根据宝宝接受情况逐步调整",
+      "奶类仍是重要营养来源"
+    ],
+    "do_list": ["观察进食接受度", "保持规律作息"],
+    "dont_list": ["不要只靠辅食替代所有奶量"],
+    "red_flags": ["长期拒食", "明显呛咳", "体重增长不理想"],
+    "escalation_advice": "若长期拒食或进食明显异常，应咨询医生。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_frequency",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://example.org/nhc-frequency"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_004",
+    "category": "feeding",
+    "subcategory": "responsive_feeding",
+    "title": "顺应喂养的基本做法",
+    "age_scope": ["6-24月"],
+    "question_patterns": [
+      "什么是顺应喂养",
+      "宝宝不想吃还要喂吗",
+      "喂饭需要追着喂吗"
+    ],
+    "answer_summary": "顺应喂养是关注孩子的饥饿和饱腹信号，鼓励但不强迫进食。",
+    "answer_points": [
+      "观察饥饿和饱腹信号",
+      "鼓励进食但不强迫",
+      "营造平静的进食环境"
+    ],
+    "do_list": ["固定进食时间", "鼓励自主尝试"],
+    "dont_list": ["不要强迫喂食", "不要边玩边追着喂"],
+    "red_flags": ["持续拒食", "频繁呕吐", "体重明显下降"],
+    "escalation_advice": "如持续进食困难或伴随体重问题，应咨询专业人员。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_responsive",
+        "title": "托育机构婴幼儿喂养与营养指南",
+        "url": "https://example.org/nhc-responsive"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "care_001",
+    "category": "care",
+    "subcategory": "sleep",
+    "title": "婴幼儿睡眠环境的基本要求",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝睡觉环境怎么布置",
+      "婴儿睡眠环境需要注意什么",
+      "宝宝睡觉房间温度多少合适"
+    ],
+    "answer_summary": "婴幼儿睡眠环境应安静、整洁、温度适宜，并注意安全。",
+    "answer_points": [
+      "保持环境安静整洁",
+      "注意空气流通",
+      "避免明显安全隐患"
+    ],
+    "do_list": ["维持规律作息", "注意床铺安全"],
+    "dont_list": ["不要有明显窒息或跌落风险"],
+    "red_flags": ["睡眠中呼吸异常", "反应明显差"],
+    "escalation_advice": "若睡眠中出现呼吸异常或精神状态差，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_care_sleep",
+        "title": "3岁以下婴幼儿健康养育照护指南（试行）",
+        "url": "https://example.org/nhc-care-sleep"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "care_002",
+    "category": "care",
+    "subcategory": "bottle_hygiene",
+    "title": "奶瓶和餐具清洁的基本原则",
+    "age_scope": ["0-24月"],
+    "question_patterns": [
+      "奶瓶要怎么清洗",
+      "宝宝餐具如何消毒",
+      "奶瓶多久清洁一次"
+    ],
+    "answer_summary": "奶瓶和婴幼儿餐具应及时清洁，并注意卫生和干燥保存。",
+    "answer_points": [
+      "每次使用后及时清洁",
+      "重点清洗奶嘴和缝隙部位",
+      "清洁后注意干燥保存"
+    ],
+    "do_list": ["及时清洗", "分类存放"],
+    "dont_list": ["不要长时间残留奶液"],
+    "red_flags": ["反复腹泻", "疑似污染"],
+    "escalation_advice": "如婴幼儿出现持续腹泻等情况，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_care_hygiene",
+        "title": "托育机构婴幼儿喂养与营养指南",
+        "url": "https://example.org/nhc-care-hygiene"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "care_003",
+    "category": "care",
+    "subcategory": "oral_care",
+    "title": "婴幼儿口腔清洁基础建议",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝口腔需要清洁吗",
+      "长牙前要不要清洁口腔",
+      "小宝宝怎么做口腔护理"
+    ],
+    "answer_summary": "婴幼儿应进行基础口腔清洁，并随着年龄增长逐步建立习惯。",
+    "answer_points": [
+      "保持口腔清洁",
+      "随着长牙逐步加强护理",
+      "建立固定清洁习惯"
+    ],
+    "do_list": ["保持规律清洁", "观察牙龈和牙齿变化"],
+    "dont_list": ["不要长期忽视口腔卫生"],
+    "red_flags": ["口腔明显肿胀", "持续疼痛", "进食困难"],
+    "escalation_advice": "如出现明显疼痛或肿胀，应尽快就医。",
+    "source_refs": [
+      {
+        "doc_id": "src_oral_care_basic",
+        "title": "儿童口腔保健基础材料",
+        "url": "https://example.org/oral-care"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "development_001",
+    "category": "development",
+    "subcategory": "interaction_play",
+    "title": "婴幼儿交流与玩耍的重要性",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "怎么陪宝宝玩",
+      "宝宝需要互动吗",
+      "婴幼儿玩耍有什么意义"
+    ],
+    "answer_summary": "交流和玩耍有助于婴幼儿认知、语言和情绪发展。",
+    "answer_points": [
+      "多说话、多回应",
+      "通过玩耍促进互动",
+      "根据年龄选择合适活动"
+    ],
+    "do_list": ["每天固定互动时间", "鼓励回应和模仿"],
+    "dont_list": ["不要长期缺乏交流互动"],
+    "red_flags": ["长期几乎无互动反应", "明显退步"],
+    "escalation_advice": "如长期互动反应少或发展异常，应咨询专业人员。",
+    "source_refs": [
+      {
+        "doc_id": "src_nhc_development_play",
+        "title": "3岁以下婴幼儿健康养育照护指南（试行）",
+        "url": "https://example.org/nhc-development-play"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "triage_001",
+    "category": "symptom_triage",
+    "subcategory": "fever",
+    "title": "发热问题只做观察与就医分流",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝发烧怎么办",
+      "小孩发热要紧吗",
+      "39度要不要去医院"
+    ],
+    "answer_summary": "发热问题应先观察精神状态、进食和伴随症状，高风险情况要尽快就医。",
+    "answer_points": [
+      "观察体温变化",
+      "关注精神状态和进食情况",
+      "高风险情况及时就医"
+    ],
+    "do_list": ["记录体温变化", "观察精神和饮水情况"],
+    "dont_list": ["不要把系统回答当作诊断结果"],
+    "red_flags": ["抽搐", "呼吸困难", "精神反应差", "持续高热"],
+    "escalation_advice": "如出现抽搐、呼吸困难、精神差等情况，应立即就医。",
+    "source_refs": [
+      {
+        "doc_id": "src_aap_symptom_checker",
+        "title": "HealthyChildren Symptom Checker",
+        "url": "https://example.org/aap-symptom-checker"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  },
+  {
+    "card_id": "triage_002",
+    "category": "symptom_triage",
+    "subcategory": "rash_after_food",
+    "title": "添加新食物后出现皮疹的处理边界",
+    "age_scope": ["6-24月"],
+    "question_patterns": [
+      "吃了新食物起疹子怎么办",
+      "宝宝加辅食后皮疹",
+      "是不是食物过敏"
+    ],
+    "answer_summary": "添加新食物后出现皮疹需要结合严重程度判断，明显异常应及时就医。",
+    "answer_points": [
+      "先停止可疑新食物",
+      "观察皮疹范围和伴随症状",
+      "严重反应及时就医"
+    ],
+    "do_list": ["记录新食物名称和时间", "观察是否伴随呼吸或消化异常"],
+    "dont_list": ["不要继续反复尝试可疑食物"],
+    "red_flags": ["呼吸困难", "面部肿胀", "持续呕吐", "精神差"],
+    "escalation_advice": "如伴随呼吸困难、面部肿胀或持续呕吐，应立即就医。",
+    "source_refs": [
+      {
+        "doc_id": "src_food_reaction_basic",
+        "title": "辅食添加与不良反应观察基础材料",
+        "url": "https://example.org/food-reaction"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T08:00:00+08:00"
+  }, 
+  {
+    "card_id": "feeding_005",
+    "category": "feeding",
+    "subcategory": "first_food_choice",
+    "title": "第一次辅食先吃什么",
+    "age_scope": ["6-8月"],
+    "question_patterns": [
+      "第一口辅食吃什么",
+      "刚开始加辅食先吃什么",
+      "辅食一开始应该怎么选"
+    ],
+    "answer_summary": "宝宝满6个月开始添加辅食时，可从单一、易消化、质地细腻的食物开始，遵循由少到多、由一种到多种的原则。",
+    "answer_points": [
+      "从单一食物开始，便于观察适应情况",
+      "开始时量要少，逐步增加",
+      "新食物一次只加一种，连续观察几天",
+      "优先选择质地细腻、便于吞咽的泥糊状食物"
+    ],
+    "do_list": [
+      "首次添加后观察皮肤、消化和精神状态",
+      "记录新食物的添加时间和反应",
+      "保持喂养环境安静，避免边玩边喂"
+    ],
+    "dont_list": [
+      "不要一次加入多种新食物",
+      "不要强迫宝宝进食",
+      "不要在身体不适时尝试多种新食物"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "明显面部或全身皮疹",
+      "持续呕吐",
+      "精神反应差"
+    ],
+    "escalation_advice": "若添加新食物后出现明显异常反应，尤其是呼吸困难、持续呕吐或精神状态差，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_placeholder",
+        "title": "婴幼儿喂养相关权威资料（待替换）",
+        "url": "https://example.org/feeding/first-food"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_006",
+    "category": "feeding",
+    "subcategory": "food_texture_progression",
+    "title": "辅食质地怎么逐步变化",
+    "age_scope": ["6-12月"],
+    "question_patterns": [
+      "辅食要打多细",
+      "宝宝什么时候可以吃颗粒状食物",
+      "辅食质地应该怎么变化"
+    ],
+    "answer_summary": "辅食质地应随着月龄和咀嚼吞咽能力逐步变化，一般从细腻泥糊状，逐步过渡到较稠、较粗，再到软碎小块状。",
+    "answer_points": [
+      "开始阶段以细腻泥糊状为主，帮助宝宝适应吞咽",
+      "适应后可逐渐增加稠度和粗细度",
+      "随着月龄增加，可尝试软碎小块状食物",
+      "质地变化应循序渐进，结合宝宝接受情况调整"
+    ],
+    "do_list": [
+      "观察宝宝吞咽、咀嚼和接受情况",
+      "根据宝宝月龄和能力逐步调整食物形态",
+      "喂食时保持坐位或半坐位，注意进食安全"
+    ],
+    "dont_list": [
+      "不要长期只喂过细食物而不做过渡",
+      "不要突然从泥状直接变成较大硬块",
+      "不要在宝宝哭闹或躺着时喂食"
+    ],
+    "red_flags": [
+      "频繁呛咳",
+      "明显吞咽困难",
+      "进食时发绀或呼吸异常",
+      "持续拒食并伴精神状态差"
+    ],
+    "escalation_advice": "若宝宝进食时频繁呛咳、吞咽明显困难，或进食后出现呼吸异常，应暂停尝试并及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_texture_placeholder",
+        "title": "婴幼儿辅食添加相关资料（待替换）",
+        "url": "https://example.org/feeding/texture"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_007",
+    "category": "feeding",
+    "subcategory": "feeding_frequency_8_12m",
+    "title": "8到12月龄辅食和奶如何安排",
+    "age_scope": ["8-12月"],
+    "question_patterns": [
+      "8个月一天吃几顿辅食",
+      "10个月奶和辅食怎么安排",
+      "8到12个月喂养频次怎么定"
+    ],
+    "answer_summary": "8到12月龄宝宝通常会逐步增加辅食次数和食物种类，同时继续保持奶类摄入，具体安排应根据宝宝食欲、接受情况和日常作息灵活调整。",
+    "answer_points": [
+      "这一阶段辅食次数会比6到8月龄逐步增加",
+      "辅食和奶都仍然重要，不建议突然只吃饭不喝奶",
+      "可根据宝宝作息安排固定的进食节奏",
+      "食物种类和质地应继续逐步丰富"
+    ],
+    "do_list": [
+      "建立相对规律的进食时间",
+      "观察宝宝饥饿和饱足信号",
+      "逐步增加食物多样性"
+    ],
+    "dont_list": [
+      "不要完全以成人饮食替代宝宝饮食",
+      "不要因一两次拒食就频繁更换喂养方式",
+      "不要为了追求吃得多而强迫进食"
+    ],
+    "red_flags": [
+      "明显进食减少",
+      "持续体重增长不良迹象",
+      "反复呕吐",
+      "明显精神状态差"
+    ],
+    "escalation_advice": "若宝宝持续进食明显减少、反复呕吐或精神状态差，应及时咨询专业人员或就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_schedule_placeholder",
+        "title": "婴幼儿喂养频次相关资料（待替换）",
+        "url": "https://example.org/feeding/8-12-months"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "care_004",
+    "category": "care",
+    "subcategory": "bathing",
+    "title": "宝宝洗澡频率与基本注意事项",
+    "age_scope": ["0-3岁"],
+    "question_patterns": [
+      "宝宝多久洗一次澡",
+      "婴儿洗澡要注意什么",
+      "宝宝洗澡频率怎么安排"
+    ],
+    "answer_summary": "宝宝洗澡频率可根据季节、活动情况和皮肤状态灵活安排，重点是保持皮肤清洁、注意保暖，并确保洗澡过程安全。",
+    "answer_points": [
+      "洗澡频率不必机械固定，应结合天气和出汗情况调整",
+      "洗澡环境要温暖，避免着凉",
+      "洗澡全过程应有成人看护，动作平稳",
+      "洗后及时擦干并做好皮肤护理"
+    ],
+    "do_list": [
+      "提前准备好毛巾、衣物和洗护用品",
+      "控制好室温和水温，洗澡时间不宜过长",
+      "洗后观察皮肤是否干燥、发红或不适"
+    ],
+    "dont_list": [
+      "不要让宝宝单独留在浴盆或水边",
+      "不要在宝宝明显不适或情绪极差时强行洗澡",
+      "不要频繁使用刺激性较强的清洁用品"
+    ],
+    "red_flags": [
+      "洗澡后呼吸异常",
+      "明显皮肤红肿或严重皮疹",
+      "发热伴精神状态差",
+      "反应迟钝"
+    ],
+    "escalation_advice": "若宝宝伴有明显不适、发热精神差，或洗澡后出现异常反应，应暂停家庭处理并及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_daily_care_placeholder",
+        "title": "婴幼儿日常护理资料（待替换）",
+        "url": "https://example.org/care/bathing"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "triage_003",
+    "category": "symptom_triage",
+    "subcategory": "cough",
+    "title": "宝宝咳嗽时如何初步观察与分流",
+    "age_scope": ["0-3岁"],
+    "question_patterns": [
+      "宝宝咳嗽怎么办",
+      "孩子咳嗽要不要去医院",
+      "宝宝一直咳嗽怎么处理"
+    ],
+    "answer_summary": "宝宝咳嗽时，可先观察精神状态、呼吸情况、进食情况和持续时间；若出现呼吸困难、精神差或年龄较小伴发热等情况，应尽快就医。",
+    "answer_points": [
+      "先观察咳嗽是否影响呼吸、睡眠和进食",
+      "注意是否伴有发热、喘憋、精神萎靡等表现",
+      "如果只是轻微咳嗽且精神、进食基本正常，可先短时观察",
+      "咳嗽加重、持续不缓解或伴明显不适时，应及时就医"
+    ],
+    "do_list": [
+      "记录咳嗽持续时间和伴随症状",
+      "观察呼吸频率、胸廓起伏和精神状态",
+      "保持环境通风，避免烟雾和刺激性气味"
+    ],
+    "dont_list": [
+      "不要自行给宝宝使用止咳药或抗生素",
+      "不要仅凭咳嗽轻重自行判断具体疾病",
+      "不要忽视呼吸困难或进食明显减少等警示表现"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "口唇发紫",
+      "胸壁凹陷或明显喘憋",
+      "精神状态差",
+      "明显进食减少",
+      "小月龄宝宝伴发热"
+    ],
+    "escalation_advice": "若出现呼吸困难、口唇发紫、精神状态差、明显进食减少，或小月龄宝宝伴发热等情况，应尽快到医疗机构评估。",
+    "source_refs": [
+      {
+        "doc_id": "symptom_triage_cough_placeholder",
+        "title": "儿童咳嗽观察与分流资料（待替换）",
+        "url": "https://example.org/triage/cough"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_008",
+    "category": "feeding",
+    "subcategory": "diet_transition_after_12m",
+    "title": "1岁后饮食如何逐步过渡",
+    "age_scope": ["12-24月"],
+    "question_patterns": [
+      "1岁后怎么从奶过渡到吃饭",
+      "宝宝一岁以后饮食怎么安排",
+      "一岁后奶和饭怎么搭配"
+    ],
+    "answer_summary": "宝宝1岁后饮食可逐步从以奶为主过渡到以多样化食物为主，同时继续保留适量奶类摄入，过渡应循序渐进，结合宝宝食欲和作息灵活安排。",
+    "answer_points": [
+      "1岁后可逐步增加家庭食物种类和进餐参与度",
+      "奶类仍然是饮食的一部分，但不建议完全替代正常进餐",
+      "饮食应尽量多样化，注意谷物、蔬果、蛋白质类食物搭配",
+      "过渡过程中应继续关注咀嚼、吞咽和进食接受情况"
+    ],
+    "do_list": [
+      "逐步建立三餐加适量加餐的节奏",
+      "让宝宝尝试接近家庭日常饮食的软烂食物",
+      "继续观察宝宝的饥饿和饱足信号"
+    ],
+    "dont_list": [
+      "不要突然完全停奶或强行改为成人饮食",
+      "不要长期只提供单一、过于精细的食物",
+      "不要因短期吃得少就频繁更换喂养方式"
+    ],
+    "red_flags": [
+      "持续明显进食减少",
+      "反复呕吐",
+      "吞咽困难",
+      "精神状态差"
+    ],
+    "escalation_advice": "若过渡过程中出现持续进食明显减少、反复呕吐、吞咽困难或精神状态差，应及时咨询专业人员或就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_diet_transition_placeholder",
+        "title": "婴幼儿膳食过渡相关资料（待替换）",
+        "url": "https://example.org/feeding/after-12-months"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "feeding_009",
+    "category": "feeding",
+    "subcategory": "food_allergy_observation",
+    "title": "添加新食物后如何观察过敏或不耐受反应",
+    "age_scope": ["6-24月"],
+    "question_patterns": [
+      "加新食物后怎么观察过敏",
+      "宝宝吃新东西后起疹子怎么办",
+      "新辅食过敏要怎么看"
+    ],
+    "answer_summary": "添加新食物后，应重点观察皮肤、呼吸、消化和精神状态变化。新食物建议一次只增加一种，并连续观察几天，以便判断是否存在过敏或不耐受反应。",
+    "answer_points": [
+      "新食物应一次只增加一种，便于观察反应",
+      "添加后注意观察是否出现皮疹、呕吐、腹泻等异常",
+      "也要关注是否有呼吸不适、精神差或明显哭闹等情况",
+      "若只是轻微异常，也应暂停新增其他新食物并继续观察"
+    ],
+    "do_list": [
+      "记录新食物名称、添加时间和反应表现",
+      "观察皮肤、排便、呼吸和精神状态",
+      "若有疑似异常，暂缓继续添加其他新食物"
+    ],
+    "dont_list": [
+      "不要在同一天尝试多种新食物",
+      "不要忽视呼吸道症状或全身反应",
+      "不要自行根据网络经验判断严重程度"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "面部或口唇肿胀",
+      "持续呕吐",
+      "全身明显皮疹",
+      "精神状态差"
+    ],
+    "escalation_advice": "若出现呼吸困难、面部肿胀、持续呕吐或精神状态差等情况，应尽快就医评估。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_food_allergy_placeholder",
+        "title": "婴幼儿新食物添加观察资料（待替换）",
+        "url": "https://example.org/feeding/allergy-observation"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "care_005",
+    "category": "care",
+    "subcategory": "diaper_care",
+    "title": "臀部护理与尿布更换的基本注意事项",
+    "age_scope": ["0-3岁"],
+    "question_patterns": [
+      "宝宝红屁屁怎么预防",
+      "尿布多久换一次",
+      "婴儿臀部护理要注意什么"
+    ],
+    "answer_summary": "宝宝臀部护理的重点是保持清洁、干燥并减少刺激。应根据排尿排便情况及时更换尿布，清洁后轻柔擦干，必要时做好皮肤屏障保护。",
+    "answer_points": [
+      "尿布应根据排尿排便情况及时更换，不宜长时间潮湿闷着",
+      "清洁臀部时动作要轻柔，避免反复摩擦",
+      "清洁后应保持皮肤干燥，再穿戴新的尿布",
+      "若皮肤容易受刺激，可适当加强屏障护理"
+    ],
+    "do_list": [
+      "每次排便后及时清洁臀部",
+      "更换尿布前确认皮肤基本干燥",
+      "观察是否有发红、破损或渗液"
+    ],
+    "dont_list": [
+      "不要长时间不更换潮湿尿布",
+      "不要用刺激性较强的清洁用品频繁擦洗",
+      "不要在皮肤明显破损时继续摩擦"
+    ],
+    "red_flags": [
+      "皮肤破溃",
+      "明显渗液",
+      "红肿范围扩大",
+      "伴发热或精神状态差"
+    ],
+    "escalation_advice": "若臀部皮肤出现明显破溃、渗液、红肿加重，或伴发热精神差，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_diaper_care_placeholder",
+        "title": "婴幼儿臀部护理资料（待替换）",
+        "url": "https://example.org/care/diaper-care"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "development_002",
+    "category": "development",
+    "subcategory": "milestone_observation",
+    "title": "不同月龄发育情况如何做粗略观察",
+    "age_scope": ["0-24月"],
+    "question_patterns": [
+      "宝宝几个月会翻身",
+      "几个月会坐算正常",
+      "发育稍微慢一点正常吗"
+    ],
+    "answer_summary": "宝宝发育存在个体差异，家长可按月龄粗略观察大运动、精细动作、语言和社交反应的变化趋势，但不应仅凭单一时间点下结论。",
+    "answer_points": [
+      "发育观察应看整体趋势，而不是只盯住单一技能出现时间",
+      "可关注翻身、坐、爬、站、走等大运动变化",
+      "也应关注回应声音、目光交流、咿呀发声和互动表现",
+      "若多方面长期明显落后，建议进一步咨询专业人员"
+    ],
+    "do_list": [
+      "按月龄记录宝宝近期出现的新能力",
+      "多通过互动、说话和游戏观察反应",
+      "结合日常状态持续观察一段时间"
+    ],
+    "dont_list": [
+      "不要仅凭网络对照表就自行断定异常",
+      "不要把单次表现不好直接等同于发育问题",
+      "不要忽视长期、多方面都明显落后的情况"
+    ],
+    "red_flags": [
+      "长期缺乏目光交流",
+      "对声音反应很少",
+      "动作能力长期明显落后",
+      "家长持续担心且情况未改善"
+    ],
+    "escalation_advice": "若宝宝在多个发育方面长期明显落后，或家长持续担心且观察后无改善，建议尽快咨询专业人员评估。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_development_observation_placeholder",
+        "title": "婴幼儿发育观察资料（待替换）",
+        "url": "https://example.org/development/milestones"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  },
+  {
+    "card_id": "triage_004",
+    "category": "symptom_triage",
+    "subcategory": "diarrhea",
+    "title": "宝宝腹泻时如何初步观察与分流",
+    "age_scope": ["0-3岁"],
+    "question_patterns": [
+      "宝宝拉肚子怎么办",
+      "孩子腹泻要不要去医院",
+      "一天拉很多次正常吗"
+    ],
+    "answer_summary": "宝宝腹泻时，应先观察次数、精神状态、进食饮水情况以及是否有脱水表现。若腹泻明显加重、伴精神差或出现脱水迹象，应及时就医。",
+    "answer_points": [
+      "先观察排便次数、性状变化和持续时间",
+      "重点关注宝宝是否还能正常进食、饮水和活动",
+      "若只是轻度腹泻且精神、进食尚可，可短时观察",
+      "若腹泻频繁、持续不缓解或伴其他异常，应及时就医"
+    ],
+    "do_list": [
+      "记录腹泻次数和伴随症状",
+      "观察口唇是否干燥、尿量是否减少、精神是否变差",
+      "继续关注进食和饮水接受情况"
+    ],
+    "dont_list": [
+      "不要自行随意使用止泻药或抗生素",
+      "不要忽视脱水表现",
+      "不要只看排便次数而忽略整体状态"
+    ],
+    "red_flags": [
+      "明显尿量减少",
+      "口唇干燥明显",
+      "持续呕吐",
+      "精神状态差",
+      "哭时泪少或无泪",
+      "腹泻频繁且不缓解"
+    ],
+    "escalation_advice": "若出现尿量明显减少、口唇明显干燥、精神状态差、持续呕吐或腹泻频繁不缓解等情况，应及时到医疗机构评估。",
+    "source_refs": [
+      {
+        "doc_id": "symptom_triage_diarrhea_placeholder",
+        "title": "儿童腹泻观察与分流资料（待替换）",
+        "url": "https://example.org/triage/diarrhea"
+      }
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-04-24T00:00:00+08:00"
+  }
+
+]

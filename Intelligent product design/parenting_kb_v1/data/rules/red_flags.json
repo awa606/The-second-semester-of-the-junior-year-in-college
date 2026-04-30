@@ -1,0 +1,46 @@
+{
+  "version": "v1",
+  "rules": [
+    {
+      "rule_id": "rf_emergency_001",
+      "category": "emergency",
+      "keywords": ["呼吸困难", "喘不上气", "抽搐", "昏睡", "意识差", "嘴唇发紫"],
+      "action": "stop_and_escalate",
+      "risk_level": "critical",
+      "message": "该问题可能涉及紧急风险，请立即联系急救或尽快前往医院，不建议仅依赖线上问答。"
+    },
+    {
+      "rule_id": "rf_highrisk_002",
+      "category": "high_risk_symptom",
+      "keywords": ["持续高热", "反复呕吐", "严重腹泻", "明显脱水", "精神反应差"],
+      "action": "escalate_to_hospital",
+      "risk_level": "high",
+      "message": "该问题已超过普通家庭信息参考范围，建议尽快到线下医疗机构评估。"
+    },
+    {
+      "rule_id": "rf_medication_003",
+      "category": "medication",
+      "keywords": ["吃什么药", "退烧药剂量", "几毫升", "药量", "布洛芬怎么吃", "对乙酰氨基酚怎么吃"],
+      "action": "refuse_medication_advice",
+      "risk_level": "high",
+      "message": "本系统不提供个体化用药名称、剂量和服药方案建议，请咨询医生或药师。"
+    },
+    {
+      "rule_id": "rf_diagnosis_004",
+      "category": "diagnosis",
+      "keywords": ["是不是肺炎", "是不是脑膜炎", "是不是过敏", "能不能确诊", "到底是什么病"],
+      "action": "refuse_diagnosis",
+      "risk_level": "high",
+      "message": "本系统不能进行疾病诊断或确诊判断，只能提供基础信息与就医分流建议。"
+    },
+    {
+      "rule_id": "rf_newborn_005",
+      "category": "newborn_special",
+      "keywords": ["新生儿发烧", "满月前发热", "刚出生", "出生几天"],
+      "action": "escalate_to_hospital",
+      "risk_level": "high",
+      "message": "新生儿相关异常情况风险较高，建议尽快到医疗机构评估。"
+    }
+  ],
+  "default_disclaimer": "本功能仅提供基础育儿信息参考，不替代医生面诊、诊断和个体化治疗建议。"
+}

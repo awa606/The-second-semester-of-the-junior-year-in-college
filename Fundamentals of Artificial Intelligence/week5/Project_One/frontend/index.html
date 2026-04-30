@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电商商品质检助手</title>
+  <style>
+    :root {
+      --bg: #f3efe6;
+      --panel: #fffdf8;
+      --ink: #1b1b18;
+      --muted: #645f54;
+      --line: #d8cfbf;
+      --accent: #b24a2f;
+      --accent-soft: #f3d8cf;
+      --ok: #2f6f44;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, #fff7ea 0, transparent 35%),
+        linear-gradient(135deg, #efe6d5 0%, var(--bg) 55%, #ede4d8 100%);
+      padding: 24px;
+    }
+
+    .layout {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .hero,
+    .panel {
+      background: rgba(255, 253, 248, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 16px 40px rgba(77, 57, 32, 0.08);
+      padding: 24px;
+    }
+
+    h1, h2, p {
+      margin-top: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      margin-bottom: 10px;
+    }
+
+    .hero p,
+    .help,
+    .muted {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: white;
+      font: inherit;
+    }
+
+    button {
+      margin-top: 14px;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, #ca5b34, var(--accent));
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.75;
+    }
+
+    .preview {
+      width: 100%;
+      min-height: 220px;
+      object-fit: contain;
+      border-radius: 16px;
+      border: 1px dashed var(--line);
+      background: #faf6ee;
+    }
+
+    .result-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: linear-gradient(180deg, #fff, #fbf7ef);
+      margin-bottom: 12px;
+    }
+
+    .score {
+      float: right;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .advice {
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      line-height: 1.6;
+    }
+
+    .status {
+      min-height: 24px;
+      font-weight: 600;
+      color: var(--ok);
+    }
+
+    .error {
+      color: #9b1f1f;
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <section class="hero">
+      <h1>电商商品质检助手</h1>
+      <p>保持 CLIP 零样本分类方案，对退货商品图片给出三类判断：完好、外包装破损、空盒，并返回 Top-3 结果与处理建议。</p>
+      <p class="help">前端可以部署在另一台电脑浏览器中。把下面的后端地址改成运行模型那台电脑的局域网地址，例如 <code>http://192.168.1.10:8000</code>。</p>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <label for="apiBase">后端地址</label>
+        <input id="apiBase" type="text" value="http://127.0.0.1:8000" placeholder="http://192.168.1.10:8000">
+
+        <label for="fileInput" style="margin-top: 16px;">上传商品图片</label>
+        <input id="fileInput" type="file" accept="image/*">
+
+        <button id="submitBtn" type="button">开始识别</button>
+        <p id="status" class="status"></p>
+      </div>
+
+      <div class="panel">
+        <img id="preview" class="preview" alt="图片预览">
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>识别结果</h2>
+      <div id="summary" class="result-card muted">上传图片后，这里会显示 Top-1 分类和建议。</div>
+      <div id="top3"></div>
+    </section>
+  </main>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const preview = document.getElementById("preview");
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("status");
+    const summaryBox = document.getElementById("summary");
+    const top3Box = document.getElementById("top3");
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        preview.removeAttribute("src");
+        return;
+      }
+      preview.src = URL.createObjectURL(file);
+    });
+
+    submitBtn.addEventListener("click", async () => {
+      const file = fileInput.files[0];
+      const apiBase = document.getElementById("apiBase").value.trim().replace(/\/$/, "");
+
+      if (!apiBase) {
+        renderError("请先填写后端地址。");
+        return;
+      }
+      if (!file) {
+        renderError("请先选择一张图片。");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      submitBtn.disabled = true;
+      statusBox.textContent = "正在调用后端模型，请稍候...";
+      statusBox.className = "status";
+
+      try {
+        const response = await fetch(`${apiBase}/predict`, {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.detail || "请求失败");
+        }
+
+        renderResult(data);
+        statusBox.textContent = "识别完成。";
+      } catch (error) {
+        renderError(`请求失败：${error.message}`);
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    function renderResult(data) {
+      summaryBox.className = "result-card";
+      summaryBox.innerHTML = `
+        <strong>Top-1 分类：</strong>${data.top1_label}
+        <span class="score">${toPercent(data.top1_score)}</span>
+        <p style="margin: 12px 0 0;">${data.advice}</p>
+      `;
+
+      top3Box.innerHTML = data.top3.map((item, index) => `
+        <div class="result-card">
+          <strong>Top-${index + 1}：${item.label}</strong>
+          <span class="score">${toPercent(item.score)}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderError(message) {
+      statusBox.textContent = message;
+      statusBox.className = "status error";
+    }
+
+    function toPercent(score) {
+      return `${(score * 100).toFixed(2)}%`;
+    }
+  </script>
+</body>
+</html>

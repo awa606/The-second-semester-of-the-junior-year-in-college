@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local logs and runtime output
+*.log
+uvicorn*_stdout.log
+uvicorn*_stderr.log
+
+# Editor and OS local files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Test and build cache
+.pytest_cache/
+.mypy_cache/
+dist/
+build/

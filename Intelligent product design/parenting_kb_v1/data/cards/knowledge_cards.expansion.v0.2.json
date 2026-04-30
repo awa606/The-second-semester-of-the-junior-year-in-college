@@ -1,0 +1,998 @@
+[
+  {
+    "card_id": "feeding_010",
+    "category": "feeding",
+    "subcategory": "formula_frequency",
+    "title": "配方奶喂养频次如何粗略安排",
+    "age_scope": ["0-12月"],
+    "question_patterns": [
+      "宝宝多久喝一次奶粉",
+      "配方奶几个小时喂一次",
+      "宝宝奶粉一天喝几次",
+      "奶粉喂养频率怎么安排"
+    ],
+    "answer_summary": "配方奶喂养频次应结合月龄、体重增长、饥饿信号和饱足信号粗略安排，不建议只按固定小时数机械喂养。",
+    "answer_points": [
+      "小月龄宝宝通常需要更频繁喂养，月龄增加后间隔会逐步拉长",
+      "观察宝宝是否有找奶、吸吮、哭闹等饥饿信号，也要看是否主动停止、转头或不愿继续喝",
+      "判断喂养是否合适时，要结合尿量、精神状态和体重增长趋势",
+      "如果宝宝长期喝得明显少、精神差或体重增长不理想，应线下咨询医生"
+    ],
+    "do_list": [
+      "记录一天内喝奶次数、单次大致奶量和宝宝状态",
+      "关注尿量、排便、睡眠和体重增长趋势",
+      "按配方奶产品说明规范冲调，并保持奶具清洁"
+    ],
+    "dont_list": [
+      "不要为了凑固定奶量而强迫宝宝喝完",
+      "不要把奶冲得过浓或过稀",
+      "不要长时间保存已经入口或放置过久的奶液"
+    ],
+    "red_flags": [
+      "吃奶明显减少",
+      "尿量明显减少",
+      "精神反应差",
+      "反复呕吐",
+      "体重增长异常"
+    ],
+    "escalation_advice": "如果宝宝持续吃奶明显减少、尿量减少、反复呕吐、精神差或体重增长异常，应及时咨询医生。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      },
+      {
+        "doc_id": "who_iycf_factsheet_2023",
+        "title": "WHO: Infant and young child feeding",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/infant-and-young-child-feeding"
+      }
+    ],
+    "evidence_note": [
+      "配方奶喂养不应仅按固定时间机械执行，应结合宝宝月龄、饥饿饱足信号、尿量和体重增长趋势做家庭层面的观察。",
+      "本卡只提供粗略喂养观察框架，不提供个体化奶量处方。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "feeding_011",
+    "category": "feeding",
+    "subcategory": "formula_preparation",
+    "title": "配方奶冲调和保存的基础安全原则",
+    "age_scope": ["0-12月"],
+    "question_patterns": [
+      "奶粉怎么冲才安全",
+      "冲好的奶能放多久",
+      "配方奶可以提前冲好吗",
+      "奶粉能不能冲浓一点"
+    ],
+    "answer_summary": "配方奶应按产品说明比例冲调，注意手卫生、奶具清洁和奶液保存时间，不建议自行加浓或稀释。",
+    "answer_points": [
+      "冲调前洗手并确认奶瓶、奶嘴等奶具清洁",
+      "按产品说明使用水量和奶粉勺数，不自行加浓或稀释",
+      "冲好后的奶液应尽快饮用，已经入口或放置过久的奶不建议继续给宝宝喝",
+      "外出或夜间喂养时，应提前规划清洁水源和奶具保存"
+    ],
+    "do_list": [
+      "阅读并遵循配方奶包装上的冲调说明",
+      "冲调前后保持奶具清洁和干燥",
+      "剩余奶液及时处理"
+    ],
+    "dont_list": [
+      "不要自行改变冲调比例",
+      "不要用未清洁奶具反复冲奶",
+      "不要反复加热已经喝过的奶"
+    ],
+    "red_flags": [
+      "反复腹泻",
+      "反复呕吐",
+      "疑似污染后出现发热",
+      "精神状态差"
+    ],
+    "escalation_advice": "若宝宝在疑似奶液污染后出现反复腹泻、呕吐、发热或精神差，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      }
+    ],
+    "evidence_note": [
+      "奶粉冲调比例和卫生处理直接影响喂养安全，本卡强调按说明冲调和避免长时间保存入口奶液。",
+      "本卡不评价具体品牌，也不提供个体化奶量建议。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "feeding_012",
+    "category": "feeding",
+    "subcategory": "water_before_6m",
+    "title": "6个月前是否需要额外喝水",
+    "age_scope": ["0-6月"],
+    "question_patterns": [
+      "宝宝6个月前要不要喝水",
+      "纯母乳宝宝需要加水吗",
+      "天气热宝宝要不要喝水",
+      "小宝宝能不能喂水"
+    ],
+    "answer_summary": "一般情况下，6个月前纯母乳喂养宝宝不需要额外加水；配方奶宝宝也应优先按规范奶量和医生建议处理特殊情况。",
+    "answer_points": [
+      "纯母乳通常可以满足6个月前宝宝的水分需要",
+      "天气热时也应先关注喂养是否充分、尿量和精神状态",
+      "配方奶应按说明比例冲调，不通过额外加水或加浓来调整",
+      "如果出现发热、腹泻、尿量减少等情况，应咨询医生"
+    ],
+    "do_list": [
+      "观察尿量、精神状态和吃奶情况",
+      "保持正常喂养节奏",
+      "特殊疾病或脱水风险时及时线下咨询"
+    ],
+    "dont_list": [
+      "不要用额外喝水替代正常奶量",
+      "不要自行把配方奶冲稀",
+      "不要忽视尿量减少等脱水线索"
+    ],
+    "red_flags": [
+      "尿量明显减少",
+      "口唇明显干燥",
+      "精神反应差",
+      "持续发热",
+      "腹泻或反复呕吐"
+    ],
+    "escalation_advice": "若出现尿量明显减少、精神差、持续发热、腹泻或反复呕吐，应尽快线下评估。",
+    "source_refs": [
+      {
+        "doc_id": "who_nlis_iycf",
+        "title": "WHO NLiS: Infant and young child feeding",
+        "url": "https://www.who.int/data/nutrition/nlis/info/infant-and-young-child-feeding"
+      },
+      {
+        "doc_id": "who_iycf_factsheet_2023",
+        "title": "WHO: Infant and young child feeding",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/infant-and-young-child-feeding"
+      }
+    ],
+    "evidence_note": [
+      "WHO/UNICEF建议前6个月纯母乳喂养，不额外添加食物或饮料，包括水。",
+      "家庭应关注尿量、精神状态和疾病信号，而不是机械加水。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "feeding_013",
+    "category": "feeding",
+    "subcategory": "poor_milk_intake",
+    "title": "宝宝不爱吃奶时如何先观察",
+    "age_scope": ["0-24月"],
+    "question_patterns": [
+      "宝宝突然不爱吃奶怎么办",
+      "宝宝奶量变少怎么办",
+      "宝宝吃奶少要不要紧",
+      "宝宝拒奶怎么办"
+    ],
+    "answer_summary": "宝宝短期奶量波动可能与状态、环境、出牙或辅食变化有关，但需要重点观察精神、尿量、体重趋势和伴随症状。",
+    "answer_points": [
+      "先确认是否只是短期波动，以及宝宝精神和尿量是否正常",
+      "观察是否伴有发热、呕吐、腹泻、咳嗽或口腔不适",
+      "喂养时保持安静环境，不强迫宝宝一次喝完",
+      "持续明显减少或伴随异常表现时应线下咨询"
+    ],
+    "do_list": [
+      "记录近几天奶量、次数、尿量和精神状态",
+      "检查是否有明显鼻塞、口腔不适或发热",
+      "用更安静、少干扰的环境尝试喂养"
+    ],
+    "dont_list": [
+      "不要强行灌喂",
+      "不要自行添加药物或补品",
+      "不要只看单次奶量就判断严重程度"
+    ],
+    "red_flags": [
+      "持续吃奶明显减少",
+      "尿量明显减少",
+      "精神差",
+      "反复呕吐",
+      "体重增长异常"
+    ],
+    "escalation_advice": "若吃奶明显减少持续存在，或伴尿量减少、精神差、反复呕吐、发热等情况，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      }
+    ],
+    "evidence_note": [
+      "喂养评估需要结合摄入、排尿、精神状态和体重趋势，单次奶量不能直接代表疾病结论。",
+      "本卡不诊断拒奶原因，只做家庭观察和就医边界提示。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "feeding_014",
+    "category": "feeding",
+    "subcategory": "complementary_constipation",
+    "title": "加辅食后便便变干如何调整",
+    "age_scope": ["6-24月"],
+    "question_patterns": [
+      "加辅食后便秘怎么办",
+      "宝宝吃辅食后大便干",
+      "辅食以后拉不出来怎么办",
+      "宝宝便便硬和辅食有关吗"
+    ],
+    "answer_summary": "加辅食后大便性状可能变化，可先从食物搭配、饮水和活动观察调整；若便秘持续、疼痛明显或伴异常表现，应线下咨询。",
+    "answer_points": [
+      "辅食添加后大便次数和性状可能和以前不同",
+      "可关注蔬果、谷物、液体摄入和活动是否合适",
+      "不要频繁更换多种新食物，避免难以判断原因",
+      "持续排便困难、明显疼痛或便血时应咨询医生"
+    ],
+    "do_list": [
+      "记录近期新加食物和排便变化",
+      "在月龄适合前提下增加食物多样性",
+      "观察排便是否疼痛、是否有血丝"
+    ],
+    "dont_list": [
+      "不要自行长期使用通便药",
+      "不要靠极端饮食调整解决问题",
+      "不要忽视便血或明显腹胀"
+    ],
+    "red_flags": [
+      "便血",
+      "明显腹胀",
+      "频繁呕吐",
+      "精神状态差",
+      "排便疼痛明显且持续"
+    ],
+    "escalation_advice": "如果出现便血、明显腹胀、频繁呕吐、精神差或持续排便痛苦，应及时就医评估。",
+    "source_refs": [
+      {
+        "doc_id": "who_complementary_feeding",
+        "title": "WHO: Complementary feeding",
+        "url": "https://www.who.int/health-topics/complementary-feeding"
+      },
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      }
+    ],
+    "evidence_note": [
+      "辅食添加强调及时、充足、安全、适当喂养，并逐步增加质地和种类。",
+      "便秘样表现需要结合排便困难、腹胀、便血和精神状态判断是否需要就医。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "feeding_015",
+    "category": "feeding",
+    "subcategory": "night_feeding",
+    "title": "夜奶减少和作息调整的基本思路",
+    "age_scope": ["6-24月"],
+    "question_patterns": [
+      "宝宝夜奶什么时候减少",
+      "宝宝晚上总醒要吃奶怎么办",
+      "夜奶怎么慢慢戒",
+      "一岁宝宝还要喝夜奶吗"
+    ],
+    "answer_summary": "夜奶是否减少需要结合月龄、白天摄入、睡眠习惯和生长情况逐步调整，不建议突然强行停止。",
+    "answer_points": [
+      "先确认白天奶量、辅食和总体摄入是否相对稳定",
+      "夜醒不一定都代表饥饿，也可能和睡眠习惯、安抚方式有关",
+      "可逐步拉长夜间喂养间隔，减少把每次醒来都立即喂奶",
+      "小月龄、体重增长不理想或疾病期间不宜强行减少夜奶"
+    ],
+    "do_list": [
+      "记录白天摄入、夜醒次数和喂奶情况",
+      "建立相对稳定的睡前流程",
+      "逐步调整，观察宝宝白天精神和体重趋势"
+    ],
+    "dont_list": [
+      "不要突然强行断夜奶",
+      "不要在宝宝生病或进食差时硬性减少",
+      "不要用含糖饮品替代夜奶"
+    ],
+    "red_flags": [
+      "体重增长不理想",
+      "白天进食明显减少",
+      "精神状态差",
+      "持续哭闹难安抚"
+    ],
+    "escalation_advice": "若宝宝体重增长不理想、白天摄入明显减少或精神状态差，应先咨询医生或儿童保健人员，再考虑夜奶调整。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "婴幼儿喂养健康教育核心信息",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      }
+    ],
+    "evidence_note": [
+      "夜奶调整属于喂养和睡眠习惯共同问题，需要关注白天摄入、生长和精神状态。",
+      "本卡不制定个体化断夜奶方案。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "care_006",
+    "category": "care",
+    "subcategory": "eczema_skin_care",
+    "title": "湿疹样皮肤问题的基础护理边界",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝湿疹怎么护理",
+      "宝宝脸上红疹干痒怎么办",
+      "婴儿皮肤干红怎么处理",
+      "宝宝皮肤反复起疹怎么办"
+    ],
+    "answer_summary": "湿疹样皮肤问题可先关注温和清洁、规律保湿和减少刺激；若渗液、破溃、感染迹象或瘙痒严重，应线下评估。",
+    "answer_points": [
+      "日常护理重点是温和清洁、充分保湿和减少摩擦刺激",
+      "避免过热、过度清洁和刺激性洗护用品",
+      "观察皮疹范围、是否渗液破溃、是否影响睡眠",
+      "不要把系统回答当作皮肤病诊断"
+    ],
+    "do_list": [
+      "使用温和洗护并保持皮肤适度滋润",
+      "记录诱发或加重因素",
+      "修剪指甲，减少抓挠损伤"
+    ],
+    "dont_list": [
+      "不要自行长期使用含药膏剂",
+      "不要反复用刺激性产品清洗",
+      "不要自行判断一定是过敏"
+    ],
+    "red_flags": [
+      "明显渗液",
+      "皮肤破溃",
+      "红肿热痛加重",
+      "发热",
+      "影响睡眠和进食"
+    ],
+    "escalation_advice": "如果皮疹明显渗液、破溃、红肿加重、伴发热或严重影响睡眠进食，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      },
+      {
+        "doc_id": "aap_bathing_skin_care",
+        "title": "HealthyChildren: Bathing & Skin Care",
+        "url": "https://www.healthychildren.org/English/ages-stages/baby/bathing-skin-care/Pages/default.aspx"
+      }
+    ],
+    "evidence_note": [
+      "婴幼儿皮肤护理应减少刺激并关注破溃、渗液、感染迹象等需要线下评估的信号。",
+      "本卡不诊断湿疹，也不提供个体化药膏方案。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "care_007",
+    "category": "care",
+    "subcategory": "nasal_congestion",
+    "title": "宝宝鼻塞流涕时的家庭观察",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝鼻塞怎么办",
+      "宝宝流鼻涕怎么护理",
+      "小宝宝鼻子不通气怎么办",
+      "宝宝鼻塞影响吃奶怎么办"
+    ],
+    "answer_summary": "宝宝鼻塞流涕时可先观察呼吸、吃奶、睡眠和精神状态，保持环境舒适；若影响呼吸或进食，应及时就医。",
+    "answer_points": [
+      "轻微鼻塞可先观察是否影响吃奶、睡眠和呼吸",
+      "保持室内空气流通，避免烟雾和强刺激气味",
+      "清理鼻腔时动作要轻柔，不要深入刺激",
+      "若出现呼吸困难、发紫、精神差或明显进食减少，应尽快就医"
+    ],
+    "do_list": [
+      "观察呼吸是否费力和吃奶是否减少",
+      "保持环境通风和适宜湿度",
+      "必要时用温和方式清理可见鼻涕"
+    ],
+    "dont_list": [
+      "不要自行给小宝宝使用成人感冒药",
+      "不要用力深入掏鼻腔",
+      "不要忽视呼吸费力"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "口唇发紫",
+      "吃奶明显减少",
+      "精神反应差",
+      "小月龄伴发热"
+    ],
+    "escalation_advice": "若鼻塞伴呼吸困难、口唇发紫、吃奶明显减少、精神差或小月龄发热，应尽快就医。",
+    "source_refs": [
+      {
+        "doc_id": "aap_cough_0_12m_symptom_checker",
+        "title": "HealthyChildren: Cough (0-12 Months)",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Cough+%280-12+Months%29"
+      }
+    ],
+    "evidence_note": [
+      "鼻塞流涕的家庭观察重点是呼吸、吃奶、精神状态和小月龄发热等风险信号。",
+      "本卡不推荐成人感冒药或个体化用药。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "care_008",
+    "category": "care",
+    "subcategory": "nail_care",
+    "title": "宝宝剪指甲的基本注意事项",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝指甲怎么剪",
+      "婴儿多久剪一次指甲",
+      "宝宝抓脸怎么办",
+      "新生儿能剪指甲吗"
+    ],
+    "answer_summary": "宝宝指甲可根据生长情况定期修剪，重点是选择安全时机、使用合适工具并避免剪得过深。",
+    "answer_points": [
+      "宝宝指甲长了容易抓伤自己，可在安静或睡着时修剪",
+      "使用婴幼儿专用指甲剪或指甲锉更稳妥",
+      "不要剪得过短，避免损伤甲周皮肤",
+      "若剪伤后出血不止、红肿明显，应线下处理"
+    ],
+    "do_list": [
+      "选择光线好、宝宝安静的时候修剪",
+      "轻轻固定手指，少量多次修剪",
+      "修剪后检查边缘是否尖锐"
+    ],
+    "dont_list": [
+      "不要在宝宝挣扎时强行修剪",
+      "不要啃咬宝宝指甲",
+      "不要剪到甲沟太深"
+    ],
+    "red_flags": [
+      "出血不止",
+      "甲周红肿热痛",
+      "化脓",
+      "宝宝明显疼痛哭闹"
+    ],
+    "escalation_advice": "如果剪伤后出血不止、甲周红肿热痛或疑似感染，应及时线下处理。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      }
+    ],
+    "evidence_note": [
+      "剪指甲属于日常照护问题，重点是防止抓伤和避免修剪损伤。",
+      "若出现感染或出血不止，应线下处理。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "care_009",
+    "category": "care",
+    "subcategory": "clothing_temperature",
+    "title": "宝宝穿衣冷热如何粗略判断",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝穿多少衣服合适",
+      "怎么判断宝宝冷不冷",
+      "宝宝出汗是不是穿多了",
+      "婴儿睡觉穿什么"
+    ],
+    "answer_summary": "判断宝宝冷热应结合环境温度、后颈背部触感、出汗和精神状态，不建议只摸手脚来判断。",
+    "answer_points": [
+      "手脚偏凉不一定代表宝宝整体受凉",
+      "可参考后颈背部是否温暖、是否明显出汗",
+      "穿衣应根据室温、活动和睡眠场景调整",
+      "过热和过冷都可能让宝宝不舒服"
+    ],
+    "do_list": [
+      "用后颈背部触感辅助判断冷热",
+      "根据室温和活动量增减衣物",
+      "睡觉时注意避免过厚覆盖和窒息风险"
+    ],
+    "dont_list": [
+      "不要只凭手脚温度判断冷热",
+      "不要包裹过紧或覆盖口鼻",
+      "不要在明显出汗时继续加衣"
+    ],
+    "red_flags": [
+      "高热",
+      "精神状态差",
+      "呼吸异常",
+      "皮肤花斑或发紫"
+    ],
+    "escalation_advice": "如果宝宝出现高热、精神差、呼吸异常或皮肤发紫等情况，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      }
+    ],
+    "evidence_note": [
+      "穿衣判断属于日常照护，家庭可结合环境、皮肤触感、出汗和精神状态综合观察。",
+      "异常体温或精神状态改变应进入就医分流。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "care_010",
+    "category": "care",
+    "subcategory": "sleep_rhythm",
+    "title": "宝宝昼夜节律和睡前流程",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝白天睡晚上不睡怎么办",
+      "宝宝睡眠作息怎么调整",
+      "宝宝睡前流程怎么做",
+      "宝宝夜醒很多怎么办"
+    ],
+    "answer_summary": "宝宝睡眠作息可通过白天光照和活动、稳定睡前流程、减少睡前刺激来逐步建立，不宜期待立刻固定。",
+    "answer_points": [
+      "小月龄宝宝睡眠节律尚在发展，作息波动常见",
+      "白天适度光照、互动，夜间降低刺激，有助于区分昼夜",
+      "稳定的睡前流程可帮助宝宝形成预期",
+      "夜醒频繁时也要排查饥饿、鼻塞、发热、皮肤不适等原因"
+    ],
+    "do_list": [
+      "白天保持适度活动和自然光照",
+      "睡前建立固定顺序，如洗漱、换尿布、安抚",
+      "夜间互动尽量安静、简短"
+    ],
+    "dont_list": [
+      "不要用强刺激方式让宝宝强行清醒",
+      "不要忽略疾病或不适导致的睡眠变化",
+      "不要让睡眠环境存在明显窒息或跌落风险"
+    ],
+    "red_flags": [
+      "睡眠中呼吸异常",
+      "发热伴精神差",
+      "持续哭闹难安抚",
+      "进食明显减少"
+    ],
+    "escalation_advice": "如果夜醒伴呼吸异常、发热精神差、持续哭闹难安抚或进食明显减少，应线下评估。",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      }
+    ],
+    "evidence_note": [
+      "睡眠作息属于照护与行为习惯问题，应同时关注环境安全和疾病不适信号。",
+      "本卡不提供睡眠训练处方。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "triage_005",
+    "category": "symptom_triage",
+    "subcategory": "fever",
+    "title": "宝宝发热时如何观察与分流",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝发烧怎么办",
+      "宝宝发热要不要去医院",
+      "宝宝39度怎么办",
+      "小孩发烧精神还可以怎么办"
+    ],
+    "answer_summary": "宝宝发热时应重点观察月龄、精神状态、呼吸、进食饮水、尿量和伴随症状；小月龄或伴危险信号时应尽快就医。",
+    "answer_points": [
+      "发热本身不是唯一判断标准，精神状态和伴随症状很重要",
+      "小月龄宝宝发热风险更高，应更谨慎",
+      "记录体温变化、持续时间和伴随表现",
+      "本系统不提供退热药剂量建议"
+    ],
+    "do_list": [
+      "记录体温、测量方式和持续时间",
+      "观察精神、尿量、呼吸和进食饮水",
+      "出现危险信号时及时线下就医"
+    ],
+    "dont_list": [
+      "不要自行询问或套用退热药剂量",
+      "不要只看温度数字忽略精神状态",
+      "不要用系统回答替代医生判断"
+    ],
+    "red_flags": [
+      "新生儿或小月龄发热",
+      "精神反应差",
+      "呼吸困难",
+      "抽搐",
+      "持续高热",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "若宝宝为新生儿或小月龄，或发热伴抽搐、呼吸困难、精神差、尿量明显减少、持续高热，应尽快就医。",
+    "source_refs": [
+      {
+        "doc_id": "aap_symptom_checker_fever",
+        "title": "HealthyChildren: Symptom Checker",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/default.aspx"
+      }
+    ],
+    "evidence_note": [
+      "发热分流需要关注年龄、精神状态、呼吸、脱水和抽搐等危险信号。",
+      "本卡刻意不提供退热药剂量。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "triage_006",
+    "category": "symptom_triage",
+    "subcategory": "vomiting",
+    "title": "宝宝呕吐时如何观察与分流",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝呕吐怎么办",
+      "宝宝吐奶和呕吐怎么观察",
+      "孩子反复吐要不要去医院",
+      "宝宝吃完就吐怎么办"
+    ],
+    "answer_summary": "宝宝呕吐时应观察次数、是否喷射样、是否能进水进食、尿量和精神状态；反复呕吐或伴危险信号应就医。",
+    "answer_points": [
+      "偶发吐奶和反复呕吐不是同一类风险",
+      "重点观察是否能保留液体、尿量是否减少、精神是否变差",
+      "伴发热、腹痛、腹胀、便血或头部外伤后呕吐时应更谨慎",
+      "不要自行使用止吐药"
+    ],
+    "do_list": [
+      "记录呕吐次数、时间和伴随症状",
+      "观察尿量、口唇湿润程度和精神状态",
+      "反复呕吐时及时线下评估"
+    ],
+    "dont_list": [
+      "不要自行给宝宝使用止吐药",
+      "不要忽视喷射样或持续呕吐",
+      "不要在明显呕吐时强行大量喂食"
+    ],
+    "red_flags": [
+      "反复呕吐",
+      "喷射样呕吐",
+      "精神状态差",
+      "尿量明显减少",
+      "腹胀明显",
+      "头部外伤后呕吐"
+    ],
+    "escalation_advice": "若出现反复或喷射样呕吐、精神差、尿量减少、明显腹胀，或头部外伤后呕吐，应尽快就医。",
+    "source_refs": [
+      {
+        "doc_id": "aap_symptom_checker_vomiting",
+        "title": "HealthyChildren: Symptom Checker",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/default.aspx"
+      }
+    ],
+    "evidence_note": [
+      "呕吐分流重点是频率、脱水、精神状态、腹部表现和外伤背景。",
+      "本卡不提供止吐药方案。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "triage_007",
+    "category": "symptom_triage",
+    "subcategory": "constipation",
+    "title": "宝宝便秘样表现如何观察与分流",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝便秘怎么办",
+      "宝宝好几天不拉怎么办",
+      "宝宝大便很硬怎么办",
+      "孩子拉粑粑很痛怎么办"
+    ],
+    "answer_summary": "判断便秘不能只看几天没拉，还要看大便是否干硬、排便是否痛苦、腹胀呕吐和精神进食情况。",
+    "answer_points": [
+      "排便间隔存在个体差异，重点看是否干硬和排便困难",
+      "辅食变化、饮食结构和液体摄入都可能影响大便",
+      "若只是短期变化且精神进食好，可先观察和调整日常饮食",
+      "便血、明显腹胀、频繁呕吐或精神差时应就医"
+    ],
+    "do_list": [
+      "记录排便间隔、大便性状和排便时表现",
+      "结合月龄调整饮食多样性和液体摄入",
+      "观察是否有腹胀、呕吐、便血"
+    ],
+    "dont_list": [
+      "不要自行长期使用通便药或开塞露",
+      "不要只按排便天数判断严重程度",
+      "不要忽视新生儿期排便异常"
+    ],
+    "red_flags": [
+      "便血",
+      "明显腹胀",
+      "频繁呕吐",
+      "精神状态差",
+      "新生儿排便异常"
+    ],
+    "escalation_advice": "若出现便血、明显腹胀、频繁呕吐、精神差，或新生儿期排便异常，应及时就医。",
+    "source_refs": [
+      {
+        "doc_id": "aap_symptom_checker_constipation",
+        "title": "HealthyChildren: Symptom Checker",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/default.aspx"
+      }
+    ],
+    "evidence_note": [
+      "便秘样表现需要综合大便性状、排便困难、腹胀呕吐、便血和年龄背景判断。",
+      "本卡不提供药物或器械通便方案。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "triage_008",
+    "category": "symptom_triage",
+    "subcategory": "rash",
+    "title": "宝宝皮疹时如何初步观察与分流",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝起疹子怎么办",
+      "宝宝身上红点要不要去医院",
+      "宝宝皮疹怎么观察",
+      "孩子突然长红疹怎么办"
+    ],
+    "answer_summary": "宝宝皮疹需要观察范围、是否伴发热、呼吸异常、面部肿胀、精神差和进食变化；严重或进展快时应就医。",
+    "answer_points": [
+      "记录皮疹出现时间、范围、是否迅速扩散",
+      "观察是否伴发热、瘙痒、渗液、破溃或精神差",
+      "若与新食物、药物或接触物相关，应暂停可疑刺激并记录",
+      "呼吸困难、面部肿胀或精神差属于高风险信号"
+    ],
+    "do_list": [
+      "拍照记录皮疹变化，方便线下沟通",
+      "记录近期新食物、药物、洗护用品或接触物",
+      "保持皮肤清洁，避免抓挠刺激"
+    ],
+    "dont_list": [
+      "不要自行诊断过敏或感染",
+      "不要随意使用成人药膏",
+      "不要忽视伴随呼吸或精神异常"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "面部或口唇肿胀",
+      "高热",
+      "精神状态差",
+      "皮疹迅速扩散",
+      "明显渗液或破溃"
+    ],
+    "escalation_advice": "若皮疹伴呼吸困难、面部口唇肿胀、高热、精神差、迅速扩散或明显渗液破溃，应尽快就医。",
+    "source_refs": [
+      {
+        "doc_id": "aap_food_allergy_symptom_checker",
+        "title": "HealthyChildren: Food Allergy",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Food+Allergy"
+      }
+    ],
+    "evidence_note": [
+      "皮疹分流需要关注全身反应、呼吸、面部肿胀、发热和精神状态。",
+      "本卡不做皮疹病因诊断。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "triage_009",
+    "category": "symptom_triage",
+    "subcategory": "head_bump",
+    "title": "宝宝磕到头后的观察边界",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝摔到头怎么办",
+      "宝宝磕到头要不要去医院",
+      "孩子从床上掉下来怎么办",
+      "宝宝撞到头后怎么观察"
+    ],
+    "answer_summary": "宝宝磕到头后应观察意识、精神、呕吐、抽搐、走路或活动异常，以及头部伤口和肿胀情况；危险信号需尽快就医。",
+    "answer_points": [
+      "先确认宝宝是否清醒、反应是否和平时一致",
+      "观察是否反复呕吐、抽搐、嗜睡、哭闹难安抚或活动异常",
+      "检查是否有开放伤口、明显肿胀或持续出血",
+      "高处跌落、年龄小或家长无法判断时应更谨慎"
+    ],
+    "do_list": [
+      "记录受伤时间、高度和后续表现",
+      "短期内密切观察精神、呕吐和活动情况",
+      "有伤口或危险信号时及时就医"
+    ],
+    "dont_list": [
+      "不要只看外表没有伤口就完全放心",
+      "不要让宝宝受伤后无人观察",
+      "不要自行判断严重头外伤"
+    ],
+    "red_flags": [
+      "意识差",
+      "反复呕吐",
+      "抽搐",
+      "嗜睡难叫醒",
+      "活动异常",
+      "持续出血",
+      "明显头部凹陷或肿胀加重"
+    ],
+    "escalation_advice": "若宝宝磕头后出现意识差、反复呕吐、抽搐、嗜睡难叫醒、活动异常、持续出血或明显头部异常，应尽快就医或急诊评估。",
+    "source_refs": [
+      {
+        "doc_id": "aap_symptom_checker_head_injury",
+        "title": "HealthyChildren: Symptom Checker",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/default.aspx"
+      }
+    ],
+    "evidence_note": [
+      "头部外伤观察重点是意识、呕吐、抽搐、活动异常、持续出血和明显头部异常。",
+      "本卡仅做分流提醒，不评估伤情严重程度。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "development_003",
+    "category": "development",
+    "subcategory": "tummy_time_head_control",
+    "title": "抬头和趴玩如何安全观察",
+    "age_scope": ["0-6月"],
+    "question_patterns": [
+      "宝宝多久会抬头",
+      "宝宝趴着练抬头怎么做",
+      "趴玩要注意什么",
+      "宝宝不爱趴怎么办"
+    ],
+    "answer_summary": "抬头和趴玩需要在清醒、有成人看护、短时间多次的前提下进行，观察宝宝是否逐步更能控制头部和上肢支撑。",
+    "answer_points": [
+      "趴玩应在宝宝清醒且有成人看护时进行",
+      "开始时间可以很短，逐步增加，重点看宝宝接受度",
+      "不要让宝宝趴睡或无人看护趴着",
+      "若长期完全不能抬头或伴明显异常，应咨询专业人员"
+    ],
+    "do_list": [
+      "选择平稳、安全、清洁的表面",
+      "短时间多次尝试，并观察宝宝情绪",
+      "用声音和玩具引导宝宝抬头和互动"
+    ],
+    "dont_list": [
+      "不要在宝宝刚吃饱后马上长时间趴玩",
+      "不要无人看护",
+      "不要强迫宝宝长时间保持同一姿势"
+    ],
+    "red_flags": [
+      "长期完全不能抬头",
+      "肢体活动明显不对称",
+      "互动反应很少",
+      "家长持续担心发育异常"
+    ],
+    "escalation_advice": "如果宝宝长期完全不能抬头、肢体活动明显不对称或互动反应很少，建议咨询儿童保健或儿科医生。",
+    "source_refs": [
+      {
+        "doc_id": "aap_milestones_matter",
+        "title": "HealthyChildren: Milestones Matter",
+        "url": "https://www.healthychildren.org/English/family-life/health-management/Pages/Milestones-Matter.aspx"
+      },
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      }
+    ],
+    "evidence_note": [
+      "发育观察应看趋势和互动表现，趴玩需要成人看护和安全环境。",
+      "本卡不做发育诊断。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "development_004",
+    "category": "development",
+    "subcategory": "sitting_crawling",
+    "title": "坐、爬等大运动发育如何粗略看",
+    "age_scope": ["4-18月"],
+    "question_patterns": [
+      "宝宝几个月会坐",
+      "宝宝几个月会爬",
+      "宝宝不会爬正常吗",
+      "大运动发育慢怎么办"
+    ],
+    "answer_summary": "坐、爬等大运动存在个体差异，家庭可观察趋势和整体能力，不应只凭某一个月龄点下结论。",
+    "answer_points": [
+      "发育里程碑是观察参考，不是精确考试时间表",
+      "重点看宝宝是否持续获得新能力，以及姿势和活动是否对称",
+      "提供安全空间让宝宝练习翻身、支撑、坐和移动",
+      "若多方面长期明显落后或出现退步，应线下评估"
+    ],
+    "do_list": [
+      "记录宝宝近期新出现的大运动能力",
+      "提供安全地垫和看护下的练习空间",
+      "结合精细动作、互动和语言反应一起观察"
+    ],
+    "dont_list": [
+      "不要强行让宝宝久坐或站立",
+      "不要只因不会爬就立即判断异常",
+      "不要忽视能力退步"
+    ],
+    "red_flags": [
+      "已经会的能力明显退步",
+      "身体活动明显不对称",
+      "长期完全没有新进展",
+      "家长持续担心且观察后未改善"
+    ],
+    "escalation_advice": "如果宝宝出现能力退步、活动明显不对称或长期完全没有新进展，建议咨询儿童保健或儿科医生。",
+    "source_refs": [
+      {
+        "doc_id": "aap_milestones_matter",
+        "title": "HealthyChildren: Milestones Matter",
+        "url": "https://www.healthychildren.org/English/family-life/health-management/Pages/Milestones-Matter.aspx"
+      }
+    ],
+    "evidence_note": [
+      "大运动发育观察应关注趋势、对称性和是否退步。",
+      "本卡不做发育迟缓诊断。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "development_005",
+    "category": "development",
+    "subcategory": "language_interaction",
+    "title": "宝宝语言和互动发育如何促进",
+    "age_scope": ["0-36月"],
+    "question_patterns": [
+      "宝宝不说话怎么办",
+      "怎么和宝宝多互动",
+      "宝宝叫名字没反应怎么办",
+      "宝宝语言发育怎么观察"
+    ],
+    "answer_summary": "语言和互动发育可通过日常回应、说话、阅读、游戏和目光交流促进；若长期缺少回应或出现倒退，应线下评估。",
+    "answer_points": [
+      "多和宝宝面对面说话、回应声音和动作",
+      "用日常照护场景进行命名、描述和轮流互动",
+      "减少长时间单向屏幕暴露，增加真人互动",
+      "若叫名长期无反应、目光交流少或能力退步，应咨询专业人员"
+    ],
+    "do_list": [
+      "每天安排固定亲子互动和阅读时间",
+      "回应宝宝发声、指物和表情",
+      "用简单语言描述正在做的事情"
+    ],
+    "dont_list": [
+      "不要长期让屏幕替代真人互动",
+      "不要只等宝宝自己开口而缺少回应",
+      "不要忽视叫名无反应或能力退步"
+    ],
+    "red_flags": [
+      "叫名长期无反应",
+      "目光交流很少",
+      "互动兴趣明显少",
+      "已经会的语言或互动能力退步"
+    ],
+    "escalation_advice": "若宝宝长期叫名无反应、目光交流少、互动兴趣明显少或出现能力退步，建议尽快咨询儿童保健或发育行为相关专业人员。",
+    "source_refs": [
+      {
+        "doc_id": "aap_milestones_matter",
+        "title": "HealthyChildren: Milestones Matter",
+        "url": "https://www.healthychildren.org/English/family-life/health-management/Pages/Milestones-Matter.aspx"
+      },
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      }
+    ],
+    "evidence_note": [
+      "语言互动发育观察需要关注回应、目光交流、互动兴趣和能力是否退步。",
+      "本卡不诊断发育障碍。"
+    ],
+    "review_status": "draft_reviewed",
+    "updated_at": "2026-04-28T12:10:00+08:00"
+  }
+]

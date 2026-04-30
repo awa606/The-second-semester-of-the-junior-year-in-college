@@ -1,0 +1,192 @@
+[
+  {
+    "card_id": "feeding_005",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "国家卫生健康委办公厅关于印发婴幼儿喂养健康教育核心信息的通知",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      },
+      {
+        "doc_id": "who_iycf_factsheet_2023",
+        "title": "WHO: Infant and young child feeding",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/infant-and-young-child-feeding"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委核心信息明确支持：满6个月开始添加辅食；从单一食物开始；开始可选择含铁丰富的泥糊状食物；每次只添加一种新食物并观察反应。",
+      "WHO事实页可作为国际规范性补充，支持6个月起添加营养充足且安全的辅食。"
+    ]
+  },
+  {
+    "card_id": "feeding_006",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "国家卫生健康委办公厅关于印发婴幼儿喂养健康教育核心信息的通知",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      },
+      {
+        "doc_id": "who_cf_guideline_2023",
+        "title": "WHO Guideline for complementary feeding of infants and young children 6-23 months of age",
+        "url": "https://www.who.int/publications/i/item/9789240081864"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委核心信息明确支持：辅食应从泥糊状逐步过渡到团块状固体食物；9个月过渡到带小颗粒稠粥、烂面、肉末、碎菜等；10-12个月更稠并可尝试块状食物；1岁后吃软烂饭。",
+      "WHO 6-23月龄辅食指南可作为质地渐进与年龄分段补充依据。"
+    ]
+  },
+  {
+    "card_id": "feeding_007",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "国家卫生健康委办公厅关于印发婴幼儿喂养健康教育核心信息的通知",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      },
+      {
+        "doc_id": "who_nlis_iycf",
+        "title": "WHO NLiS: Infant and young child feeding",
+        "url": "https://www.who.int/data/nutrition/nlis/info/infant-and-young-child-feeding"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委核心信息明确支持：6-9个月每日辅食1-2次、哺乳4-5次；9-12个月每日辅食2-3次、哺乳2-3次。",
+      "WHO NLiS 页面给出最低餐次参考：母乳喂养6-8月龄至少2次，9-23月龄至少3次。"
+    ]
+  },
+  {
+    "card_id": "feeding_008",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "国家卫生健康委办公厅关于印发婴幼儿喂养健康教育核心信息的通知",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      },
+      {
+        "doc_id": "who_iycf_factsheet_2023",
+        "title": "WHO: Infant and young child feeding",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/infant-and-young-child-feeding"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委核心信息明确支持：1-2岁鼓励尝试家庭膳食，每日与家庭成员共同进食3餐、期间加餐2次，并继续母乳喂养；1岁后辅食要少盐少糖。",
+      "WHO事实页支持：6个月起添加辅食，并继续母乳喂养至2岁或以上。"
+    ]
+  },
+  {
+    "card_id": "feeding_009",
+    "source_refs": [
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "国家卫生健康委办公厅关于印发婴幼儿喂养健康教育核心信息的通知",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      },
+      {
+        "doc_id": "aap_food_allergy_symptom_checker",
+        "title": "HealthyChildren: Food Allergy",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Food+Allergy"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委核心信息明确支持：引入新食物1-2日内若出现皮疹、腹泻、呕吐等轻微不适，应暂停添加；若仍出现不适或症状严重，应及时就医。",
+      "AAP 食物过敏页面直接列出常见表现：全身荨麻疹、面部肿胀、口腔肿痒、咳嗽、呕吐、腹泻。"
+    ]
+  },
+  {
+    "card_id": "care_004",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南（试行）文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      },
+      {
+        "doc_id": "aap_bathing_skin_care",
+        "title": "HealthyChildren: Bathing & Skin Care",
+        "url": "https://www.healthychildren.org/English/ages-stages/baby/bathing-skin-care/Pages/default.aspx"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委《3岁以下婴幼儿健康养育照护指南》解读明确：养育照护咨询指导内容包含生活照护指导。",
+      "AAP 洗澡与皮肤护理页明确：如果尿布区清洁到位，婴儿并不需要频繁洗澡；第一年每周3次可能已足够；洗得过勤可能使皮肤干燥。"
+    ]
+  },
+  {
+    "card_id": "care_005",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南（试行）文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      },
+      {
+        "doc_id": "aap_diaper_rash_symptom_checker",
+        "title": "HealthyChildren: Diaper Rash",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Diaper+Rash"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委《3岁以下婴幼儿健康养育照护指南》解读明确：养育照护咨询指导内容包含生活照护指导。",
+      "AAP 尿布疹页面明确：更频繁更换尿布、用温水清洁、减少粪便与皮肤接触是基础预防措施；若出现开放性破损、出血、扩散等情况应联系医生。"
+    ]
+  },
+  {
+    "card_id": "development_002",
+    "source_refs": [
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南（试行）文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      },
+      {
+        "doc_id": "aap_milestones_matter",
+        "title": "HealthyChildren: Milestones Matter: Your Child's Growth & Development By Age 5",
+        "url": "https://www.healthychildren.org/English/family-life/health-management/Pages/Milestones-Matter.aspx"
+      }
+    ],
+    "evidence_note": [
+      "国家卫健委《3岁以下婴幼儿健康养育照护指南》解读明确：附件包含0-3岁儿童生长发育监测图、儿童心理行为发育问题预警征象筛查表、6-24月龄辅食添加要点、亲子交流与玩耍要点。",
+      "AAP 发育里程碑页面明确：多数儿童会在大致年龄达到里程碑，但有些会稍晚；若家长担心，应尽早与儿科医生沟通并考虑筛查。"
+    ]
+  },
+  {
+    "card_id": "triage_003",
+    "source_refs": [
+      {
+        "doc_id": "aap_cough_0_12m_symptom_checker",
+        "title": "HealthyChildren: Cough (0-12 Months)",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Cough+%280-12+Months%29"
+      },
+      {
+        "doc_id": "nhc_careguide_explainer_2022",
+        "title": "3岁以下婴幼儿健康养育照护指南（试行）文件解读",
+        "url": "https://www.nhc.gov.cn/fys/c100077/202211/6e6de36e041f4308a0b1d887ec9a1eb4.shtml"
+      }
+    ],
+    "evidence_note": [
+      "AAP 咳嗽分流页面明确：呼吸困难、三凹征、发绀、喘鸣/喘息、明显脱水、摄入量不足、年龄很小伴发热等属于需要尽快就医或急诊评估的信号。",
+      "国家卫健委《3岁以下婴幼儿健康养育照护指南》解读明确：咨询指导内容包含常见健康问题的防控及照护，可作为国内场景下的总边界来源。"
+    ]
+  },
+  {
+    "card_id": "triage_004",
+    "source_refs": [
+      {
+        "doc_id": "aap_diarrhea_0_12m_symptom_checker",
+        "title": "HealthyChildren: Diarrhea (0-12 Months)",
+        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Diarrhea+%280-12+Months%29"
+      },
+      {
+        "doc_id": "nhc_feeding_core_2020",
+        "title": "国家卫生健康委办公厅关于印发婴幼儿喂养健康教育核心信息的通知",
+        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+      }
+    ],
+    "evidence_note": [
+      "AAP 腹泻分流页面明确：脱水迹象、便血、持续腹痛、反复呕吐、年龄很小伴腹泻、严重腹泻、高热、状态很差等属于需要尽快就医的信号。",
+      "国家卫健委核心信息明确：婴儿发生腹泻不需要禁食，可继续母乳喂养，并应在医生指导下及时补充体液、避免脱水。"
+    ]
+  }
+]
