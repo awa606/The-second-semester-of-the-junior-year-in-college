@@ -23,7 +23,9 @@ class AnswerBody(BaseModel):
 class AskResponse(BaseModel):
     request_id: str
     category: str
+    category_label: str = "未分类"
     risk_level: str
+    hit_card_ids: List[str] = Field(default_factory=list)
     answer: AnswerBody
     sources: List[SourceItem] = Field(default_factory=list)
     disclaimer: str

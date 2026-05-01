@@ -1,5 +1,14 @@
 # 变更记录
 
+## v0.2.4 - 2026-05-01
+
+- 将 `data/cards/knowledge_cards.expansion.v0.2.json` 从 19 张扩展到 40 张，项目总有效卡达到 60 张。
+- 新增覆盖重点放在 `care`、`development`、`symptom_triage`，并补充自然中文问法。
+- 审核高频演示卡来源，更新 `feeding_010`、`feeding_011`、`care_007`、`triage_005` 为可追溯来源并标记 `reviewed`。
+- 新增 `GET /api/coverage` 用于展示总卡片数与分类覆盖。
+- 前端新增命中 `card_id`、分类中文标签与覆盖面展示，便于演示说明“命中哪张卡”。
+- 已保持风险边界与拒绝药物剂量/诊断策略不变。
+
 ## v0.2.3 - 2026-04-29
 
 - 整理项目目录，把历史交接/计划文件移入 `docs/archive/`。

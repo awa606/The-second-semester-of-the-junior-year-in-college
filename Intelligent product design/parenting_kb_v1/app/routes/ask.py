@@ -9,6 +9,13 @@ from app.services.retriever import retrieve_cards
 from app.services.risk_guard import check_risk, get_default_disclaimer
 
 router = APIRouter(prefix="/api", tags=["ask"])
+CATEGORY_LABELS = {
+    "feeding": "喂养",
+    "care": "日常护理",
+    "development": "发育",
+    "symptom_triage": "症状分流",
+    "unknown": "未命中",
+}
 
 
 @router.post("/ask", response_model=AskResponse)
@@ -26,7 +33,9 @@ def ask_question(payload: AskRequest) -> AskResponse:
         return AskResponse(
             request_id=request_id,
             category=risk_result["category"],
+            category_label=CATEGORY_LABELS.get(risk_result["category"], "风险拦截"),
             risk_level=risk_result["risk_level"],
+            hit_card_ids=[],
             answer=AnswerBody(
                 summary=risk_result["message"],
                 advice=["请尽快联系医生、药师或线下医疗机构。"],
@@ -51,7 +60,9 @@ def ask_question(payload: AskRequest) -> AskResponse:
     return AskResponse(
         request_id=request_id,
         category=result["category"],
+        category_label=CATEGORY_LABELS.get(result["category"], "未分类"),
         risk_level=result["risk_level"],
+        hit_card_ids=hit_card_ids,
         answer=AnswerBody(
             summary=result["summary"],
             advice=result["advice"],
