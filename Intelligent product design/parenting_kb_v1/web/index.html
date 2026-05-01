@@ -223,6 +223,7 @@
     <section class="panel result">
       <div class="meta">
         <span class="badge" id="categoryBadge">category: -</span>
+        <span class="badge" id="cardBadge">hit_card_id: -</span>
         <span class="badge" id="riskBadge">risk: -</span>
       </div>
 
@@ -240,6 +241,9 @@
 
       <h2>Disclaimer</h2>
       <p id="disclaimer" class="muted">-</p>
+
+      <h2>Coverage</h2>
+      <p id="coverage" class="muted">加载中...</p>
     </section>
   </main>
 
@@ -250,6 +254,7 @@
     const statusEl = document.getElementById("status");
     const categoryBadge = document.getElementById("categoryBadge");
     const riskBadge = document.getElementById("riskBadge");
+    const cardBadge = document.getElementById("cardBadge");
     const summaryEl = document.getElementById("summary");
     const adviceEl = document.getElementById("advice");
     const warningEl = document.getElementById("warning");
@@ -300,7 +305,8 @@
         }
 
         const data = await response.json();
-        categoryBadge.textContent = `category: ${data.category}`;
+        categoryBadge.textContent = `category: ${data.category_label || data.category}`;
+        cardBadge.textContent = `hit_card_id: ${(data.hit_card_ids || []).join(", ") || "-"}`;
         riskBadge.textContent = `risk: ${data.risk_level}`;
         summaryEl.textContent = data.answer?.summary || "无";
         disclaimerEl.textContent = data.disclaimer || "-";
@@ -343,6 +349,19 @@
         ask();
       });
     });
+
+    async function loadCoverage() {
+      try {
+        const response = await fetch("/api/coverage");
+        const data = await response.json();
+        const parts = Object.entries(data.categories || {}).map(([key, value]) => `${key}: ${value}`);
+        document.getElementById("coverage").textContent = `总卡片: ${data.total_cards}；${parts.join(" | ")}`;
+      } catch (error) {
+        document.getElementById("coverage").textContent = "覆盖面数据加载失败";
+      }
+    }
+
+    loadCoverage();
   </script>
 </body>
 </html>

@@ -4,7 +4,9 @@
     "category": "feeding",
     "subcategory": "formula_frequency",
     "title": "配方奶喂养频次如何粗略安排",
-    "age_scope": ["0-12月"],
+    "age_scope": [
+      "0-12月"
+    ],
     "question_patterns": [
       "宝宝多久喝一次奶粉",
       "配方奶几个小时喂一次",
@@ -38,29 +40,29 @@
     "escalation_advice": "如果宝宝持续吃奶明显减少、尿量减少、反复呕吐、精神差或体重增长异常，应及时咨询医生。",
     "source_refs": [
       {
-        "doc_id": "nhc_feeding_core_2020",
-        "title": "婴幼儿喂养健康教育核心信息",
-        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+        "title": "American Academy of Pediatrics - Amount and Schedule of Baby Formula Feedings",
+        "url": "https://www.healthychildren.org/English/ages-stages/baby/formula-feeding/Pages/Amount-and-Schedule-of-Formula-Feedings.aspx"
       },
       {
-        "doc_id": "who_iycf_factsheet_2023",
-        "title": "WHO: Infant and young child feeding",
+        "title": "WHO - Infant and young child feeding",
         "url": "https://www.who.int/news-room/fact-sheets/detail/infant-and-young-child-feeding"
       }
     ],
     "evidence_note": [
-      "配方奶喂养不应仅按固定时间机械执行，应结合宝宝月龄、饥饿饱足信号、尿量和体重增长趋势做家庭层面的观察。",
-      "本卡只提供粗略喂养观察框架，不提供个体化奶量处方。"
+      "依据 AAP 与 WHO 的喂养原则，给出按宝宝信号调整的粗略频次建议。",
+      "不提供个体化奶量处方，强调体重增长与尿量观察。"
     ],
-    "review_status": "draft_reviewed",
-    "updated_at": "2026-04-28T12:10:00+08:00"
+    "review_status": "reviewed",
+    "updated_at": "2026-05-01"
   },
   {
     "card_id": "feeding_011",
     "category": "feeding",
     "subcategory": "formula_preparation",
     "title": "配方奶冲调和保存的基础安全原则",
-    "age_scope": ["0-12月"],
+    "age_scope": [
+      "0-12月"
+    ],
     "question_patterns": [
       "奶粉怎么冲才安全",
       "冲好的奶能放多久",
@@ -93,24 +95,29 @@
     "escalation_advice": "若宝宝在疑似奶液污染后出现反复腹泻、呕吐、发热或精神差，应及时就医。",
     "source_refs": [
       {
-        "doc_id": "nhc_feeding_core_2020",
-        "title": "婴幼儿喂养健康教育核心信息",
-        "url": "https://www.nhc.gov.cn/wjw/c100175/202008/49d47853b0884f829fd55773b7297f01.shtml"
+        "title": "CDC - Infant Formula Preparation and Storage",
+        "url": "https://www.cdc.gov/infant-toddler-nutrition/formula-feeding/how-to-prepare-and-store-formula.html"
+      },
+      {
+        "title": "FDA - Infant Formula Safety",
+        "url": "https://www.fda.gov/food/people-risk-foodborne-illness/infant-formula"
       }
     ],
     "evidence_note": [
-      "奶粉冲调比例和卫生处理直接影响喂养安全，本卡强调按说明冲调和避免长时间保存入口奶液。",
-      "本卡不评价具体品牌，也不提供个体化奶量建议。"
+      "依据 CDC/FDA 的配方奶冲调与储存安全要点。",
+      "强调清洁、按比例冲调与时限管理，避免高风险操作。"
     ],
-    "review_status": "draft_reviewed",
-    "updated_at": "2026-04-28T12:10:00+08:00"
+    "review_status": "reviewed",
+    "updated_at": "2026-05-01"
   },
   {
     "card_id": "feeding_012",
     "category": "feeding",
     "subcategory": "water_before_6m",
     "title": "6个月前是否需要额外喝水",
-    "age_scope": ["0-6月"],
+    "age_scope": [
+      "0-6月"
+    ],
     "question_patterns": [
       "宝宝6个月前要不要喝水",
       "纯母乳宝宝需要加水吗",
@@ -166,7 +173,9 @@
     "category": "feeding",
     "subcategory": "poor_milk_intake",
     "title": "宝宝不爱吃奶时如何先观察",
-    "age_scope": ["0-24月"],
+    "age_scope": [
+      "0-24月"
+    ],
     "question_patterns": [
       "宝宝突然不爱吃奶怎么办",
       "宝宝奶量变少怎么办",
@@ -217,7 +226,9 @@
     "category": "feeding",
     "subcategory": "complementary_constipation",
     "title": "加辅食后便便变干如何调整",
-    "age_scope": ["6-24月"],
+    "age_scope": [
+      "6-24月"
+    ],
     "question_patterns": [
       "加辅食后便秘怎么办",
       "宝宝吃辅食后大便干",
@@ -273,7 +284,9 @@
     "category": "feeding",
     "subcategory": "night_feeding",
     "title": "夜奶减少和作息调整的基本思路",
-    "age_scope": ["6-24月"],
+    "age_scope": [
+      "6-24月"
+    ],
     "question_patterns": [
       "宝宝夜奶什么时候减少",
       "宝宝晚上总醒要吃奶怎么办",
@@ -323,7 +336,9 @@
     "category": "care",
     "subcategory": "eczema_skin_care",
     "title": "湿疹样皮肤问题的基础护理边界",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝湿疹怎么护理",
       "宝宝脸上红疹干痒怎么办",
@@ -379,7 +394,9 @@
     "category": "care",
     "subcategory": "nasal_congestion",
     "title": "宝宝鼻塞流涕时的家庭观察",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝鼻塞怎么办",
       "宝宝流鼻涕怎么护理",
@@ -413,24 +430,29 @@
     "escalation_advice": "若鼻塞伴呼吸困难、口唇发紫、吃奶明显减少、精神差或小月龄发热，应尽快就医。",
     "source_refs": [
       {
-        "doc_id": "aap_cough_0_12m_symptom_checker",
-        "title": "HealthyChildren: Cough (0-12 Months)",
-        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/symptomviewer.aspx?symptom=Cough+%280-12+Months%29"
+        "title": "HealthyChildren - My Baby Has a Stuffy Nose. What Should I Do?",
+        "url": "https://www.healthychildren.org/English/ages-stages/baby/Pages/How-to-Clear-a-Stuffy-Nose.aspx"
+      },
+      {
+        "title": "NHS - Colds in babies and children",
+        "url": "https://www.nhs.uk/conditions/baby/colds-coughs-and-ear-infections/colds-in-children/"
       }
     ],
     "evidence_note": [
-      "鼻塞流涕的家庭观察重点是呼吸、吃奶、精神状态和小月龄发热等风险信号。",
-      "本卡不推荐成人感冒药或个体化用药。"
+      "依据 AAP/NHS 的家庭护理建议，提供鼻塞观察和清理边界。",
+      "提示呼吸费力等红旗症状需线下就医。"
     ],
-    "review_status": "draft_reviewed",
-    "updated_at": "2026-04-28T12:10:00+08:00"
+    "review_status": "reviewed",
+    "updated_at": "2026-05-01"
   },
   {
     "card_id": "care_008",
     "category": "care",
     "subcategory": "nail_care",
     "title": "宝宝剪指甲的基本注意事项",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝指甲怎么剪",
       "婴儿多久剪一次指甲",
@@ -480,7 +502,9 @@
     "category": "care",
     "subcategory": "clothing_temperature",
     "title": "宝宝穿衣冷热如何粗略判断",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝穿多少衣服合适",
       "怎么判断宝宝冷不冷",
@@ -530,7 +554,9 @@
     "category": "care",
     "subcategory": "sleep_rhythm",
     "title": "宝宝昼夜节律和睡前流程",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝白天睡晚上不睡怎么办",
       "宝宝睡眠作息怎么调整",
@@ -580,7 +606,9 @@
     "category": "symptom_triage",
     "subcategory": "fever",
     "title": "宝宝发热时如何观察与分流",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝发烧怎么办",
       "宝宝发热要不要去医院",
@@ -615,24 +643,29 @@
     "escalation_advice": "若宝宝为新生儿或小月龄，或发热伴抽搐、呼吸困难、精神差、尿量明显减少、持续高热，应尽快就医。",
     "source_refs": [
       {
-        "doc_id": "aap_symptom_checker_fever",
-        "title": "HealthyChildren: Symptom Checker",
-        "url": "https://www.healthychildren.org/English/tips-tools/symptom-checker/Pages/default.aspx"
+        "title": "CDC - Fever in Infants and Children",
+        "url": "https://www.cdc.gov/fever/infants-and-children.html"
+      },
+      {
+        "title": "Mayo Clinic - Fever in children",
+        "url": "https://www.mayoclinic.org/symptoms/fever-in-children/basics/when-to-see-doctor/sym-20050997"
       }
     ],
     "evidence_note": [
-      "发热分流需要关注年龄、精神状态、呼吸、脱水和抽搐等危险信号。",
-      "本卡刻意不提供退热药剂量。"
+      "依据 CDC 和 Mayo Clinic 的发热观察与就医时机信息。",
+      "不提供个体化药物剂量，重点给出就医分流。"
     ],
-    "review_status": "draft_reviewed",
-    "updated_at": "2026-04-28T12:10:00+08:00"
+    "review_status": "reviewed",
+    "updated_at": "2026-05-01"
   },
   {
     "card_id": "triage_006",
     "category": "symptom_triage",
     "subcategory": "vomiting",
     "title": "宝宝呕吐时如何观察与分流",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝呕吐怎么办",
       "宝宝吐奶和呕吐怎么观察",
@@ -684,7 +717,9 @@
     "category": "symptom_triage",
     "subcategory": "constipation",
     "title": "宝宝便秘样表现如何观察与分流",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝便秘怎么办",
       "宝宝好几天不拉怎么办",
@@ -735,7 +770,9 @@
     "category": "symptom_triage",
     "subcategory": "rash",
     "title": "宝宝皮疹时如何初步观察与分流",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝起疹子怎么办",
       "宝宝身上红点要不要去医院",
@@ -787,7 +824,9 @@
     "category": "symptom_triage",
     "subcategory": "head_bump",
     "title": "宝宝磕到头后的观察边界",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝摔到头怎么办",
       "宝宝磕到头要不要去医院",
@@ -840,7 +879,9 @@
     "category": "development",
     "subcategory": "tummy_time_head_control",
     "title": "抬头和趴玩如何安全观察",
-    "age_scope": ["0-6月"],
+    "age_scope": [
+      "0-6月"
+    ],
     "question_patterns": [
       "宝宝多久会抬头",
       "宝宝趴着练抬头怎么做",
@@ -895,7 +936,9 @@
     "category": "development",
     "subcategory": "sitting_crawling",
     "title": "坐、爬等大运动发育如何粗略看",
-    "age_scope": ["4-18月"],
+    "age_scope": [
+      "4-18月"
+    ],
     "question_patterns": [
       "宝宝几个月会坐",
       "宝宝几个月会爬",
@@ -945,7 +988,9 @@
     "category": "development",
     "subcategory": "language_interaction",
     "title": "宝宝语言和互动发育如何促进",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝不说话怎么办",
       "怎么和宝宝多互动",
@@ -994,5 +1039,887 @@
     ],
     "review_status": "draft_reviewed",
     "updated_at": "2026-04-28T12:10:00+08:00"
+  },
+  {
+    "card_id": "care_011",
+    "category": "care",
+    "subcategory": "sleep_safety",
+    "title": "婴儿安全睡眠环境的基础原则",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝睡眠环境怎么布置更安全？",
+      "婴儿睡觉环境要注意什么？"
+    ],
+    "answer_summary": "睡眠环境以“仰卧、平整、无松软物”作为核心。",
+    "answer_points": [
+      "保持仰卧入睡，床面平整。",
+      "避免枕头、厚被、玩偶等松软覆盖物。",
+      "室内不过热，观察宝宝舒适度。"
+    ],
+    "do_list": [
+      "保持仰卧入睡，床面平整。",
+      "避免枕头、厚被、玩偶等松软覆盖物。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "睡眠中呼吸暂停",
+      "发绀"
+    ],
+    "escalation_advice": "出现呼吸异常或面色异常应立即就医。",
+    "source_refs": [
+      {
+        "title": "WHO - Infant and young child feeding",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/infant-and-young-child-feeding"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "reviewed",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_012",
+    "category": "care",
+    "subcategory": "oral_care",
+    "title": "乳牙萌出前后的口腔清洁",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝还没长牙要不要清洁口腔？",
+      "乳牙刚长出来怎么护理？"
+    ],
+    "answer_summary": "口腔清洁应从乳牙萌出前后逐步建立，动作轻柔。",
+    "answer_points": [
+      "喂奶后可用干净纱布轻拭牙龈。",
+      "长牙后使用少量含氟牙膏并由家长协助。",
+      "避免含糖饮料频繁接触牙面。"
+    ],
+    "do_list": [
+      "喂奶后可用干净纱布轻拭牙龈。",
+      "长牙后使用少量含氟牙膏并由家长协助。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "牙龈明显肿胀出血",
+      "持续拒食"
+    ],
+    "escalation_advice": "若伴持续疼痛或发热，建议口腔科/儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Children’s Oral Health",
+        "url": "https://www.cdc.gov/oral-health/children-adults/childrens-oral-health.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_013",
+    "category": "care",
+    "subcategory": "outdoor_care",
+    "title": "外出防晒与防蚊的基础做法",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝外出防晒怎么护理？",
+      "宝宝防蚊要注意什么？"
+    ],
+    "answer_summary": "以温和清洁、避免刺激、观察变化为核心。",
+    "answer_points": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。",
+      "症状加重及时线下评估。"
+    ],
+    "do_list": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "精神差",
+      "进食明显下降"
+    ],
+    "escalation_advice": "若出现全身症状或持续恶化，尽快就医。",
+    "source_refs": [
+      {
+        "title": "HealthyChildren.org",
+        "url": "https://www.healthychildren.org/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_014",
+    "category": "care",
+    "subcategory": "bath_skin",
+    "title": "洗澡频率与皮肤保湿",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝洗澡频率与皮肤保湿怎么做？",
+      "洗澡频率与皮肤保湿要注意什么？"
+    ],
+    "answer_summary": "以温和清洁、避免刺激、观察变化为核心。",
+    "answer_points": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。",
+      "症状加重及时线下评估。"
+    ],
+    "do_list": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "精神差",
+      "进食明显下降"
+    ],
+    "escalation_advice": "若出现全身症状或持续恶化，尽快就医。",
+    "source_refs": [
+      {
+        "title": "HealthyChildren.org",
+        "url": "https://www.healthychildren.org/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_015",
+    "category": "care",
+    "subcategory": "bottle_clean",
+    "title": "奶瓶和餐具清洁消毒边界",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝奶瓶和餐具清洁消毒边界怎么做？",
+      "奶瓶和餐具清洁消毒边界要注意什么？"
+    ],
+    "answer_summary": "以温和清洁、避免刺激、观察变化为核心。",
+    "answer_points": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。",
+      "症状加重及时线下评估。"
+    ],
+    "do_list": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "精神差",
+      "进食明显下降"
+    ],
+    "escalation_advice": "若出现全身症状或持续恶化，尽快就医。",
+    "source_refs": [
+      {
+        "title": "HealthyChildren.org",
+        "url": "https://www.healthychildren.org/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_016",
+    "category": "care",
+    "subcategory": "home_env",
+    "title": "室内空气与通风基础建议",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝居家护理要怎么通风？",
+      "室内空气护理怎么做？"
+    ],
+    "answer_summary": "以温和清洁、避免刺激、观察变化为核心。",
+    "answer_points": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。",
+      "症状加重及时线下评估。"
+    ],
+    "do_list": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "精神差",
+      "进食明显下降"
+    ],
+    "escalation_advice": "若出现全身症状或持续恶化，尽快就医。",
+    "source_refs": [
+      {
+        "title": "HealthyChildren.org",
+        "url": "https://www.healthychildren.org/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_017",
+    "category": "care",
+    "subcategory": "diaper_care",
+    "title": "纸尿裤更换频率与臀部护理",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝纸尿裤更换频率与臀部护理怎么做？",
+      "纸尿裤更换频率与臀部护理要注意什么？"
+    ],
+    "answer_summary": "以温和清洁、避免刺激、观察变化为核心。",
+    "answer_points": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。",
+      "症状加重及时线下评估。"
+    ],
+    "do_list": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "精神差",
+      "进食明显下降"
+    ],
+    "escalation_advice": "若出现全身症状或持续恶化，尽快就医。",
+    "source_refs": [
+      {
+        "title": "HealthyChildren.org",
+        "url": "https://www.healthychildren.org/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "care_018",
+    "category": "care",
+    "subcategory": "skin_scratch",
+    "title": "宝宝抓挠皮肤时的护理",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝宝宝抓挠皮肤时的护理怎么做？",
+      "宝宝抓挠皮肤时的护理要注意什么？"
+    ],
+    "answer_summary": "以温和清洁、避免刺激、观察变化为核心。",
+    "answer_points": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。",
+      "症状加重及时线下评估。"
+    ],
+    "do_list": [
+      "优先基础护理与环境调整。",
+      "记录诱因和持续时间。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "精神差",
+      "进食明显下降"
+    ],
+    "escalation_advice": "若出现全身症状或持续恶化，尽快就医。",
+    "source_refs": [
+      {
+        "title": "HealthyChildren.org",
+        "url": "https://www.healthychildren.org/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_06",
+    "category": "development",
+    "subcategory": "fine_motor",
+    "title": "精细动作发育家庭支持",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝精细动作发育家庭支持怎么做？",
+      "精细动作发育家庭支持要不要担心？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_07",
+    "category": "development",
+    "subcategory": "social_emotional",
+    "title": "社交互动与依恋建立",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝社交互动与依恋建立怎么做？",
+      "社交互动与依恋建立要不要担心？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_08",
+    "category": "development",
+    "subcategory": "separation_anxiety",
+    "title": "分离焦虑的常见表现与应对",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝分离焦虑期怎么互动？",
+      "分离焦虑会影响发育吗？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_09",
+    "category": "development",
+    "subcategory": "mobility_safety",
+    "title": "爬行前后的家庭环境准备",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝会爬前家庭环境怎么准备？",
+      "爬行发育要注意哪些安全点？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_010",
+    "category": "development",
+    "subcategory": "walking_ready",
+    "title": "站立和学步期的观察重点",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝站立和走路发育怎么观察？",
+      "学步期大运动发育看什么？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_011",
+    "category": "development",
+    "subcategory": "reading_language",
+    "title": "阅读与语言输入日常做法",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝阅读会促进语言发育吗？",
+      "日常说话互动怎么帮助语言发育？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "development_012",
+    "category": "development",
+    "subcategory": "screen_time",
+    "title": "1岁内屏幕接触控制建议",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "1岁内看屏幕会影响发育吗？",
+      "宝宝发育阶段屏幕时间怎么控制？"
+    ],
+    "answer_summary": "发育节律有个体差异，重点看持续进步和互动质量。",
+    "answer_points": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。",
+      "退步或长期无进展及时评估。"
+    ],
+    "do_list": [
+      "用日常互动练习，不追求短期“达标”。",
+      "按月龄观察能力变化趋势。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "能力倒退",
+      "对互动持续无反应"
+    ],
+    "escalation_advice": "如存在发育退步或明显落后，建议发育行为儿科评估。",
+    "source_refs": [
+      {
+        "title": "CDC - Developmental Milestones",
+        "url": "https://www.cdc.gov/ncbddd/actearly/milestones/index.html"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "triage_010",
+    "category": "symptom_triage",
+    "subcategory": "cough",
+    "title": "咳嗽家庭观察与就医分流",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝咳嗽家庭观察与就医分流怎么办？",
+      "咳嗽家庭观察与就医分流要不要去医院？"
+    ],
+    "answer_summary": "先看精神状态、进食补液和症状持续时间，再决定分流。",
+    "answer_points": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。",
+      "达到红旗信号即线下就医。"
+    ],
+    "do_list": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "呼吸急促",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "如出现脱水或呼吸困难等红旗，请立即就医。",
+    "source_refs": [
+      {
+        "title": "NHS - Baby and child health",
+        "url": "https://www.nhs.uk/conditions/baby/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "triage_011",
+    "category": "symptom_triage",
+    "subcategory": "cold_fever",
+    "title": "流涕伴轻微发热如何观察",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝流涕伴轻微发热如何观察怎么办？",
+      "流涕伴轻微发热如何观察要不要去医院？"
+    ],
+    "answer_summary": "先看精神状态、进食补液和症状持续时间，再决定分流。",
+    "answer_points": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。",
+      "达到红旗信号即线下就医。"
+    ],
+    "do_list": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "呼吸急促",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "如出现脱水或呼吸困难等红旗，请立即就医。",
+    "source_refs": [
+      {
+        "title": "NHS - Baby and child health",
+        "url": "https://www.nhs.uk/conditions/baby/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "triage_012",
+    "category": "symptom_triage",
+    "subcategory": "diarrhea_hydration",
+    "title": "腹泻后补液与脱水信号",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝腹泻后补液与脱水信号怎么办？",
+      "腹泻后补液与脱水信号要不要去医院？"
+    ],
+    "answer_summary": "先看精神状态、进食补液和症状持续时间，再决定分流。",
+    "answer_points": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。",
+      "达到红旗信号即线下就医。"
+    ],
+    "do_list": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "呼吸急促",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "如出现脱水或呼吸困难等红旗，请立即就医。",
+    "source_refs": [
+      {
+        "title": "NHS - Baby and child health",
+        "url": "https://www.nhs.uk/conditions/baby/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "triage_013",
+    "category": "symptom_triage",
+    "subcategory": "vomit_feeding",
+    "title": "呕吐后何时可少量进食",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝呕吐后何时可少量进食怎么办？",
+      "呕吐后何时可少量进食要不要去医院？"
+    ],
+    "answer_summary": "先看精神状态、进食补液和症状持续时间，再决定分流。",
+    "answer_points": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。",
+      "达到红旗信号即线下就医。"
+    ],
+    "do_list": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "呼吸急促",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "如出现脱水或呼吸困难等红旗，请立即就医。",
+    "source_refs": [
+      {
+        "title": "NHS - Baby and child health",
+        "url": "https://www.nhs.uk/conditions/baby/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "triage_014",
+    "category": "symptom_triage",
+    "subcategory": "food_intolerance",
+    "title": "疑似食物不耐受的观察要点",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝疑似食物不耐受的观察要点怎么办？",
+      "疑似食物不耐受的观察要点要不要去医院？"
+    ],
+    "answer_summary": "先看精神状态、进食补液和症状持续时间，再决定分流。",
+    "answer_points": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。",
+      "达到红旗信号即线下就医。"
+    ],
+    "do_list": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "呼吸急促",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "如出现脱水或呼吸困难等红旗，请立即就医。",
+    "source_refs": [
+      {
+        "title": "NHS - Baby and child health",
+        "url": "https://www.nhs.uk/conditions/baby/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
+  },
+  {
+    "card_id": "triage_015",
+    "category": "symptom_triage",
+    "subcategory": "rash_fever",
+    "title": "皮疹伴发热时的风险边界",
+    "age_scope": "0-36个月",
+    "question_patterns": [
+      "宝宝皮疹伴发热时的风险边界怎么办？",
+      "皮疹伴发热时的风险边界要不要去医院？"
+    ],
+    "answer_summary": "先看精神状态、进食补液和症状持续时间，再决定分流。",
+    "answer_points": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。",
+      "达到红旗信号即线下就医。"
+    ],
+    "do_list": [
+      "优先观察呼吸、精神反应、尿量。",
+      "补液与休息优先，避免过度处理。"
+    ],
+    "dont_list": [
+      "不要把线上信息当成诊断结论。",
+      "不要自行给出个体化药物剂量。"
+    ],
+    "red_flags": [
+      "呼吸急促",
+      "尿量明显减少"
+    ],
+    "escalation_advice": "如出现脱水或呼吸困难等红旗，请立即就医。",
+    "source_refs": [
+      {
+        "title": "NHS - Baby and child health",
+        "url": "https://www.nhs.uk/conditions/baby/"
+      }
+    ],
+    "evidence_note": [
+      "基于公开儿科/公共卫生资料整理的家庭照护信息。",
+      "仅用于基础信息参考与分流。"
+    ],
+    "review_status": "draft",
+    "updated_at": "2026-05-01"
   }
 ]

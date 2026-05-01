@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.routes.ask import router as ask_router
+from app.routes.coverage import router as coverage_router
 from app.routes.feedback import router as feedback_router
 from app.routes.health import router as health_router
 from app.routes.sources import router as sources_router
@@ -21,6 +22,7 @@ app = FastAPI(
 
 app.include_router(health_router)
 app.include_router(ask_router)
+app.include_router(coverage_router)
 app.include_router(sources_router)
 app.include_router(feedback_router)
 
