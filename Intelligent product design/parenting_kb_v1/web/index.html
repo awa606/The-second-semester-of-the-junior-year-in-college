@@ -223,7 +223,8 @@
     <section class="panel result">
       <div class="meta">
         <span class="badge" id="categoryBadge">category: -</span>
-        <span class="badge" id="cardBadge">hit_card_id: -</span>
+        <span class="badge" id="mainCardBadge">主命中卡: -</span>
+        <span class="badge" id="assistCardBadge">辅助命中卡: -</span>
         <span class="badge" id="riskBadge">risk: -</span>
       </div>
 
@@ -254,7 +255,8 @@
     const statusEl = document.getElementById("status");
     const categoryBadge = document.getElementById("categoryBadge");
     const riskBadge = document.getElementById("riskBadge");
-    const cardBadge = document.getElementById("cardBadge");
+    const mainCardBadge = document.getElementById("mainCardBadge");
+    const assistCardBadge = document.getElementById("assistCardBadge");
     const summaryEl = document.getElementById("summary");
     const adviceEl = document.getElementById("advice");
     const warningEl = document.getElementById("warning");
@@ -306,7 +308,12 @@
 
         const data = await response.json();
         categoryBadge.textContent = `category: ${data.category_label || data.category}`;
-        cardBadge.textContent = `hit_card_id: ${(data.hit_card_ids || []).join(", ") || "-"}`;
+        const hitCards = data.hit_card_ids || [];
+        const mainCard = hitCards.length > 0 ? hitCards[0] : "-";
+        const assistCards = hitCards.length > 1 ? hitCards.slice(1).join(", ") : "-";
+        const sourceMainTitle = data.sources && data.sources[0] ? data.sources[0].title : "-";
+        mainCardBadge.textContent = `主命中卡: ${mainCard} | ${sourceMainTitle}`;
+        assistCardBadge.textContent = `辅助命中卡: ${assistCards}`;
         riskBadge.textContent = `risk: ${data.risk_level}`;
         summaryEl.textContent = data.answer?.summary || "无";
         disclaimerEl.textContent = data.disclaimer || "-";

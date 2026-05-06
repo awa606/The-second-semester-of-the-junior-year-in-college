@@ -1,5 +1,14 @@
 # 变更记录
 
+## v0.2.5 - 2026-05-06
+
+- 优化 `scripts/powershell/TEST_COMMANDS.ps1`：先检查 `GET /api/health`，未启动时直接提示先运行 Uvicorn，不再继续执行后续请求。
+- 新增 `docs/manual/LOCAL_VERIFY_GUIDE.md`，固定本地验证顺序（先 `validate_kb.py`，再启动服务，再跑 PowerShell 冒烟）。
+- 调整发热卡检索竞争：保留 `triage_001` 的通用问法“宝宝发烧怎么办”，将 `triage_005` 改为高热/持续发热问法，降低重复命中竞争。
+- 统一发育卡命名：`development_06/07/08/09` 统一为 `development_006/007/008/009`。
+- 前端命中展示改为“主命中卡 + 辅助命中卡”，便于区分首选卡与补充卡。
+- 更新版本号到 `v0.2.5`，并同步 README 的验证说明与限制备注。
+
 ## v0.2.4 - 2026-05-06
 
 - 将 `data/cards/knowledge_cards.expansion.v0.2.json` 从 19 张扩展到 40 张，项目总有效卡达到 60 张。

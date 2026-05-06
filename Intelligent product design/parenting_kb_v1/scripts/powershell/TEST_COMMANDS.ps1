@@ -1,11 +1,24 @@
 param(
-    [string]$ApiUrl = "http://127.0.0.1:8000/api/ask"
+    [string]$BaseUrl = "http://127.0.0.1:8000",
+    [string]$AskPath = "/api/ask"
 )
 
 chcp 65001 | Out-Null
 [Console]::InputEncoding = [System.Text.UTF8Encoding]::new($false)
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $OutputEncoding = [Console]::OutputEncoding
+
+$healthUrl = "$BaseUrl/api/health"
+$askUrl = "$BaseUrl$AskPath"
+
+try {
+    $health = Invoke-RestMethod -Uri $healthUrl -Method Get -TimeoutSec 5
+    Write-Host "[Health] 服务在线: $($health.status) / version=$($health.version)"
+} catch {
+    Write-Host "[Health] 无法连接: $healthUrl"
+    Write-Host "请先运行 uvicorn app.main:app --host 127.0.0.1 --port 8000"
+    exit 1
+}
 
 $tests = @(
     @{ question = [string]([char]0x5B9D + [char]0x5B9D + "6" + [char]0x4E2A + [char]0x6708 + [char]0x7B2C + [char]0x4E00 + [char]0x53E3 + [char]0x8F85 + [char]0x98DF + [char]0x5403 + [char]0x4EC0 + [char]0x4E48 + [char]0xFF1F); age_months = 6 },
@@ -29,11 +42,13 @@ foreach ($test in $tests) {
         context = @{}
     } | ConvertTo-Json -Depth 5
 
-    $response = Invoke-RestMethod `
-        -Uri $ApiUrl `
-        -Method Post `
-        -ContentType "application/json; charset=utf-8" `
-        -Body $body
-
-    $response | ConvertTo-Json -Depth 10
+    try {
+        $response = Invoke-RestMethod -Uri $askUrl -Method Post -ContentType "application/json; charset=utf-8" -Body $body
+        $sourceCount = @($response.sources).Count
+        $hitCardIds = @($response.hit_card_ids) -join ", "
+        if (-not $hitCardIds) { $hitCardIds = "-" }
+        Write-Host ("category={0}; risk_level={1}; summary={2}; sources={3}; hit_card_ids={4}" -f $response.category, $response.risk_level, $response.answer.summary, $sourceCount, $hitCardIds)
+    } catch {
+        Write-Host "请求失败: $($_.Exception.Message)"
+    }
 }
