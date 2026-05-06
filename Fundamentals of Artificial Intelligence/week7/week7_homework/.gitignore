@@ -1,0 +1,4 @@
+data/
+outputs/*.pth
+outputs/*.png
+__pycache__/
