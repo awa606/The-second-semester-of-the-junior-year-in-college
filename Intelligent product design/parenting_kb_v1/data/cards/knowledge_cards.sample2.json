@@ -4,7 +4,9 @@
     "category": "feeding",
     "subcategory": "breastfeeding",
     "title": "0-6个月优先纯母乳喂养",
-    "age_scope": ["0-6月"],
+    "age_scope": [
+      "0-6月"
+    ],
     "question_patterns": [
       "宝宝出生后最好怎么喂养",
       "0到6个月要不要加水",
@@ -16,9 +18,18 @@
       "按需喂养",
       "注意观察体重增长和精神状态"
     ],
-    "do_list": ["按需喂养", "关注吃奶和排便情况"],
-    "dont_list": ["不要随意额外添加其他食物"],
-    "red_flags": ["吃奶明显减少", "精神差", "体重增长异常"],
+    "do_list": [
+      "按需喂养",
+      "关注吃奶和排便情况"
+    ],
+    "dont_list": [
+      "不要随意额外添加其他食物"
+    ],
+    "red_flags": [
+      "吃奶明显减少",
+      "精神差",
+      "体重增长异常"
+    ],
     "escalation_advice": "如喂养困难明显或婴儿状态异常，应及时咨询医生。",
     "source_refs": [
       {
@@ -35,7 +46,9 @@
     "category": "feeding",
     "subcategory": "complementary_feeding",
     "title": "满6个月开始添加辅食",
-    "age_scope": ["6-8月"],
+    "age_scope": [
+      "6-8月"
+    ],
     "question_patterns": [
       "宝宝6个月可以加辅食吗",
       "什么时候开始吃辅食",
@@ -47,9 +60,18 @@
       "由少到多、由一种到多种",
       "继续奶类喂养"
     ],
-    "do_list": ["先尝试单一食物", "记录新食物反应"],
-    "dont_list": ["不要一次引入多种新食物"],
-    "red_flags": ["呼吸困难", "持续呕吐", "明显皮疹"],
+    "do_list": [
+      "先尝试单一食物",
+      "记录新食物反应"
+    ],
+    "dont_list": [
+      "不要一次引入多种新食物"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "持续呕吐",
+      "明显皮疹"
+    ],
     "escalation_advice": "若添加新食物后出现明显异常反应，应及时就医。",
     "source_refs": [
       {
@@ -66,7 +88,9 @@
     "category": "feeding",
     "subcategory": "feeding_frequency",
     "title": "6-8月龄辅食频次基础建议",
-    "age_scope": ["6-8月"],
+    "age_scope": [
+      "6-8月"
+    ],
     "question_patterns": [
       "6个月宝宝一天吃几次辅食",
       "7个月辅食频率怎么安排",
@@ -78,9 +102,18 @@
       "根据宝宝接受情况逐步调整",
       "奶类仍是重要营养来源"
     ],
-    "do_list": ["观察进食接受度", "保持规律作息"],
-    "dont_list": ["不要只靠辅食替代所有奶量"],
-    "red_flags": ["长期拒食", "明显呛咳", "体重增长不理想"],
+    "do_list": [
+      "观察进食接受度",
+      "保持规律作息"
+    ],
+    "dont_list": [
+      "不要只靠辅食替代所有奶量"
+    ],
+    "red_flags": [
+      "长期拒食",
+      "明显呛咳",
+      "体重增长不理想"
+    ],
     "escalation_advice": "若长期拒食或进食明显异常，应咨询医生。",
     "source_refs": [
       {
@@ -97,7 +130,9 @@
     "category": "feeding",
     "subcategory": "responsive_feeding",
     "title": "顺应喂养的基本做法",
-    "age_scope": ["6-24月"],
+    "age_scope": [
+      "6-24月"
+    ],
     "question_patterns": [
       "什么是顺应喂养",
       "宝宝不想吃还要喂吗",
@@ -109,9 +144,19 @@
       "鼓励进食但不强迫",
       "营造平静的进食环境"
     ],
-    "do_list": ["固定进食时间", "鼓励自主尝试"],
-    "dont_list": ["不要强迫喂食", "不要边玩边追着喂"],
-    "red_flags": ["持续拒食", "频繁呕吐", "体重明显下降"],
+    "do_list": [
+      "固定进食时间",
+      "鼓励自主尝试"
+    ],
+    "dont_list": [
+      "不要强迫喂食",
+      "不要边玩边追着喂"
+    ],
+    "red_flags": [
+      "持续拒食",
+      "频繁呕吐",
+      "体重明显下降"
+    ],
     "escalation_advice": "如持续进食困难或伴随体重问题，应咨询专业人员。",
     "source_refs": [
       {
@@ -128,7 +173,9 @@
     "category": "care",
     "subcategory": "sleep",
     "title": "婴幼儿睡眠环境的基本要求",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝睡觉环境怎么布置",
       "婴儿睡眠环境需要注意什么",
@@ -140,9 +187,17 @@
       "注意空气流通",
       "避免明显安全隐患"
     ],
-    "do_list": ["维持规律作息", "注意床铺安全"],
-    "dont_list": ["不要有明显窒息或跌落风险"],
-    "red_flags": ["睡眠中呼吸异常", "反应明显差"],
+    "do_list": [
+      "维持规律作息",
+      "注意床铺安全"
+    ],
+    "dont_list": [
+      "不要有明显窒息或跌落风险"
+    ],
+    "red_flags": [
+      "睡眠中呼吸异常",
+      "反应明显差"
+    ],
     "escalation_advice": "若睡眠中出现呼吸异常或精神状态差，应及时就医。",
     "source_refs": [
       {
@@ -159,7 +214,9 @@
     "category": "care",
     "subcategory": "bottle_hygiene",
     "title": "奶瓶和餐具清洁的基本原则",
-    "age_scope": ["0-24月"],
+    "age_scope": [
+      "0-24月"
+    ],
     "question_patterns": [
       "奶瓶要怎么清洗",
       "宝宝餐具如何消毒",
@@ -171,9 +228,17 @@
       "重点清洗奶嘴和缝隙部位",
       "清洁后注意干燥保存"
     ],
-    "do_list": ["及时清洗", "分类存放"],
-    "dont_list": ["不要长时间残留奶液"],
-    "red_flags": ["反复腹泻", "疑似污染"],
+    "do_list": [
+      "及时清洗",
+      "分类存放"
+    ],
+    "dont_list": [
+      "不要长时间残留奶液"
+    ],
+    "red_flags": [
+      "反复腹泻",
+      "疑似污染"
+    ],
     "escalation_advice": "如婴幼儿出现持续腹泻等情况，应及时就医。",
     "source_refs": [
       {
@@ -190,7 +255,9 @@
     "category": "care",
     "subcategory": "oral_care",
     "title": "婴幼儿口腔清洁基础建议",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝口腔需要清洁吗",
       "长牙前要不要清洁口腔",
@@ -202,9 +269,18 @@
       "随着长牙逐步加强护理",
       "建立固定清洁习惯"
     ],
-    "do_list": ["保持规律清洁", "观察牙龈和牙齿变化"],
-    "dont_list": ["不要长期忽视口腔卫生"],
-    "red_flags": ["口腔明显肿胀", "持续疼痛", "进食困难"],
+    "do_list": [
+      "保持规律清洁",
+      "观察牙龈和牙齿变化"
+    ],
+    "dont_list": [
+      "不要长期忽视口腔卫生"
+    ],
+    "red_flags": [
+      "口腔明显肿胀",
+      "持续疼痛",
+      "进食困难"
+    ],
     "escalation_advice": "如出现明显疼痛或肿胀，应尽快就医。",
     "source_refs": [
       {
@@ -221,7 +297,9 @@
     "category": "development",
     "subcategory": "interaction_play",
     "title": "婴幼儿交流与玩耍的重要性",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "怎么陪宝宝玩",
       "宝宝需要互动吗",
@@ -233,9 +311,17 @@
       "通过玩耍促进互动",
       "根据年龄选择合适活动"
     ],
-    "do_list": ["每天固定互动时间", "鼓励回应和模仿"],
-    "dont_list": ["不要长期缺乏交流互动"],
-    "red_flags": ["长期几乎无互动反应", "明显退步"],
+    "do_list": [
+      "每天固定互动时间",
+      "鼓励回应和模仿"
+    ],
+    "dont_list": [
+      "不要长期缺乏交流互动"
+    ],
+    "red_flags": [
+      "长期几乎无互动反应",
+      "明显退步"
+    ],
     "escalation_advice": "如长期互动反应少或发展异常，应咨询专业人员。",
     "source_refs": [
       {
@@ -252,9 +338,12 @@
     "category": "symptom_triage",
     "subcategory": "fever",
     "title": "发热问题只做观察与就医分流",
-    "age_scope": ["0-36月"],
+    "age_scope": [
+      "0-36月"
+    ],
     "question_patterns": [
       "宝宝发烧怎么办",
+      "宝宝刚发烧先怎么观察",
       "小孩发热要紧吗",
       "39度要不要去医院"
     ],
@@ -264,9 +353,19 @@
       "关注精神状态和进食情况",
       "高风险情况及时就医"
     ],
-    "do_list": ["记录体温变化", "观察精神和饮水情况"],
-    "dont_list": ["不要把系统回答当作诊断结果"],
-    "red_flags": ["抽搐", "呼吸困难", "精神反应差", "持续高热"],
+    "do_list": [
+      "记录体温变化",
+      "观察精神和饮水情况"
+    ],
+    "dont_list": [
+      "不要把系统回答当作诊断结果"
+    ],
+    "red_flags": [
+      "抽搐",
+      "呼吸困难",
+      "精神反应差",
+      "持续高热"
+    ],
     "escalation_advice": "如出现抽搐、呼吸困难、精神差等情况，应立即就医。",
     "source_refs": [
       {
@@ -283,7 +382,9 @@
     "category": "symptom_triage",
     "subcategory": "rash_after_food",
     "title": "添加新食物后出现皮疹的处理边界",
-    "age_scope": ["6-24月"],
+    "age_scope": [
+      "6-24月"
+    ],
     "question_patterns": [
       "吃了新食物起疹子怎么办",
       "宝宝加辅食后皮疹",
@@ -295,9 +396,19 @@
       "观察皮疹范围和伴随症状",
       "严重反应及时就医"
     ],
-    "do_list": ["记录新食物名称和时间", "观察是否伴随呼吸或消化异常"],
-    "dont_list": ["不要继续反复尝试可疑食物"],
-    "red_flags": ["呼吸困难", "面部肿胀", "持续呕吐", "精神差"],
+    "do_list": [
+      "记录新食物名称和时间",
+      "观察是否伴随呼吸或消化异常"
+    ],
+    "dont_list": [
+      "不要继续反复尝试可疑食物"
+    ],
+    "red_flags": [
+      "呼吸困难",
+      "面部肿胀",
+      "持续呕吐",
+      "精神差"
+    ],
     "escalation_advice": "如伴随呼吸困难、面部肿胀或持续呕吐，应立即就医。",
     "source_refs": [
       {
@@ -308,13 +419,15 @@
     ],
     "review_status": "draft",
     "updated_at": "2026-04-24T08:00:00+08:00"
-  }, 
+  },
   {
     "card_id": "feeding_005",
     "category": "feeding",
     "subcategory": "first_food_choice",
     "title": "第一次辅食先吃什么",
-    "age_scope": ["6-8月"],
+    "age_scope": [
+      "6-8月"
+    ],
     "question_patterns": [
       "第一口辅食吃什么",
       "刚开始加辅食先吃什么",
@@ -359,7 +472,9 @@
     "category": "feeding",
     "subcategory": "food_texture_progression",
     "title": "辅食质地怎么逐步变化",
-    "age_scope": ["6-12月"],
+    "age_scope": [
+      "6-12月"
+    ],
     "question_patterns": [
       "辅食要打多细",
       "宝宝什么时候可以吃颗粒状食物",
@@ -404,7 +519,9 @@
     "category": "feeding",
     "subcategory": "feeding_frequency_8_12m",
     "title": "8到12月龄辅食和奶如何安排",
-    "age_scope": ["8-12月"],
+    "age_scope": [
+      "8-12月"
+    ],
     "question_patterns": [
       "8个月一天吃几顿辅食",
       "10个月奶和辅食怎么安排",
@@ -449,7 +566,9 @@
     "category": "care",
     "subcategory": "bathing",
     "title": "宝宝洗澡频率与基本注意事项",
-    "age_scope": ["0-3岁"],
+    "age_scope": [
+      "0-3岁"
+    ],
     "question_patterns": [
       "宝宝多久洗一次澡",
       "婴儿洗澡要注意什么",
@@ -494,7 +613,9 @@
     "category": "symptom_triage",
     "subcategory": "cough",
     "title": "宝宝咳嗽时如何初步观察与分流",
-    "age_scope": ["0-3岁"],
+    "age_scope": [
+      "0-3岁"
+    ],
     "question_patterns": [
       "宝宝咳嗽怎么办",
       "孩子咳嗽要不要去医院",
@@ -541,7 +662,9 @@
     "category": "feeding",
     "subcategory": "diet_transition_after_12m",
     "title": "1岁后饮食如何逐步过渡",
-    "age_scope": ["12-24月"],
+    "age_scope": [
+      "12-24月"
+    ],
     "question_patterns": [
       "1岁后怎么从奶过渡到吃饭",
       "宝宝一岁以后饮食怎么安排",
@@ -586,7 +709,9 @@
     "category": "feeding",
     "subcategory": "food_allergy_observation",
     "title": "添加新食物后如何观察过敏或不耐受反应",
-    "age_scope": ["6-24月"],
+    "age_scope": [
+      "6-24月"
+    ],
     "question_patterns": [
       "加新食物后怎么观察过敏",
       "宝宝吃新东西后起疹子怎么办",
@@ -632,7 +757,9 @@
     "category": "care",
     "subcategory": "diaper_care",
     "title": "臀部护理与尿布更换的基本注意事项",
-    "age_scope": ["0-3岁"],
+    "age_scope": [
+      "0-3岁"
+    ],
     "question_patterns": [
       "宝宝红屁屁怎么预防",
       "尿布多久换一次",
@@ -677,7 +804,9 @@
     "category": "development",
     "subcategory": "milestone_observation",
     "title": "不同月龄发育情况如何做粗略观察",
-    "age_scope": ["0-24月"],
+    "age_scope": [
+      "0-24月"
+    ],
     "question_patterns": [
       "宝宝几个月会翻身",
       "几个月会坐算正常",
@@ -722,7 +851,9 @@
     "category": "symptom_triage",
     "subcategory": "diarrhea",
     "title": "宝宝腹泻时如何初步观察与分流",
-    "age_scope": ["0-3岁"],
+    "age_scope": [
+      "0-3岁"
+    ],
     "question_patterns": [
       "宝宝拉肚子怎么办",
       "孩子腹泻要不要去医院",
@@ -764,5 +895,4 @@
     "review_status": "draft",
     "updated_at": "2026-04-24T00:00:00+08:00"
   }
-
 ]
