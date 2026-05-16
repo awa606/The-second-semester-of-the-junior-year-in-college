@@ -39,7 +39,8 @@
 }
 
 .post-icon {
-  font-size: 24rpx;
+  width: 24rpx;
+  height: 24rpx;
 }
 
 /* 瀑布流列表 */
@@ -156,8 +157,8 @@
 }
 
 .meta-icon {
-  font-size: 22rpx;
-  color: #E8A87C;
+  width: 22rpx;
+  height: 22rpx;
 }
 
 .meta-text {

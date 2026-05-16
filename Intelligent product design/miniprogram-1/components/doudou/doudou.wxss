@@ -24,7 +24,8 @@
 }
 
 .doudou-face {
-  font-size: 60rpx;
+  width: 60rpx;
+  height: 60rpx;
 }
 
 .doudou-voice {
