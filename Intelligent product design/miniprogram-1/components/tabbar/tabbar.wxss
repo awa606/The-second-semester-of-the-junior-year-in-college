@@ -28,7 +28,8 @@
 }
 
 .tabbar-icon {
-  font-size: 44rpx;
+  width: 44rpx;
+  height: 44rpx;
   margin-bottom: 4rpx;
   transition: transform 0.3s ease;
 }

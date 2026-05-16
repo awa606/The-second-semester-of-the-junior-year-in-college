@@ -78,7 +78,7 @@ Page({
     });
   },
   onAddDevice() {
-    wx.switchTab({ url: '/pages/pair/pair' });
+    wx.navigateTo({ url: '/pages/pair/pair' });
   },
   onUnbindDevice() {
     wx.showModal({

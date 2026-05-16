@@ -1,4 +1,9 @@
 <view class="pair-page">
+  <view class="back-btn safe-area-top" bindtap="onBack">
+    <text class="back-icon">‹</text>
+    <text class="back-text">返回</text>
+  </view>
+
   <!-- 顶部品牌区 -->
   <view class="brand-section safe-area-top">
     <view class="brand-logo">
@@ -15,12 +20,12 @@
       <view class="frame-corner top-right"></view>
       <view class="frame-corner bottom-left"></view>
       <view class="frame-corner bottom-right"></view>
-      <text class="scan-icon">📷</text>
+      <image class="scan-icon" src="/assets/icons/pair/scan-camera.png" mode="aspectFit"/>
       <text class="scan-hint">扫描设备二维码</text>
     </view>
     
     <button class="scan-btn" bindtap="onScanCode">
-      <text class="btn-icon">⟳</text>
+      <image class="btn-icon" src="/assets/icons/pair/pair-refresh.png" mode="aspectFit"/>
       扫码配对
     </button>
   </view>

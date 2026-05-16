@@ -30,11 +30,11 @@ module.exports = {
     </view>
     <view class="status-icons" style="position: relative; left: 0rpx; top: 93rpx">
       <view class="status-item">
-        <text class="status-icon">🔋</text>
+        <image class="status-icon" src="/assets/icons/home/battery.png" mode="aspectFit"/>
         <text class="status-value">{{deviceInfo.battery}}%</text>
       </view>
       <view class="status-item">
-        <text class="status-icon">💧</text>
+        <image class="status-icon" src="/assets/icons/home/water-level.png" mode="aspectFit"/>
         <text class="status-value">{{deviceInfo.waterLevel}}%</text>
       </view>
     </view>
@@ -49,7 +49,7 @@ module.exports = {
   <view class="device-card card">
     <view class="device-main">
       <view class="device-visual">
-        <text class="device-emoji">🍼</text>
+        <image class="device-emoji" src="/assets/icons/home/device-station.png" mode="aspectFit"/>
         <view class="device-glow"></view>
       </view>
       <view class="device-info">
@@ -63,15 +63,15 @@ module.exports = {
   <!-- 三按钮横向排列 -->
   <view class="action-buttons">
     <view class="action-btn {{currentMode === 'warm' ? 'active' : ''}}" bindtap="setMode" data-mode="warm">
-      <text class="action-icon">♨️</text>
+      <image class="action-icon" src="/assets/icons/home/warm.png" mode="aspectFit"/>
       <text class="action-text">保温</text>
     </view>
     <view class="action-btn {{currentMode === 'cool' ? 'active' : ''}}" bindtap="setMode" data-mode="cool">
-      <text class="action-icon">❄️</text>
+      <image class="action-icon" src="/assets/icons/home/cool.png" mode="aspectFit"/>
       <text class="action-text">冷却</text>
     </view>
     <view class="action-btn {{currentMode === 'clean' ? 'active' : ''}}" bindtap="setMode" data-mode="clean">
-      <text class="action-icon">✨</text>
+      <text class="action-icon clean-text-icon">✨</text>
       <text class="action-text">清洗</text>
     </view>
   </view>
@@ -108,7 +108,7 @@ module.exports = {
     <view class="timer-picker" wx:if="{{timerOn}}">
       <picker mode="time" value="{{timerValue}}" bindchange="onTimerValueChange">
         <view class="timer-display">
-          <text class="timer-icon">⏰</text>
+          <image class="timer-icon" src="/assets/icons/home/timer.png" mode="aspectFit"/>
           <text class="timer-text">{{timerValue}}</text>
           <text class="timer-arrow">›</text>
         </view>
