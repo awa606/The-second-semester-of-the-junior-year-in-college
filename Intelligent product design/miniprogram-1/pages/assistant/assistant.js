@@ -9,15 +9,44 @@ const QUICK_QUESTIONS = [
 Page({
   data: {
     title: '豆豆育儿助手',
+    subtitle: '育儿问题，随时问我',
     inputText: '',
     loading: false,
     quickQuestions: QUICK_QUESTIONS,
+    navBarStyle: '',
     messages: [
       {
         role: 'assistant',
-        text: '你好呀，我是豆豆育儿助手 🌼\n你可以问我喂养、睡眠和护理问题，我会尽力给你温暖又实用的建议。'
+        text: '你好呀，我是豆豆～\n可以问我喂养、睡眠和护理问题。'
       }
     ]
+  },
+
+  onLoad() {
+    this.updateNavBarLayout();
+  },
+
+  updateNavBarLayout() {
+    const menuButton = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
+    const systemInfo = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
+    const statusBarHeight = systemInfo.statusBarHeight || 20;
+
+    let navBarStyle = `padding-top:${statusBarHeight}px;`;
+    if (menuButton && menuButton.left) {
+      const rightSafe = systemInfo.windowWidth - menuButton.left;
+      navBarStyle += `padding-right:${rightSafe + 16}px;`;
+    }
+
+    this.setData({ navBarStyle });
+  },
+
+  onBack() {
+    const pages = getCurrentPages();
+    if (pages.length > 1) {
+      wx.navigateBack({ delta: 1 });
+      return;
+    }
+    wx.reLaunch({ url: '/pages/home/home' });
   },
 
   onInput(e) {

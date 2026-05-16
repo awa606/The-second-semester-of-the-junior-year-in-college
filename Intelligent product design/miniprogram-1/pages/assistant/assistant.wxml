@@ -1,24 +1,39 @@
 <view class="assistant-page">
-  <view class="nav-bar safe-area-top">
-    <text class="page-title">{{title}}</text>
+  <view class="nav-bar" style="{{navBarStyle}}">
+    <view class="nav-inner">
+      <view class="back-btn" bindtap="onBack">‹</view>
+      <view class="title-wrap">
+        <text class="page-title">{{title}}</text>
+        <text class="page-subtitle">{{subtitle}}</text>
+      </view>
+    </view>
   </view>
 
   <scroll-view class="chat-list" scroll-y enhanced="true" shows-scrollbar="false">
-    <view class="quick-list" wx:if="{{messages.length <= 1}}">
-      <text class="quick-title">快捷提问</text>
-      <view
-        class="quick-item"
-        wx:for="{{quickQuestions}}"
-        wx:key="index"
-        bindtap="onQuickQuestionTap"
-        data-question="{{item}}"
-      >
-        {{item}}
-      </view>
-    </view>
-
     <view class="message-list">
-      <view class="message-row {{item.role === 'user' ? 'user-row' : 'assistant-row'}}" wx:for="{{messages}}" wx:key="index">
+      <view class="message-row assistant-row welcome-row" wx:if="{{messages.length <= 1}}">
+        <view class="assistant-avatar">豆</view>
+        <view class="bubble assistant welcome-bubble">
+          <text class="bubble-text">{{messages[0].text}}</text>
+        </view>
+      </view>
+
+      <view class="quick-list" wx:if="{{messages.length <= 1}}">
+        <text class="quick-title">快捷提问</text>
+        <view class="quick-group">
+          <view
+            class="quick-item"
+            wx:for="{{quickQuestions}}"
+            wx:key="index"
+            bindtap="onQuickQuestionTap"
+            data-question="{{item}}"
+          >
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <view class="message-row {{item.role === 'user' ? 'user-row' : 'assistant-row'}}" wx:for="{{messages}}" wx:key="index" wx:if="{{index > 0}}">
         <view class="bubble {{item.role}} {{item.pending ? 'pending' : ''}}">
           <text class="bubble-text">{{item.text}}</text>
         </view>
