@@ -108,7 +108,8 @@
 }
 
 .scan-icon {
-  font-size: 80rpx;
+  width: 80rpx;
+  height: 80rpx;
   margin-bottom: 24rpx;
   opacity: 0.6;
 }
@@ -143,7 +144,8 @@
 }
 
 .btn-icon {
-  font-size: 40rpx;
+  width: 40rpx;
+  height: 40rpx;
   margin-right: 12rpx;
 }
 
