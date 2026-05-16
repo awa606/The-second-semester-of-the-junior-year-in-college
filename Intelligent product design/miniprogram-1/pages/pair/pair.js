@@ -32,6 +32,14 @@ Page({
       wx.switchTab({ url: '/pages/home/home' });
     }
   },
+  onBack() {
+    const pages = getCurrentPages();
+    if (pages.length > 1) {
+      wx.navigateBack();
+      return;
+    }
+    wx.switchTab({ url: '/pages/settings/settings' });
+  },
   onScanCode() {
     wx.scanCode({
       success: (res) => {

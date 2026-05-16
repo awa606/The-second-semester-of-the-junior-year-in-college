@@ -71,7 +71,7 @@ module.exports = {
       <text class="action-text">冷却</text>
     </view>
     <view class="action-btn {{currentMode === 'clean' ? 'active' : ''}}" bindtap="setMode" data-mode="clean">
-      <image class="action-icon" src="/assets/icons/home/clean.png" mode="aspectFit"/>
+      <text class="action-icon clean-text-icon">✨</text>
       <text class="action-text">清洗</text>
     </view>
   </view>

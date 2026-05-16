@@ -7,6 +7,30 @@
   padding: 0 40rpx;
 }
 
+.back-btn {
+  position: absolute;
+  top: 24rpx;
+  left: 24rpx;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  padding: 12rpx 18rpx;
+  border-radius: 24rpx;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4rpx 12rpx rgba(93, 78, 55, 0.08);
+}
+
+.back-icon {
+  font-size: 32rpx;
+  color: #5D4E37;
+  margin-right: 6rpx;
+}
+
+.back-text {
+  font-size: 24rpx;
+  color: #5D4E37;
+}
+
 /* 安全区域适配 */
 .safe-area-top {
   padding-top: env(safe-area-inset-top);

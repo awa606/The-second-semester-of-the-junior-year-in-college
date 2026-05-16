@@ -1,4 +1,9 @@
 <view class="pair-page">
+  <view class="back-btn safe-area-top" bindtap="onBack">
+    <text class="back-icon">‹</text>
+    <text class="back-text">返回</text>
+  </view>
+
   <!-- 顶部品牌区 -->
   <view class="brand-section safe-area-top">
     <view class="brand-logo">

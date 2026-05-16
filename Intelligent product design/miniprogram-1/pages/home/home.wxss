@@ -216,6 +216,13 @@
   height: 56rpx;
 }
 
+.clean-text-icon {
+  width: auto;
+  height: auto;
+  font-size: 56rpx;
+  line-height: 1;
+}
+
 .action-text {
   font-size: 28rpx;
   color: #5D4E37;
