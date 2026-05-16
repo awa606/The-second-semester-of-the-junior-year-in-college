@@ -1,0 +1,8 @@
+<view class="doudou-wrapper" bindtap="onTap" style="bottom: {{bottom}}rpx; right: {{right}}rpx;">
+  <view class="doudou-voice" wx:if="{{showVoice}}">
+    <text class="voice-text">{{voiceText}}</text>
+  </view>
+  <view class="doudou-body">
+    <text class="doudou-face">🌸</text>
+  </view>
+</view>

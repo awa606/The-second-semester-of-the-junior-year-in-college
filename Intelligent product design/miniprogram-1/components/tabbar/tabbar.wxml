@@ -1,0 +1,36 @@
+<view class="tabbar-wrapper safe-area-bottom">
+  <view class="tabbar-container">
+    <view 
+      class="tabbar-item {{active === 'home' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="home"
+    >
+      <text class="tabbar-icon">{{active === 'home' ? '🏠' : '🏡'}}</text>
+      <text class="tabbar-text">首页</text>
+    </view>
+    <view 
+      class="tabbar-item {{active === 'growth' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="growth"
+    >
+      <text class="tabbar-icon">{{active === 'growth' ? '📈' : '📊'}}</text>
+      <text class="tabbar-text">成长</text>
+    </view>
+    <view 
+      class="tabbar-item {{active === 'community' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="community"
+    >
+      <text class="tabbar-icon">{{active === 'community' ? '👨‍👩‍👧‍👦' : '👨‍👩‍👧'}}</text>
+      <text class="tabbar-text">社群</text>
+    </view>
+    <view 
+      class="tabbar-item {{active === 'settings' ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-tab="settings"
+    >
+      <text class="tabbar-icon">{{active === 'settings' ? '⚙️' : '🔧'}}</text>
+      <text class="tabbar-text">设置</text>
+    </view>
+  </view>
+</view>

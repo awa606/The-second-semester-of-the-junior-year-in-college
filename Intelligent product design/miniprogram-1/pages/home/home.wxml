@@ -1,0 +1,124 @@
+<wxs module="utils">
+module.exports = {
+  getModeText: function(mode) {
+    var texts = {
+      warm: '保温模式',
+      cool: '冷却模式',
+      clean: '清洗模式',
+      standby: '待机中'
+    };
+    return texts[mode] || '待机中';
+  }
+}
+</wxs>
+
+<view class="home-page">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar safe-area-top" style="height: 343rpx; display: block; box-sizing: border-box">
+    <view class="nav-header" style="height: 66rpx; display: flex; box-sizing: border-box; position: relative; left: 0rpx; top: 52rpx">
+      <view class="nav-left">
+        <text class="nav-title">智育</text>
+        <view class="device-status {{deviceInfo.connected ? 'online' : 'offline'}}" style="position: relative; left: 516rpx; top: 22rpx">
+          <view class="status-dot"></view>
+          <text>{{deviceInfo.connected ? deviceInfo.name : '未连接'}}</text>
+        </view>
+      </view>
+      <view class="add-device-btn" bindtap="goToPair" style="width: 174rpx; display: flex; box-sizing: border-box">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加设备</text>
+      </view>
+    </view>
+    <view class="status-icons" style="position: relative; left: 0rpx; top: 93rpx">
+      <view class="status-item">
+        <text class="status-icon">🔋</text>
+        <text class="status-value">{{deviceInfo.battery}}%</text>
+      </view>
+      <view class="status-item">
+        <text class="status-icon">💧</text>
+        <text class="status-value">{{deviceInfo.waterLevel}}%</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 智能提醒 -->
+  <view class="reminder-section">
+    <text class="reminder-text">🌡️ 当前水温 {{deviceInfo.temperature}}°C · 适合宝宝饮用</text>
+  </view>
+
+  <!-- 设备状态卡片 -->
+  <view class="device-card card">
+    <view class="device-main">
+      <view class="device-visual">
+        <text class="device-emoji">🍼</text>
+        <view class="device-glow"></view>
+      </view>
+      <view class="device-info">
+        <text class="device-name">{{deviceInfo.name}}</text>
+        <text class="device-mode">{{utils.getModeText(currentMode)}}</text>
+        <text class="device-temp">水温 {{deviceInfo.temperature}}°C</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 三按钮横向排列 -->
+  <view class="action-buttons">
+    <view class="action-btn {{currentMode === 'warm' ? 'active' : ''}}" bindtap="setMode" data-mode="warm">
+      <text class="action-icon">♨️</text>
+      <text class="action-text">保温</text>
+    </view>
+    <view class="action-btn {{currentMode === 'cool' ? 'active' : ''}}" bindtap="setMode" data-mode="cool">
+      <text class="action-icon">❄️</text>
+      <text class="action-text">冷却</text>
+    </view>
+    <view class="action-btn {{currentMode === 'clean' ? 'active' : ''}}" bindtap="setMode" data-mode="clean">
+      <text class="action-icon">✨</text>
+      <text class="action-text">清洗</text>
+    </view>
+  </view>
+
+  <!-- 调节控件 -->
+  <view class="control-section card">
+    <view class="control-header">
+      <text class="control-title">温度调节</text>
+      <text class="control-value">{{targetTemp}}°C</text>
+    </view>
+    <slider 
+      class="temp-slider"
+      min="30" 
+      max="50" 
+      step="1"
+      value="{{targetTemp}}"
+      block-size="24"
+      bindchange="onTempChange"
+      activeColor="#E8A87C"
+      backgroundColor="#F0E6DC"
+    />
+    <view class="slider-labels">
+      <text>30°C</text>
+      <text>40°C</text>
+      <text>50°C</text>
+    </view>
+  </view>
+
+  <view class="control-section card">
+    <view class="control-header">
+      <text class="control-title">定时功能</text>
+      <switch class="timer-switch" checked="{{timerOn}}" bindchange="onTimerChange" color="#E8A87C"/>
+    </view>
+    <view class="timer-picker" wx:if="{{timerOn}}">
+      <picker mode="time" value="{{timerValue}}" bindchange="onTimerValueChange">
+        <view class="timer-display">
+          <text class="timer-icon">⏰</text>
+          <text class="timer-text">{{timerValue}}</text>
+          <text class="timer-arrow">›</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 底部导航 -->
+  <tabbar active="home" />
+  
+  <!-- 悬浮豆豆 -->
+  <doudou bottom="180" right="30" />
+</view>

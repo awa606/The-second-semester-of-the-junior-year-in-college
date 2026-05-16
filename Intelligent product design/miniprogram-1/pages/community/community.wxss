@@ -1,0 +1,177 @@
+.community-page {
+  min-height: 100vh;
+  background-color: #FFF8F0;
+  padding-bottom: 180rpx;
+}
+
+/* 导航栏 */
+.nav-bar {
+  background: #FFFFFF;
+  padding: 120rpx 32rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(93, 78, 55, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #5D4E37;
+}
+
+.post-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 24rpx;
+  background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
+  border-radius: 30rpx;
+  color: #FFFFFF;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.post-icon {
+  font-size: 24rpx;
+}
+
+/* 瀑布流列表 */
+.post-list {
+  height: calc(100vh - 140rpx - env(safe-area-inset-bottom));
+  padding: 24rpx;
+}
+
+.masonry {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.post-card {
+  width: calc(50% - 12rpx);
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  overflow: hidden;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(93, 78, 55, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.post-card:active {
+  transform: scale(0.98);
+}
+
+.post-card.tall {
+  width: 100%;
+  display: flex;
+}
+
+.post-image-wrapper {
+  width: 100%;
+  height: 280rpx;
+  background: linear-gradient(135deg, #FFF8F0 0%, #F5EDE4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-card.tall .post-image-wrapper {
+  width: 240rpx;
+  height: 200rpx;
+  flex-shrink: 0;
+}
+
+.post-image-placeholder {
+  font-size: 120rpx;
+}
+
+.post-card.tall .post-image-placeholder {
+  font-size: 80rpx;
+}
+
+.post-content {
+  padding: 20rpx;
+}
+
+.post-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #5D4E37;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+  margin-bottom: 16rpx;
+}
+
+.post-tag {
+  font-size: 20rpx;
+  color: #E8A87C;
+  background: rgba(232, 168, 124, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+}
+
+.author-avatar-placeholder {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFE4C9 0%, #F5D5B8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  margin-right: 10rpx;
+}
+
+.author-name {
+  flex: 1;
+  font-size: 22rpx;
+  color: #8B7355;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.meta-icon {
+  font-size: 22rpx;
+  color: #E8A87C;
+}
+
+.meta-text {
+  font-size: 22rpx;
+  color: #B8A090;
+}
+
+/* 加载更多 */
+.load-more {
+  text-align: center;
+  padding: 30rpx 0;
+}
+
+.loading-text {
+  font-size: 24rpx;
+  color: #B8A090;
+}

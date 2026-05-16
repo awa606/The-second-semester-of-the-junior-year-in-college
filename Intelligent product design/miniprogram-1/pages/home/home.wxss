@@ -1,0 +1,293 @@
+.home-page {
+  min-height: 100vh;
+  background-color: #FFF8F0;
+  padding-bottom: 180rpx;
+}
+
+/* 导航栏 */
+.nav-bar {
+  background: #FFFFFF;
+  padding: 120rpx 32rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(93, 78, 55, 0.05);
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.nav-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.nav-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #5D4E37;
+}
+
+.device-status {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+}
+
+.device-status.online {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+}
+
+.device-status.offline {
+  background: rgba(244, 67, 54, 0.1);
+  color: #F44336;
+}
+
+.add-device-btn {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 24rpx;
+  background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
+  border-radius: 32rpx;
+  box-shadow: 0 4rpx 12rpx rgba(232, 168, 124, 0.3);
+}
+
+.add-device-btn:active {
+  transform: scale(0.95);
+  opacity: 0.9;
+}
+
+.add-icon {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+  margin-right: 6rpx;
+}
+
+.add-text {
+  font-size: 24rpx;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  margin-right: 8rpx;
+  background: currentColor;
+  animation: pulse 2s infinite;
+}
+
+.status-icons {
+  display: flex;
+  gap: 40rpx;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.status-icon {
+  font-size: 28rpx;
+}
+
+.status-value {
+  font-size: 26rpx;
+  color: #5D4E37;
+  font-weight: 500;
+}
+
+/* 智能提醒 */
+.reminder-section {
+  padding: 24rpx 32rpx;
+}
+
+.reminder-text {
+  font-size: 26rpx;
+  color: #8B7355;
+  background: linear-gradient(90deg, rgba(232, 168, 124, 0.1) 0%, rgba(245, 198, 165, 0.1) 100%);
+  padding: 16rpx 24rpx;
+  border-radius: 16rpx;
+  display: inline-block;
+}
+
+/* 设备卡片 */
+.device-card {
+  margin: 0 32rpx 32rpx;
+}
+
+.device-main {
+  display: flex;
+  align-items: center;
+  gap: 32rpx;
+}
+
+.device-visual {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.device-emoji {
+  font-size: 100rpx;
+  position: relative;
+  z-index: 1;
+}
+
+.device-glow {
+  position: absolute;
+  width: 120rpx;
+  height: 120rpx;
+  background: linear-gradient(135deg, rgba(232, 168, 124, 0.3) 0%, rgba(245, 198, 165, 0.1) 100%);
+  border-radius: 50%;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.device-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.device-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #5D4E37;
+}
+
+.device-mode {
+  font-size: 28rpx;
+  color: #E8A87C;
+  font-weight: 500;
+}
+
+.device-temp {
+  font-size: 24rpx;
+  color: #B8A090;
+}
+
+/* 三按钮 */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 32rpx;
+  padding: 0 32rpx 32rpx;
+}
+
+.action-btn {
+  width: 180rpx;
+  height: 160rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(93, 78, 55, 0.06);
+  transition: all 0.3s ease;
+  border: 4rpx solid transparent;
+}
+
+.action-btn:active {
+  transform: scale(0.96);
+}
+
+.action-btn.active {
+  border-color: #E8A87C;
+  background: linear-gradient(135deg, rgba(232, 168, 124, 0.1) 0%, rgba(245, 198, 165, 0.1) 100%);
+}
+
+.action-icon {
+  font-size: 56rpx;
+}
+
+.action-text {
+  font-size: 28rpx;
+  color: #5D4E37;
+  font-weight: 500;
+}
+
+/* 调节控件 */
+.control-section {
+  margin: 0 32rpx 24rpx;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.control-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #5D4E37;
+}
+
+.control-value {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #E8A87C;
+}
+
+.temp-slider {
+  margin: 0 16rpx;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8rpx;
+  margin-top: 12rpx;
+}
+
+.slider-labels text {
+  font-size: 22rpx;
+  color: #B8A090;
+}
+
+.timer-switch {
+  transform: scale(0.85);
+}
+
+.timer-picker {
+  margin-top: 16rpx;
+}
+
+.timer-display {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  background: #FFF8F0;
+  border-radius: 16rpx;
+}
+
+.timer-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.timer-text {
+  flex: 1;
+  font-size: 32rpx;
+  color: #5D4E37;
+  font-weight: 500;
+}
+
+.timer-arrow {
+  font-size: 36rpx;
+  color: #B8A090;
+}

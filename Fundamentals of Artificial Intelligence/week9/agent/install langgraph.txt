@@ -1,0 +1,5 @@
+pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple langchain
+pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple langgraph
+pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple openai python-dotenv langchain-community
+pip install -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple langchain_ollama
+

@@ -1,0 +1,162 @@
+.pair-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF8F0 0%, #FFF5EB 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40rpx;
+}
+
+/* 安全区域适配 */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+  padding-top: constant(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: constant(safe-area-inset-bottom);
+}
+
+/* 顶部品牌区 */
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 120rpx;
+  padding-bottom: 80rpx;
+}
+
+.brand-logo {
+  font-size: 100rpx;
+  margin-bottom: 40rpx;
+}
+
+.brand-name {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #5D4E37;
+  letter-spacing: 8rpx;
+  margin-bottom: 24rpx;
+}
+
+.brand-slogan {
+  font-size: 26rpx;
+  color: #B8A090;
+  letter-spacing: 2rpx;
+  line-height: 1.6;
+}
+
+/* 扫码区域 */
+.scan-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.scan-frame {
+  width: 400rpx;
+  height: 400rpx;
+  background: #FFFFFF;
+  border-radius: 32rpx;
+  box-shadow: 0 8rpx 40rpx rgba(232, 168, 124, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 60rpx;
+}
+
+.frame-corner {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  border-color: #E8A87C;
+  border-style: solid;
+}
+
+.top-left {
+  top: 20rpx;
+  left: 20rpx;
+  border-width: 6rpx 0 0 6rpx;
+  border-radius: 12rpx 0 0 0;
+}
+
+.top-right {
+  top: 20rpx;
+  right: 20rpx;
+  border-width: 6rpx 6rpx 0 0;
+  border-radius: 0 12rpx 0 0;
+}
+
+.bottom-left {
+  bottom: 20rpx;
+  left: 20rpx;
+  border-width: 0 0 6rpx 6rpx;
+  border-radius: 0 0 0 12rpx;
+}
+
+.bottom-right {
+  bottom: 20rpx;
+  right: 20rpx;
+  border-width: 0 6rpx 6rpx 0;
+  border-radius: 0 0 12rpx 0;
+}
+
+.scan-icon {
+  font-size: 80rpx;
+  margin-bottom: 24rpx;
+  opacity: 0.6;
+}
+
+.scan-hint {
+  font-size: 28rpx;
+  color: #B8A090;
+}
+
+.scan-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320rpx;
+  height: 96rpx;
+  background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
+  border-radius: 48rpx;
+  box-shadow: 0 8rpx 24rpx rgba(232, 168, 124, 0.35);
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #FFFFFF;
+  border: none;
+}
+
+.scan-btn::after {
+  border: none;
+}
+
+.scan-btn:active {
+  transform: scale(0.96);
+  opacity: 0.9;
+}
+
+.btn-icon {
+  font-size: 40rpx;
+  margin-right: 12rpx;
+}
+
+/* 底部提示 */
+.tip-section {
+  padding: 40rpx 0 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #B8A090;
+  line-height: 1.8;
+}

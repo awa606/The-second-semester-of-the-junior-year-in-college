@@ -1,0 +1,286 @@
+.growth-page {
+  min-height: 100vh;
+  background-color: #FFF8F0;
+  padding-bottom: 180rpx;
+}
+
+/* 导航栏 */
+.nav-bar {
+  background: #FFFFFF;
+  padding: 120rpx 32rpx 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(93, 78, 55, 0.05);
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #5D4E37;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 24rpx;
+  background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
+  border-radius: 30rpx;
+  color: #FFFFFF;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.add-icon {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+/* 宝宝卡片 */
+.baby-card {
+  margin: 24rpx 32rpx;
+}
+
+.baby-info {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+.baby-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFE4C9 0%, #F5D5B8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60rpx;
+}
+
+.baby-detail {
+  flex: 1;
+}
+
+.baby-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #5D4E37;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.baby-age {
+  font-size: 26rpx;
+  color: #B8A090;
+}
+
+.baby-stats {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #F0E6DC;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #E8A87C;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #B8A090;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background: #F0E6DC;
+}
+
+/* 成长曲线 */
+.curve-section {
+  margin: 0 32rpx 24rpx;
+}
+
+.curve-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #5D4E37;
+}
+
+.tab-switch {
+  display: flex;
+  background: #F5EDE4;
+  border-radius: 20rpx;
+  padding: 4rpx;
+}
+
+.tab-item {
+  padding: 10rpx 24rpx;
+  font-size: 26rpx;
+  color: #8B7355;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+}
+
+.tab-item.active {
+  background: #FFFFFF;
+  color: #E8A87C;
+  font-weight: 500;
+  box-shadow: 0 2rpx 8rpx rgba(93, 78, 55, 0.1);
+}
+
+.curve-chart {
+  height: 240rpx;
+  position: relative;
+}
+
+.chart-area {
+  position: absolute;
+  left: 0;
+  right: 60rpx;
+  top: 0;
+  bottom: 40rpx;
+}
+
+.chart-line {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.data-point {
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  background: #E8A87C;
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+
+.data-point.highlight {
+  width: 28rpx;
+  height: 28rpx;
+  background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
+  box-shadow: 0 4rpx 12rpx rgba(232, 168, 124, 0.4);
+}
+
+.chart-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.grid-line {
+  height: 1rpx;
+  background: #F0E6DC;
+}
+
+.chart-labels {
+  position: absolute;
+  left: 0;
+  right: 60rpx;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chart-labels text {
+  font-size: 22rpx;
+  color: #B8A090;
+}
+
+/* 历史记录 */
+.history-section {
+  padding-top: 16rpx;
+}
+
+.history-list {
+  padding: 24rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+}
+
+.history-date {
+  width: 80rpx;
+  text-align: center;
+  margin-right: 24rpx;
+}
+
+.date-day {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #E8A87C;
+  display: block;
+}
+
+.date-month {
+  font-size: 22rpx;
+  color: #B8A090;
+}
+
+.history-content {
+  flex: 1;
+}
+
+.record-title {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #5D4E37;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.record-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.tag {
+  font-size: 22rpx;
+  color: #8B7355;
+  background: #FFF8F0;
+  padding: 6rpx 16rpx;
+  border-radius: 12rpx;
+}
+
+.history-arrow {
+  font-size: 40rpx;
+  color: #D0C4B4;
+  margin-left: 16rpx;
+}

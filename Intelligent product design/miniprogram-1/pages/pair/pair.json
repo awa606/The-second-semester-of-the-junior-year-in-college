@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "doudou": "/components/doudou/doudou"
+  },
+  "navigationStyle": "custom"
+}

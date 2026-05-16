@@ -1,0 +1,56 @@
+.doudou-wrapper {
+  position: fixed;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.doudou-body {
+  width: 100rpx;
+  height: 100rpx;
+  background: linear-gradient(135deg, #FFE4C9 0%, #F5D5B8 100%);
+  border-radius: 50%;
+  box-shadow: 0 8rpx 24rpx rgba(232, 168, 124, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.doudou-body:active {
+  transform: scale(0.9);
+}
+
+.doudou-face {
+  font-size: 60rpx;
+}
+
+.doudou-voice {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 16rpx 24rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(93, 78, 55, 0.1);
+  max-width: 300rpx;
+  position: relative;
+}
+
+.doudou-voice::after {
+  content: '';
+  position: absolute;
+  bottom: -12rpx;
+  right: 30rpx;
+  width: 0;
+  height: 0;
+  border-left: 12rpx solid transparent;
+  border-right: 12rpx solid transparent;
+  border-top: 16rpx solid #FFFFFF;
+}
+
+.voice-text {
+  font-size: 26rpx;
+  color: #5D4E37;
+  line-height: 1.5;
+}

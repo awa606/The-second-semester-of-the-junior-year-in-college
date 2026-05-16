@@ -1,0 +1,141 @@
+<view class="settings-page">
+  <!-- 顶部导航 -->
+  <view class="nav-bar safe-area-top" style="height: 229rpx; display: block; box-sizing: border-box">
+    <text class="page-title" style="position: relative; left: 0rpx; top: 28rpx">设置</text>
+  </view>
+
+  <!-- 设置内容 -->
+  <view class="settings-content">
+    <!-- 宝宝信息 -->
+    <view class="settings-group card">
+      <view class="group-header">
+        <text class="group-title">宝宝信息</text>
+      </view>
+      <view class="setting-item" bindtap="onEditBaby">
+        <view class="item-left">
+          <text class="item-icon">👶</text>
+          <text class="item-label">宝宝资料</text>
+        </view>
+        <view class="item-right">
+          <text class="item-value">{{babyInfo.name}}</text>
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+      <view class="setting-item" bindtap="onEditBirthday">
+        <view class="item-left">
+          <text class="item-icon">📅</text>
+          <text class="item-label">出生日期</text>
+        </view>
+        <view class="item-right">
+          <text class="item-value">{{babyInfo.birthday}}</text>
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 设备管理 -->
+    <view class="settings-group card">
+      <view class="group-header">
+        <text class="group-title">设备管理</text>
+      </view>
+      <view class="setting-item" bindtap="onDeviceInfo">
+        <view class="item-left">
+          <text class="item-icon">🍼</text>
+          <text class="item-label">设备信息</text>
+        </view>
+        <view class="item-right">
+          <view class="status-badge {{deviceInfo.connected ? 'online' : 'offline'}}">
+            {{deviceInfo.connected ? '已连接' : '未连接'}}
+          </view>
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+      <view class="setting-item" bindtap="onAddDevice">
+        <view class="item-left">
+          <text class="item-icon">➕</text>
+          <text class="item-label">添加设备</text>
+        </view>
+        <view class="item-right">
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+      <view class="setting-item" wx:if="{{deviceInfo.connected}}" bindtap="onUnbindDevice">
+        <view class="item-left">
+          <text class="item-icon danger">🔗</text>
+          <text class="item-label danger">解除绑定</text>
+        </view>
+        <view class="item-right">
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 提醒设置 -->
+    <view class="settings-group card">
+      <view class="group-header">
+        <text class="group-title">提醒设置</text>
+      </view>
+      <view class="setting-item">
+        <view class="item-left">
+          <text class="item-icon">🍼</text>
+          <text class="item-label">喂养提醒</text>
+        </view>
+        <view class="item-right">
+          <switch checked="{{reminders.feeding}}" bindchange="onReminderChange" data-type="feeding" color="#E8A87C"/>
+        </view>
+      </view>
+      <view class="setting-item">
+        <view class="item-left">
+          <text class="item-icon">💊</text>
+          <text class="item-label">用药提醒</text>
+        </view>
+        <view class="item-right">
+          <switch checked="{{reminders.medicine}}" bindchange="onReminderChange" data-type="medicine" color="#E8A87C"/>
+        </view>
+      </view>
+      <view class="setting-item">
+        <view class="item-left">
+          <text class="item-icon">😴</text>
+          <text class="item-label">睡眠提醒</text>
+        </view>
+        <view class="item-right">
+          <switch checked="{{reminders.sleep}}" bindchange="onReminderChange" data-type="sleep" color="#E8A87C"/>
+        </view>
+      </view>
+    </view>
+
+    <!-- 通用设置 -->
+    <view class="settings-group card">
+      <view class="group-header">
+        <text class="group-title">通用</text>
+      </view>
+      <view class="setting-item" bindtap="onAbout">
+        <view class="item-left">
+          <text class="item-icon">ℹ️</text>
+          <text class="item-label">关于我们</text>
+        </view>
+        <view class="item-right">
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+      <view class="setting-item" bindtap="onHelp">
+        <view class="item-left">
+          <text class="item-icon">❓</text>
+          <text class="item-label">帮助与反馈</text>
+        </view>
+        <view class="item-right">
+          <text class="item-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 退出登录 -->
+    <button class="logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
+
+  <!-- 底部导航 -->
+  <tabbar active="settings" />
+  
+  <!-- 悬浮豆豆 -->
+  <doudou bottom="180" right="30" />
+</view>
