@@ -84,5 +84,9 @@ Page({
         });
       }
     });
-  }
+  },
+
+  onDoudouClick() {
+    wx.navigateTo({ url: '/pages/assistant/assistant' });
+  },
 });

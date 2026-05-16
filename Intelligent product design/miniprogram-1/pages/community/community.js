@@ -125,5 +125,9 @@ Page({
       title: '查看帖子详情',
       icon: 'none'
     });
-  }
+  },
+
+  onDoudouClick() {
+    wx.navigateTo({ url: '/pages/assistant/assistant' });
+  },
 });

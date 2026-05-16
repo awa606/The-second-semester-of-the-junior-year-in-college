@@ -4,7 +4,8 @@
     "pages/pair/pair",
     "pages/growth/growth",
     "pages/community/community",
-    "pages/settings/settings"
+    "pages/settings/settings",
+    "pages/assistant/assistant"
   ],
   "window": {
     "navigationBarTextStyle": "black",
