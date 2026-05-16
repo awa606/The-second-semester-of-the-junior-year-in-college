@@ -120,5 +120,5 @@ module.exports = {
   <tabbar active="home" />
   
   <!-- 悬浮豆豆 -->
-  <doudou bottom="180" right="30" />
+  <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
 </view>
