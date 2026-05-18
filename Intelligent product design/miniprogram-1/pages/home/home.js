@@ -26,12 +26,21 @@ Page({
   onShow() {
     this.loadDeviceInfo();
   },
+  normalizeMode(mode) {
+    const modeMap = {
+      cool: 'dispense',
+      clean: 'sterilize'
+    };
+    return modeMap[mode] || mode || 'standby';
+  },
   loadDeviceInfo() {
     const deviceInfo = wx.getStorageSync('deviceInfo') || app.globalData.deviceInfo;
     if (deviceInfo) {
+      const normalizedMode = this.normalizeMode(deviceInfo.mode);
+      const normalizedDeviceInfo = { ...deviceInfo, mode: normalizedMode };
       this.setData({
-        deviceInfo,
-        currentMode: deviceInfo.mode || 'standby'
+        deviceInfo: normalizedDeviceInfo,
+        currentMode: normalizedMode
       });
     }
   },
