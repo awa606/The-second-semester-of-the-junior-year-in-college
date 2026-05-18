@@ -16,8 +16,8 @@ Page({
   },
   modeTexts: {
     warm: '保温模式',
-    cool: '冷却模式',
-    clean: '清洗模式',
+    dispense: '出奶模式',
+    sterilize: '消毒模式',
     standby: '待机中'
   },
   onLoad() {
@@ -45,8 +45,13 @@ Page({
     wx.setStorageSync('deviceInfo', deviceInfo);
     app.globalData.deviceInfo = deviceInfo;
     
+    const modeToastTexts = {
+      dispense: '出奶指令已触发',
+      sterilize: '消毒任务已启动'
+    };
+
     wx.showToast({
-      title: `已切换至${this.modeTexts[mode]}`,
+      title: modeToastTexts[mode] || `已切换至${this.modeTexts[mode]}`,
       icon: 'none',
       duration: 1200
     });
