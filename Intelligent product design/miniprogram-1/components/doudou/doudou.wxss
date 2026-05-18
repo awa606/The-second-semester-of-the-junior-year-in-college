@@ -19,10 +19,6 @@
   transition: transform 0.3s ease;
 }
 
-.doudou-body:active {
-  transform: scale(0.9);
-}
-
 .doudou-face {
   width: 60rpx;
   height: 60rpx;
