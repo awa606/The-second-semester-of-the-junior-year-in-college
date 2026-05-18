@@ -103,17 +103,28 @@ module.exports = {
   <view class="control-section card">
     <view class="control-header">
       <text class="control-title">定时功能</text>
-      <switch class="timer-switch" checked="{{timerOn}}" bindchange="onTimerChange" color="#E8A87C"/>
+      <view class="timer-add-btn" bindtap="onAddTimer">
+        <text class="timer-add-icon">+</text>
+        <text class="timer-add-text">添加定时</text>
+      </view>
     </view>
-    <view class="timer-picker" wx:if="{{timerOn}}">
-      <picker mode="time" value="{{timerValue}}" bindchange="onTimerValueChange">
-        <view class="timer-display">
-          <image class="timer-icon" src="/assets/icons/home/timer.png" mode="aspectFit"/>
-          <text class="timer-text">{{timerValue}}</text>
-          <text class="timer-arrow">›</text>
-        </view>
-      </picker>
+    <view class="timer-list" wx:if="{{timers.length}}">
+      <view class="timer-item" wx:for="{{timers}}" wx:key="id">
+        <picker mode="time" value="{{item.time}}" data-id="{{item.id}}" bindchange="onTimerTimeChange">
+          <view class="timer-time">
+            <image class="timer-icon" src="/assets/icons/home/timer.png" mode="aspectFit"/>
+            <text class="timer-text">{{item.time}}</text>
+            <text class="timer-arrow">›</text>
+          </view>
+        </picker>
+        <switch class="timer-switch" checked="{{item.enabled}}" data-id="{{item.id}}" bindchange="onToggleTimer" color="#E8A87C"/>
+        <view class="timer-delete-btn" data-id="{{item.id}}" bindtap="onDeleteTimer">删除</view>
+      </view>
     </view>
+    <view class="timer-empty" wx:else>
+      <text>暂无定时，点击“+ 添加定时”创建</text>
+    </view>
+    <view class="timer-bottom-safe-space"></view>
   </view>
 
   <!-- 底部导航 -->
