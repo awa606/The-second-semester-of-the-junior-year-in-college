@@ -86,15 +86,6 @@
       </view>
       <view class="setting-item">
         <view class="item-left">
-          <text class="item-icon">💊</text>
-          <text class="item-label">用药提醒</text>
-        </view>
-        <view class="item-right">
-          <switch checked="{{reminders.medicine}}" bindchange="onReminderChange" data-type="medicine" color="#E8A87C"/>
-        </view>
-      </view>
-      <view class="setting-item">
-        <view class="item-left">
           <text class="item-icon">😴</text>
           <text class="item-label">睡眠提醒</text>
         </view>

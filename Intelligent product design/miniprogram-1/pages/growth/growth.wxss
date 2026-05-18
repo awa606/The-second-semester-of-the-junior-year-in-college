@@ -1,7 +1,8 @@
 .growth-page {
-  min-height: 100vh;
+  min-height: 100%;
+  box-sizing: border-box;
   background-color: #FFF8F0;
-  padding-bottom: 180rpx;
+  padding-bottom: calc(220rpx + env(safe-area-inset-bottom));
 }
 
 /* 导航栏 */
@@ -223,7 +224,7 @@
 }
 
 .history-list {
-  padding: 24rpx 32rpx;
+  padding: 24rpx 32rpx 56rpx;
   display: flex;
   flex-direction: column;
   gap: 20rpx;
