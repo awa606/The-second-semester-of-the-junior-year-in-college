@@ -109,8 +109,7 @@ module.exports = {
       </view>
     </view>
     <view class="timer-list" wx:if="{{timers && timers.length > 0}}">
-      <block wx:for="{{timers}}" wx:key="id">
-        <view class="timer-item">
+      <view class="timer-item" wx:for="{{timers}}" wx:key="id">
         <picker mode="time" value="{{item.time}}" data-id="{{item.id}}" bindchange="onTimerTimeChange">
           <view class="timer-time">
             <image class="timer-icon" src="/assets/icons/home/timer.png" mode="aspectFit"/>
@@ -120,8 +119,7 @@ module.exports = {
         </picker>
         <switch class="timer-switch" checked="{{item.enabled}}" data-id="{{item.id}}" bindchange="onToggleTimer" color="#E8A87C"/>
         <view class="timer-delete-btn" data-id="{{item.id}}" bindtap="onDeleteTimer">删除</view>
-        </view>
-      </block>
+      </view>
     </view>
     <view class="timer-empty" wx:if="{{!timers || timers.length === 0}}">
       <text>暂无定时，点击“+ 添加定时”创建</text>
