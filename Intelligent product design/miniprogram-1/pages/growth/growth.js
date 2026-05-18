@@ -200,7 +200,7 @@ Page({
       weight: recordForm.weight ? Number(recordForm.weight) : '',
       head: recordForm.head ? Number(recordForm.head) : ''
     });
-    const nextRecords = [newRecord, ...records];
+    const nextRecords = [newRecord].concat(records);
     wx.setStorageSync('growthRecords', nextRecords);
     this.setData({
       records: nextRecords,

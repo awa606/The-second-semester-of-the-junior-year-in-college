@@ -79,7 +79,7 @@ Page({
     ];
     
     this.setData({
-      posts: [...this.data.posts, ...newPosts],
+      posts: this.data.posts.concat(newPosts),
       hasMore: this.data.page < 3
     });
   },
@@ -112,7 +112,7 @@ Page({
             height: 'normal'
           };
           this.setData({
-            posts: [newPost, ...this.data.posts]
+            posts: [newPost].concat(this.data.posts)
           });
           wx.showToast({ title: '发布成功', icon: 'success' });
         }

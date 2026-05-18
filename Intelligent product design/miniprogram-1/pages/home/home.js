@@ -109,7 +109,7 @@ Page({
       time: '07:30',
       enabled: true
     };
-    this.saveTimers([...timers, newTimer]);
+    this.saveTimers(timers.concat(newTimer));
   },
   onTimerTimeChange(e) {
     const timerId = Number(e.currentTarget.dataset.id);
