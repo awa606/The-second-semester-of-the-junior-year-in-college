@@ -42,11 +42,6 @@ page {
   transition: all 0.3s ease;
 }
 
-.btn-primary:active {
-  transform: scale(0.96);
-  box-shadow: var(--shadow-hover);
-}
-
 .btn-secondary {
   background-color: var(--bg-card);
   color: var(--primary-color);
@@ -101,8 +96,7 @@ page {
 }
 
 .text-ellipsis-2 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  line-height: 1.6;
+  max-height: 3.2em;
   overflow: hidden;
 }

@@ -56,11 +56,6 @@
   box-shadow: 0 4rpx 12rpx rgba(232, 168, 124, 0.3);
 }
 
-.add-device-btn:active {
-  transform: scale(0.95);
-  opacity: 0.9;
-}
-
 .add-icon {
   font-size: 28rpx;
   color: #FFFFFF;
@@ -200,10 +195,6 @@
   box-shadow: 0 4rpx 16rpx rgba(93, 78, 55, 0.06);
   transition: all 0.3s ease;
   border: 4rpx solid transparent;
-}
-
-.action-btn:active {
-  transform: scale(0.96);
 }
 
 .action-btn.active {
