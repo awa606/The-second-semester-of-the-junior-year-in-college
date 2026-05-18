@@ -11,8 +11,7 @@ Page({
     },
     currentMode: 'standby',
     targetTemp: 40,
-    timerOn: false,
-    timerValue: '12:00'
+    timers: []
   },
   modeTexts: {
     warm: '保温模式',
@@ -22,9 +21,11 @@ Page({
   },
   onLoad() {
     this.loadDeviceInfo();
+    this.loadTimers();
   },
   onShow() {
     this.loadDeviceInfo();
+    this.loadTimers();
   },
   normalizeMode(mode) {
     const modeMap = {
@@ -68,15 +69,78 @@ Page({
   onTempChange(e) {
     this.setData({ targetTemp: e.detail.value });
   },
-  onTimerChange(e) {
-    this.setData({ timerOn: e.detail.value });
+  loadTimers() {
+    const storedTimers = wx.getStorageSync('timers');
+    if (Array.isArray(storedTimers) && storedTimers.length >= 0) {
+      this.setData({ timers: storedTimers });
+      return;
+    }
+
+    const oldTimerValue = wx.getStorageSync('timerValue');
+    const oldTimerOn = wx.getStorageSync('timerOn');
+    if (oldTimerValue) {
+      const migratedTimers = [{
+        id: Date.now(),
+        time: oldTimerValue,
+        enabled: typeof oldTimerOn === 'boolean' ? oldTimerOn : true
+      }];
+      this.setData({ timers: migratedTimers });
+      wx.setStorageSync('timers', migratedTimers);
+      return;
+    }
+
+    this.setData({ timers: [] });
   },
-  onTimerValueChange(e) {
-    this.setData({ timerValue: e.detail.value });
+  saveTimers(timers) {
+    this.setData({ timers });
+    wx.setStorageSync('timers', timers);
+  },
+  onAddTimer() {
+    const { timers } = this.data;
+    if (timers.length >= 5) {
+      wx.showToast({
+        title: '最多添加5个定时',
+        icon: 'none'
+      });
+      return;
+    }
+    const newTimer = {
+      id: Date.now() + Math.floor(Math.random() * 1000),
+      time: '07:30',
+      enabled: true
+    };
+    this.saveTimers([...timers, newTimer]);
+  },
+  onTimerTimeChange(e) {
+    const timerId = Number(e.currentTarget.dataset.id);
+    const nextTime = e.detail.value;
+    const nextTimers = this.data.timers.map((timer) => {
+      if (timer.id === timerId) {
+        return { ...timer, time: nextTime };
+      }
+      return timer;
+    });
+    this.saveTimers(nextTimers);
     wx.showToast({
       title: '定时已设置',
       icon: 'none'
     });
+  },
+  onToggleTimer(e) {
+    const timerId = Number(e.currentTarget.dataset.id);
+    const nextEnabled = e.detail.value;
+    const nextTimers = this.data.timers.map((timer) => {
+      if (timer.id === timerId) {
+        return { ...timer, enabled: nextEnabled };
+      }
+      return timer;
+    });
+    this.saveTimers(nextTimers);
+  },
+  onDeleteTimer(e) {
+    const timerId = Number(e.currentTarget.dataset.id);
+    const nextTimers = this.data.timers.filter((timer) => timer.id !== timerId);
+    this.saveTimers(nextTimers);
   },
   goToPair() {
     wx.scanCode({

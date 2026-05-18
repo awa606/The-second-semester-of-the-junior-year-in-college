@@ -273,16 +273,49 @@
   transform: scale(0.85);
 }
 
-.timer-picker {
-  margin-top: 16rpx;
-}
-
-.timer-display {
+.timer-add-btn {
   display: flex;
   align-items: center;
-  padding: 20rpx 24rpx;
-  background: #FFF8F0;
+  padding: 8rpx 18rpx;
+  border-radius: 999rpx;
+  background: rgba(232, 168, 124, 0.15);
+}
+
+.timer-add-icon {
+  font-size: 26rpx;
+  color: #E8A87C;
+  font-weight: 700;
+  margin-right: 6rpx;
+}
+
+.timer-add-text {
+  font-size: 24rpx;
+  color: #8B7355;
+}
+
+.timer-list {
+  margin-top: 12rpx;
+}
+
+.timer-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 14rpx;
+  background: #FFFBF6;
+  border: 1rpx solid #F3E5D8;
   border-radius: 16rpx;
+  margin-top: 12rpx;
+}
+
+.timer-time {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  padding: 12rpx 16rpx;
+  background: #FFF8F0;
+  border-radius: 14rpx;
 }
 
 .timer-icon {
@@ -293,7 +326,7 @@
 
 .timer-text {
   flex: 1;
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: #5D4E37;
   font-weight: 500;
 }
@@ -301,4 +334,29 @@
 .timer-arrow {
   font-size: 36rpx;
   color: #B8A090;
+}
+
+.timer-delete-btn {
+  font-size: 24rpx;
+  color: #C47A57;
+  background: rgba(255, 226, 210, 0.8);
+  padding: 10rpx 16rpx;
+  border-radius: 12rpx;
+  white-space: nowrap;
+}
+
+.timer-empty {
+  margin-top: 16rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 14rpx;
+  background: #FFF8F0;
+}
+
+.timer-empty text {
+  font-size: 24rpx;
+  color: #B8A090;
+}
+
+.timer-bottom-safe-space {
+  height: 48rpx;
 }
