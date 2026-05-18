@@ -70,7 +70,7 @@ Page({
   sendMessage(question) {
     const userMessage = { role: 'user', text: question };
     const pendingMessage = { role: 'assistant', text: '思考中…', pending: true };
-    const messages = [...this.data.messages, userMessage, pendingMessage];
+    const messages = this.data.messages.concat([userMessage, pendingMessage]);
 
     this.setData({
       messages,
