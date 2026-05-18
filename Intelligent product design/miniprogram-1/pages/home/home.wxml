@@ -3,8 +3,8 @@ module.exports = {
   getModeText: function(mode) {
     var texts = {
       warm: '保温模式',
-      cool: '冷却模式',
-      clean: '清洗模式',
+      dispense: '出奶模式',
+      sterilize: '消毒模式',
       standby: '待机中'
     };
     return texts[mode] || '待机中';
@@ -66,13 +66,13 @@ module.exports = {
       <image class="action-icon" src="/assets/icons/home/warm.png" mode="aspectFit"/>
       <text class="action-text">保温</text>
     </view>
-    <view class="action-btn {{currentMode === 'cool' ? 'active' : ''}}" bindtap="setMode" data-mode="cool">
-      <image class="action-icon" src="/assets/icons/home/cool.png" mode="aspectFit"/>
-      <text class="action-text">冷却</text>
+    <view class="action-btn {{currentMode === 'dispense' ? 'active' : ''}}" bindtap="setMode" data-mode="dispense">
+      <text class="action-icon clean-text-icon">🍼</text>
+      <text class="action-text">出奶</text>
     </view>
-    <view class="action-btn {{currentMode === 'clean' ? 'active' : ''}}" bindtap="setMode" data-mode="clean">
+    <view class="action-btn {{currentMode === 'sterilize' ? 'active' : ''}}" bindtap="setMode" data-mode="sterilize">
       <text class="action-icon clean-text-icon">✨</text>
-      <text class="action-text">清洗</text>
+      <text class="action-text">消毒</text>
     </view>
   </view>
 

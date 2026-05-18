@@ -11,7 +11,6 @@ Page({
     },
     reminders: {
       feeding: true,
-      medicine: false,
       sleep: true
     }
   },
@@ -29,7 +28,14 @@ Page({
     if (deviceInfo) this.setData({ deviceInfo });
     
     const reminders = wx.getStorageSync('reminders');
-    if (reminders) this.setData({ reminders });
+    if (reminders) {
+      this.setData({
+        reminders: {
+          feeding: reminders.feeding ?? this.data.reminders.feeding,
+          sleep: reminders.sleep ?? this.data.reminders.sleep
+        }
+      });
+    }
   },
   saveReminders() {
     wx.setStorageSync('reminders', this.data.reminders);
