@@ -76,7 +76,7 @@
   <view class="history-section">
     <text class="section-title" style="margin-left: 32rpx;">历史记录</text>
     <view class="history-list">
-      <view class="history-item card" wx:for="{{records}}" wx:key="id">
+      <view class="history-item card" wx:for="{{records}}" wx:key="id" bindtap="onOpenRecordDetail" data-record="{{item}}">
         <view class="history-date">
           <text class="date-day">{{item.day}}</text>
           <text class="date-month">{{item.month}}月</text>
@@ -97,4 +97,66 @@
   
   <!-- 悬浮豆豆 -->
   <doudou bottom="180" right="30" showVoice="{{showVoice}}" voiceText="{{voiceText}}" bind:doudouclick="onDoudouClick" />
+
+  <view class="modal-mask" wx:if="{{showForm}}" catchtouchmove="true">
+    <view class="modal-card form-modal card">
+      <view class="modal-title">添加成长记录</view>
+      <scroll-view class="form-body" scroll-y>
+        <view class="form-item">
+          <text class="form-label">日期</text>
+          <picker mode="date" value="{{recordForm.date}}" bindchange="onFormDateChange">
+            <view class="form-picker">{{recordForm.date || '请选择日期'}}</view>
+          </picker>
+        </view>
+        <view class="form-item">
+          <text class="form-label">类型</text>
+          <picker mode="selector" range="{{typeOptions}}" range-key="text" value="{{recordForm.typeIndex}}" bindchange="onFormTypeChange">
+            <view class="form-picker">{{typeOptions[recordForm.typeIndex].text}}</view>
+          </picker>
+        </view>
+        <view class="form-item">
+          <text class="form-label">标题</text>
+          <input class="form-input" placeholder="请输入记录标题" value="{{recordForm.title}}" data-field="title" bindinput="onFormInput" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">详细内容</text>
+          <textarea class="form-textarea" placeholder="请输入详细说明" value="{{recordForm.content}}" data-field="content" bindinput="onFormInput" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">身高 cm（选填）</text>
+          <input class="form-input" type="digit" placeholder="例如 75" value="{{recordForm.height}}" data-field="height" bindinput="onFormInput" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">体重 kg（选填）</text>
+          <input class="form-input" type="digit" placeholder="例如 9.5" value="{{recordForm.weight}}" data-field="weight" bindinput="onFormInput" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">头围 cm（选填）</text>
+          <input class="form-input" type="digit" placeholder="例如 44" value="{{recordForm.head}}" data-field="head" bindinput="onFormInput" />
+        </view>
+      </scroll-view>
+      <view class="modal-actions">
+        <view class="action-btn cancel" bindtap="onCloseForm">取消</view>
+        <view class="action-btn save" bindtap="onSaveRecord">保存</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="modal-mask" wx:if="{{showDetail}}" catchtouchmove="true">
+    <view class="modal-card detail-modal card">
+      <view class="modal-title">记录详情</view>
+      <scroll-view class="detail-body" scroll-y>
+        <view class="detail-line"><text class="detail-key">日期：</text><text>{{detailRecord.date}}</text></view>
+        <view class="detail-line"><text class="detail-key">类型：</text><text>{{detailRecord.typeText}}</text></view>
+        <view class="detail-line"><text class="detail-key">标题：</text><text>{{detailRecord.title}}</text></view>
+        <view class="detail-line detail-content"><text class="detail-key">详细内容：</text><text>{{detailRecord.content || '（无）'}}</text></view>
+        <view class="detail-line" wx:if="{{detailRecord.height !== '' && detailRecord.height !== undefined}}"><text class="detail-key">身高：</text><text>{{detailRecord.height}} cm</text></view>
+        <view class="detail-line" wx:if="{{detailRecord.weight !== '' && detailRecord.weight !== undefined}}"><text class="detail-key">体重：</text><text>{{detailRecord.weight}} kg</text></view>
+        <view class="detail-line" wx:if="{{detailRecord.head !== '' && detailRecord.head !== undefined}}"><text class="detail-key">头围：</text><text>{{detailRecord.head}} cm</text></view>
+      </scroll-view>
+      <view class="modal-actions single">
+        <view class="action-btn save" bindtap="onCloseDetail">我知道了</view>
+      </view>
+    </view>
+  </view>
 </view>
