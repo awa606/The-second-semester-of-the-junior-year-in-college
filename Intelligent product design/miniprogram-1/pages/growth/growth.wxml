@@ -98,7 +98,6 @@
   </scroll-view>
 
   <!-- 底部导航 -->
-  <tabbar active="growth" />
   
   <!-- 悬浮豆豆：保留 IP 形象，点击进入育儿助手 -->
   <doudou bottom="166" right="26" showVoice="{{showVoice}}" voiceText="{{voiceText}}" bind:doudouclick="onDoudouClick" />

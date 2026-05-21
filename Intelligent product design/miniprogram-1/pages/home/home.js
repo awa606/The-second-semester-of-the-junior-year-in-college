@@ -1,5 +1,11 @@
 const app = getApp();
 Page({
+  updateCustomTabBar() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 });
+    }
+  },
+
   data: {
     deviceInfo: {
       connected: false,
@@ -28,6 +34,7 @@ Page({
     this.loadTimers();
   },
   onShow() {
+    this.updateCustomTabBar();
     this.loadDeviceInfo();
     this.loadTimers();
   },

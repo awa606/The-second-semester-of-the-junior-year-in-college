@@ -1,5 +1,11 @@
 const app = getApp();
 Page({
+  updateCustomTabBar() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 3 });
+    }
+  },
+
   data: {
     babyInfo: {
       name: '小豆芽',
@@ -18,6 +24,7 @@ Page({
     this.loadData();
   },
   onShow() {
+    this.updateCustomTabBar();
     this.loadData();
   },
   loadData() {

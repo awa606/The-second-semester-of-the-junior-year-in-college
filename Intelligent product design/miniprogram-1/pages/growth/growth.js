@@ -67,6 +67,12 @@ const MOCK_RECORDS = [
 ];
 
 Page({
+  updateCustomTabBar() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 1 });
+    }
+  },
+
   data: {
     statusBarHeight: 20,
     navHeight: 112,
@@ -98,6 +104,7 @@ Page({
     this.loadData();
   },
   onShow() {
+    this.updateCustomTabBar();
     this.loadData();
   },
   initSafeLayout() {

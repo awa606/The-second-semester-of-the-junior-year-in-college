@@ -97,6 +97,5 @@
       <view class="timer-bottom-safe-space"></view>
     </view>
   </scroll-view>
-  <tabbar active="home" />
   <doudou bottom="172" right="26" bind:doudouclick="onDoudouClick" />
 </view>

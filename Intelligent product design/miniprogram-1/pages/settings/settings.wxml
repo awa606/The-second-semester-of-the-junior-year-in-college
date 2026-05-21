@@ -18,6 +18,5 @@
       <button class="logout-btn" bindtap="onLogout">退出登录</button>
     </view>
   </scroll-view>
-  <tabbar active="settings" />
   <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
 </view>
