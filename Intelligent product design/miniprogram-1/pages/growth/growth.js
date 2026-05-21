@@ -60,6 +60,9 @@ const MOCK_RECORDS = [
 
 Page({
   data: {
+    statusBarHeight: 20,
+    navHeight: 112,
+    capsuleSafeRight: 120,
     babyInfo: {
       name: '小豆芽',
       gender: 'girl',
@@ -88,11 +91,34 @@ Page({
     voiceText: ''
   },
   onLoad() {
+    this.initSafeLayout();
     this.loadData();
-    this.setData({ showVoice: true, voiceText: '记录宝宝成长的每一个珍贵时刻~' });
   },
   onShow() {
     this.loadData();
+  },
+  initSafeLayout() {
+    try {
+      const systemInfo = wx.getSystemInfoSync();
+      const capsule = wx.getMenuButtonBoundingClientRect();
+      const statusBarHeight = systemInfo.statusBarHeight || 20;
+      const capsuleBottom = capsule && capsule.bottom ? capsule.bottom : statusBarHeight + 40;
+      const capsuleLeft = capsule && capsule.left ? capsule.left : systemInfo.windowWidth - 100;
+      const navHeight = capsuleBottom + 28;
+      const capsuleSafeRight = Math.max(systemInfo.windowWidth - capsuleLeft + 18, 128);
+
+      this.setData({
+        statusBarHeight,
+        navHeight,
+        capsuleSafeRight
+      });
+    } catch (err) {
+      this.setData({
+        statusBarHeight: 24,
+        navHeight: 116,
+        capsuleSafeRight: 128
+      });
+    }
   },
   loadData() {
     const babyInfo = wx.getStorageSync('babyInfo') || app.globalData.babyInfo;
