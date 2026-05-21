@@ -1,17 +1,3 @@
-<wxs module="utils">
-module.exports = {
-  getModeText: function(mode) {
-    var texts = {
-      warm: '保温模式',
-      dispense: '出奶模式',
-      sterilize: '消毒模式',
-      standby: '待机中'
-    };
-    return texts[mode] || '待机中';
-  }
-}
-</wxs>
-
 <view class="home-page">
   <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     <view class="nav-bar" style="padding-top: {{headerTopPadding}}px;">
@@ -54,7 +40,7 @@ module.exports = {
         </view>
         <view class="device-info">
           <text class="device-name">{{deviceInfo.name}}</text>
-          <text class="device-mode">{{utils.getModeText(currentMode)}}</text>
+          <text class="device-mode">{{currentModeText}}</text>
           <text class="device-temp">水温 {{deviceInfo.temperature}}°C</text>
         </view>
       </view>
@@ -111,6 +97,5 @@ module.exports = {
       <view class="timer-bottom-safe-space"></view>
     </view>
   </scroll-view>
-  <tabbar active="home" />
   <doudou bottom="172" right="26" bind:doudouclick="onDoudouClick" />
 </view>

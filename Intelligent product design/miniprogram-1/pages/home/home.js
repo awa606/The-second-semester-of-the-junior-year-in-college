@@ -1,5 +1,11 @@
 const app = getApp();
 Page({
+  updateCustomTabBar() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 });
+    }
+  },
+
   data: {
     deviceInfo: {
       connected: false,
@@ -13,7 +19,8 @@ Page({
     targetTemp: 40,
     timers: [],
     headerTopPadding: 64,
-    navRightSafePx: 110
+    navRightSafePx: 110,
+    currentModeText: '待机中'
   },
   modeTexts: {
     warm: '保温模式',
@@ -27,6 +34,7 @@ Page({
     this.loadTimers();
   },
   onShow() {
+    this.updateCustomTabBar();
     this.loadDeviceInfo();
     this.loadTimers();
   },
@@ -57,13 +65,14 @@ Page({
       const normalizedDeviceInfo = { ...deviceInfo, mode: normalizedMode };
       this.setData({
         deviceInfo: normalizedDeviceInfo,
-        currentMode: normalizedMode
+        currentMode: normalizedMode,
+        currentModeText: this.modeTexts[normalizedMode] || '待机中'
       });
     }
   },
   setMode(e) {
     const mode = e.currentTarget.dataset.mode;
-    this.setData({ currentMode: mode });
+    this.setData({ currentMode: mode, currentModeText: this.modeTexts[mode] || '待机中' });
     
     // 更新设备信息
     const deviceInfo = { ...this.data.deviceInfo, mode };
