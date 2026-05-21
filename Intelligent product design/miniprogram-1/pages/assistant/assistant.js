@@ -23,10 +23,10 @@ Page({
     const menuButton = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
     const systemInfo = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
     const statusBarHeight = systemInfo.statusBarHeight || 20;
-    let navBarStyle = `padding-top:${statusBarHeight}px;`;
+    var navBarStyle = 'padding-top:' + statusBarHeight + 'px;';
     if (menuButton && menuButton.left) {
       const rightSafe = systemInfo.windowWidth - menuButton.left;
-      navBarStyle += `padding-right:${rightSafe + 16}px;`;
+      navBarStyle += 'padding-right:' + (rightSafe + 16) + 'px;';
     }
     this.setData({ navBarStyle });
   },
@@ -38,7 +38,7 @@ Page({
       return;
     }
     this.setData({
-      messages: [{ id: `m_${Date.now()}`, role: 'assistant', text: `${WELCOME_TEXT}\n\n${SAFETY_TEXT}` }]
+      messages: [{ id: 'm_' + Date.now(), role: 'assistant', text: WELCOME_TEXT + '\n\n' + SAFETY_TEXT }]
     }, this.scrollToBottom);
   },
 
@@ -53,31 +53,32 @@ Page({
   onQuickQuestionTap(e) { this.sendQuestion(e.currentTarget.dataset.question); },
 
   sendQuestion(question) {
-    const userMsg = { id: `u_${Date.now()}`, role: 'user', text: question };
+    const userMsg = { id: 'u_' + Date.now(), role: 'user', text: question };
     const { answer, suggestions } = answerParentingQuestion(question);
-    const botMsg = { id: `a_${Date.now()}_${Math.random()}`, role: 'assistant', text: answer };
+    const botMsg = { id: 'a_' + Date.now() + '_' + Math.random(), role: 'assistant', text: answer };
     const messages = this.data.messages.concat([userMsg, botMsg]);
-    this.setData({ messages, inputValue: '', isTyping: false, quickQuestions: suggestions || fallbackSuggestions }, () => {
-      wx.setStorageSync(STORAGE_KEY, this.data.messages);
-      this.scrollToBottom();
+    var that = this;
+    this.setData({ messages: messages, inputValue: '', isTyping: false, quickQuestions: suggestions || fallbackSuggestions }, function () {
+      wx.setStorageSync(STORAGE_KEY, that.data.messages);
+      that.scrollToBottom();
     });
   },
 
   scrollToBottom() {
     const last = this.data.messages[this.data.messages.length - 1];
     if (!last) return;
-    this.setData({ scrollIntoView: `msg-${last.id}` });
+    this.setData({ scrollIntoView: 'msg-' + last.id });
   },
 
   onClearChat() {
     wx.showModal({
       title: '清空聊天记录',
       content: '确定要清空当前聊天记录吗？',
-      success: (res) => {
+      success: function (res) {
         if (!res.confirm) return;
         wx.removeStorageSync(STORAGE_KEY);
         this.setData({
-          messages: [{ id: `m_${Date.now()}`, role: 'assistant', text: `${WELCOME_TEXT}\n\n${SAFETY_TEXT}` }]
+          messages: [{ id: 'm_' + Date.now(), role: 'assistant', text: WELCOME_TEXT + '\n\n' + SAFETY_TEXT }]
         }, this.scrollToBottom);
       }
     });

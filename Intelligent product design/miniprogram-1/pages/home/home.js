@@ -1,6 +1,6 @@
 const app = getApp();
 Page({
-  updateCustomTabBar() {
+  updateCustomTabBar: function () {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({ selected: 0 });
     }
@@ -28,41 +28,45 @@ Page({
     sterilize: '消毒模式',
     standby: '待机中'
   },
-  onLoad() {
+  onLoad: function () {
     this.updateHeaderLayout();
     this.loadDeviceInfo();
     this.loadTimers();
   },
-  onShow() {
+  onShow: function () {
     this.updateCustomTabBar();
     this.loadDeviceInfo();
     this.loadTimers();
   },
 
-  updateHeaderLayout() {
-    const sys = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
-    const menu = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
-    const statusBarHeight = sys.statusBarHeight || 20;
-    const windowWidth = sys.windowWidth || 375;
-    const fallback = statusBarHeight + 44;
-    const headerTopPadding = menu && menu.bottom ? (menu.bottom + 12) : fallback;
-    const capsuleLeft = menu && menu.left ? menu.left : windowWidth - 96;
-    const rightGap = Math.max(windowWidth - capsuleLeft, 8);
-    const navRightSafePx = Math.max(rightGap + 12, 92);
-    this.setData({ headerTopPadding, navRightSafePx });
+  updateHeaderLayout: function () {
+    var sys = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
+    var menu = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
+    var statusBarHeight = sys.statusBarHeight || 20;
+    var windowWidth = sys.windowWidth || 375;
+    var fallback = statusBarHeight + 44;
+    var headerTopPadding = menu && menu.bottom ? (menu.bottom + 12) : fallback;
+    var capsuleLeft = menu && menu.left ? menu.left : windowWidth - 96;
+    var rightGap = Math.max(windowWidth - capsuleLeft, 8);
+    var navRightSafePx = Math.max(rightGap + 12, 92);
+    this.setData({ headerTopPadding: headerTopPadding, navRightSafePx: navRightSafePx });
   },
-  normalizeMode(mode) {
-    const modeMap = {
+  normalizeMode: function (mode) {
+    var modeMap = {
       cool: 'dispense',
       clean: 'sterilize'
     };
     return modeMap[mode] || mode || 'standby';
   },
-  loadDeviceInfo() {
-    const deviceInfo = wx.getStorageSync('deviceInfo') || app.globalData.deviceInfo;
+  loadDeviceInfo: function () {
+    var deviceInfo = wx.getStorageSync('deviceInfo') || app.globalData.deviceInfo;
     if (deviceInfo) {
-      const normalizedMode = this.normalizeMode(deviceInfo.mode);
-      const normalizedDeviceInfo = { ...deviceInfo, mode: normalizedMode };
+      var normalizedMode = this.normalizeMode(deviceInfo.mode);
+      var normalizedDeviceInfo = {};
+      Object.keys(deviceInfo || {}).forEach(function (key) {
+        normalizedDeviceInfo[key] = deviceInfo[key];
+      });
+      normalizedDeviceInfo.mode = normalizedMode;
       this.setData({
         deviceInfo: normalizedDeviceInfo,
         currentMode: normalizedMode,
@@ -70,41 +74,46 @@ Page({
       });
     }
   },
-  setMode(e) {
-    const mode = e.currentTarget.dataset.mode;
+  setMode: function (e) {
+    var mode = e.currentTarget.dataset.mode;
     this.setData({ currentMode: mode, currentModeText: this.modeTexts[mode] || '待机中' });
-    
-    // 更新设备信息
-    const deviceInfo = { ...this.data.deviceInfo, mode };
-    this.setData({ deviceInfo });
-    wx.setStorageSync('deviceInfo', deviceInfo);
-    app.globalData.deviceInfo = deviceInfo;
-    
-    const modeToastTexts = {
+
+    var nextDeviceInfo = {};
+    var oldInfo = this.data.deviceInfo || {};
+    Object.keys(oldInfo).forEach(function (key) {
+      nextDeviceInfo[key] = oldInfo[key];
+    });
+    nextDeviceInfo.mode = mode;
+
+    this.setData({ deviceInfo: nextDeviceInfo });
+    wx.setStorageSync('deviceInfo', nextDeviceInfo);
+    app.globalData.deviceInfo = nextDeviceInfo;
+
+    var modeToastTexts = {
       dispense: '出奶指令已触发',
       sterilize: '消毒任务已启动'
     };
 
     wx.showToast({
-      title: modeToastTexts[mode] || `已切换至${this.modeTexts[mode]}`,
+      title: modeToastTexts[mode] || ('已切换至' + this.modeTexts[mode]),
       icon: 'none',
       duration: 1200
     });
   },
-  onTempChange(e) {
+  onTempChange: function (e) {
     this.setData({ targetTemp: e.detail.value });
   },
-  loadTimers() {
-    const storedTimers = wx.getStorageSync('timers');
+  loadTimers: function () {
+    var storedTimers = wx.getStorageSync('timers');
     if (Array.isArray(storedTimers) && storedTimers.length >= 0) {
       this.setData({ timers: storedTimers });
       return;
     }
 
-    const oldTimerValue = wx.getStorageSync('timerValue');
-    const oldTimerOn = wx.getStorageSync('timerOn');
+    var oldTimerValue = wx.getStorageSync('timerValue');
+    var oldTimerOn = wx.getStorageSync('timerOn');
     if (oldTimerValue) {
-      const migratedTimers = [{
+      var migratedTimers = [{
         id: Date.now(),
         time: oldTimerValue,
         enabled: typeof oldTimerOn === 'boolean' ? oldTimerOn : true
@@ -116,80 +125,67 @@ Page({
 
     this.setData({ timers: [] });
   },
-  saveTimers(timers) {
-    this.setData({ timers });
+  saveTimers: function (timers) {
+    this.setData({ timers: timers });
     wx.setStorageSync('timers', timers);
   },
-  onAddTimer() {
-    const { timers } = this.data;
+  onAddTimer: function () {
+    var timers = this.data.timers;
     if (timers.length >= 5) {
-      wx.showToast({
-        title: '最多添加5个定时',
-        icon: 'none'
-      });
+      wx.showToast({ title: '最多添加5个定时', icon: 'none' });
       return;
     }
-    const newTimer = {
-      id: Date.now() + Math.floor(Math.random() * 1000),
-      time: '07:30',
-      enabled: true
-    };
+    var newTimer = { id: Date.now() + Math.floor(Math.random() * 1000), time: '07:30', enabled: true };
     this.saveTimers(timers.concat(newTimer));
   },
-  onTimerTimeChange(e) {
-    const timerId = Number(e.currentTarget.dataset.id);
-    const nextTime = e.detail.value;
-    const nextTimers = this.data.timers.map((timer) => {
+  onTimerTimeChange: function (e) {
+    var timerId = Number(e.currentTarget.dataset.id);
+    var nextTime = e.detail.value;
+    var nextTimers = this.data.timers.map(function (timer) {
       if (timer.id === timerId) {
-        return { ...timer, time: nextTime };
+        var copied = {};
+        Object.keys(timer || {}).forEach(function (k) { copied[k] = timer[k]; });
+        copied.time = nextTime;
+        return copied;
       }
       return timer;
     });
     this.saveTimers(nextTimers);
-    wx.showToast({
-      title: '定时已设置',
-      icon: 'none'
-    });
+    wx.showToast({ title: '定时已设置', icon: 'none' });
   },
-  onToggleTimer(e) {
-    const timerId = Number(e.currentTarget.dataset.id);
-    const nextEnabled = e.detail.value;
-    const nextTimers = this.data.timers.map((timer) => {
+  onToggleTimer: function (e) {
+    var timerId = Number(e.currentTarget.dataset.id);
+    var nextEnabled = e.detail.value;
+    var nextTimers = this.data.timers.map(function (timer) {
       if (timer.id === timerId) {
-        return { ...timer, enabled: nextEnabled };
+        var copied = {};
+        Object.keys(timer || {}).forEach(function (k) { copied[k] = timer[k]; });
+        copied.enabled = nextEnabled;
+        return copied;
       }
       return timer;
     });
     this.saveTimers(nextTimers);
   },
-  onDeleteTimer(e) {
-    const timerId = Number(e.currentTarget.dataset.id);
-    const nextTimers = this.data.timers.filter((timer) => timer.id !== timerId);
+  onDeleteTimer: function (e) {
+    var timerId = Number(e.currentTarget.dataset.id);
+    var nextTimers = this.data.timers.filter(function (timer) { return timer.id !== timerId; });
     this.saveTimers(nextTimers);
   },
-  goToPair() {
+  goToPair: function () {
     wx.scanCode({
-      success: (res) => {
-        console.log('扫码结果:', res);
-        // 扫码成功，跳转到配对页面并传递扫码结果
-        wx.navigateTo({
-          url: `/pages/pair/pair?qrCode=${encodeURIComponent(res.result || '')}`
-        });
+      success: function (res) {
+        var result = res && res.result ? res.result : '';
+        wx.navigateTo({ url: '/pages/pair/pair?qrCode=' + encodeURIComponent(result) });
       },
-      fail: (err) => {
-        // 用户取消扫码
-        if (err.errMsg && err.errMsg.includes('cancel')) {
-          return;
-        }
-        wx.showToast({
-          title: '扫码失败，请重试',
-          icon: 'none'
-        });
+      fail: function (err) {
+        if (err.errMsg && err.errMsg.indexOf('cancel') !== -1) return;
+        wx.showToast({ title: '扫码失败，请重试', icon: 'none' });
       }
     });
   },
 
-  onDoudouClick() {
+  onDoudouClick: function () {
     wx.navigateTo({ url: '/pages/assistant/assistant' });
-  },
+  }
 });

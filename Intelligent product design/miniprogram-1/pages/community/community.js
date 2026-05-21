@@ -94,7 +94,7 @@ Page({
     if (!this.data.hasMore) return;
     
     wx.showLoading({ title: '加载中...' });
-    setTimeout(() => {
+    setTimeout(function () {
       this.data.page++;
       this.loadPosts();
       wx.hideLoading();
@@ -105,7 +105,7 @@ Page({
       title: '发帖',
       editable: true,
       placeholderText: '分享你的育儿心得...',
-      success: (res) => {
+      success: function (res) {
         if (res.confirm && res.content) {
           const newPost = {
             id: Date.now(),
