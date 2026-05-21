@@ -1,4 +1,8 @@
 <view class="doudou-wrapper" bindtap="onTap" style="bottom: {{bottom}}rpx; right: {{right}}rpx;">
-  <view class="doudou-voice" wx:if="{{showVoice}}"><text class="voice-text">{{voiceText}}</text></view>
-  <view class="doudou-body"><text class="doudou-face-text">豆</text></view>
+  <view class="doudou-voice" wx:if="{{showVoice}}">
+    <text class="voice-text">{{voiceText}}</text>
+  </view>
+  <view class="doudou-body">
+    <image class="doudou-face" src="/assets/mascot/doudou-default.png" mode="aspectFit"/>
+  </view>
 </view>
