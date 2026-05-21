@@ -7,40 +7,52 @@
 .page-scroll {
   height: 100vh;
   box-sizing: border-box;
-  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
+  padding-bottom: 260rpx;
 }
 
-/* 导航栏 */
 .nav-bar {
   background: #FFFFFF;
-  padding: 120rpx 32rpx 20rpx;
+  padding: 136rpx 32rpx 26rpx;
   box-shadow: 0 2rpx 12rpx rgba(93, 78, 55, 0.05);
 }
 
-.nav-header {
+.nav-title-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-}
-
-.nav-left {
-  display: flex;
-  flex-direction: column;
-  gap: 16rpx;
+  justify-content: space-between;
+  min-height: 56rpx;
 }
 
 .nav-title {
-  font-size: 36rpx;
+  font-size: 38rpx;
   font-weight: 700;
   color: #5D4E37;
+  white-space: nowrap;
+}
+
+.nav-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24rpx;
+  gap: 20rpx;
+}
+
+.nav-action-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18rpx;
 }
 
 .device-status {
   display: flex;
   align-items: center;
+  min-width: 0;
+  max-width: 320rpx;
   padding: 8rpx 20rpx;
   border-radius: 30rpx;
   font-size: 24rpx;
+  box-sizing: border-box;
 }
 
 .device-status.online {
@@ -53,13 +65,23 @@
   color: #F44336;
 }
 
+.status-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .add-device-btn {
   display: flex;
   align-items: center;
-  padding: 12rpx 24rpx;
+  justify-content: center;
+  min-width: 168rpx;
+  height: 60rpx;
+  padding: 0 24rpx;
   background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
   border-radius: 32rpx;
   box-shadow: 0 4rpx 12rpx rgba(232, 168, 124, 0.3);
+  box-sizing: border-box;
 }
 
 .add-icon {
@@ -73,6 +95,7 @@
   font-size: 24rpx;
   color: #FFFFFF;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .status-dot {
@@ -80,33 +103,38 @@
   height: 12rpx;
   border-radius: 50%;
   margin-right: 8rpx;
+  flex-shrink: 0;
   background: currentColor;
   animation: pulse 2s infinite;
 }
 
 .status-icons {
   display: flex;
-  gap: 40rpx;
+  align-items: center;
+  gap: 28rpx;
+  flex-shrink: 0;
 }
 
 .status-item {
   display: flex;
   align-items: center;
   gap: 8rpx;
+  white-space: nowrap;
 }
 
 .status-icon {
   width: 28rpx;
   height: 28rpx;
+  flex-shrink: 0;
 }
 
 .status-value {
   font-size: 26rpx;
   color: #5D4E37;
   font-weight: 500;
+  white-space: nowrap;
 }
 
-/* 智能提醒 */
 .reminder-section {
   padding: 24rpx 32rpx;
 }
@@ -120,7 +148,6 @@
   display: inline-block;
 }
 
-/* 设备卡片 */
 .device-card {
   margin: 0 32rpx 32rpx;
 }
@@ -135,6 +162,7 @@
   position: relative;
   width: 160rpx;
   height: 160rpx;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,6 +186,7 @@
 
 .device-info {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 8rpx;
@@ -167,29 +196,31 @@
   font-size: 32rpx;
   font-weight: 600;
   color: #5D4E37;
+  white-space: nowrap;
 }
 
 .device-mode {
   font-size: 28rpx;
   color: #E8A87C;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .device-temp {
   font-size: 24rpx;
   color: #B8A090;
+  white-space: nowrap;
 }
 
-/* 三按钮 */
 .action-buttons {
   display: flex;
-  justify-content: center;
-  gap: 32rpx;
+  justify-content: space-between;
+  gap: 24rpx;
   padding: 0 32rpx 32rpx;
 }
 
 .action-btn {
-  width: 180rpx;
+  flex: 1;
   height: 160rpx;
   background: #FFFFFF;
   border-radius: 24rpx;
@@ -201,6 +232,7 @@
   box-shadow: 0 4rpx 16rpx rgba(93, 78, 55, 0.06);
   transition: all 0.3s ease;
   border: 4rpx solid transparent;
+  box-sizing: border-box;
 }
 
 .action-btn.active {
@@ -224,9 +256,9 @@
   font-size: 28rpx;
   color: #5D4E37;
   font-weight: 500;
+  white-space: nowrap;
 }
 
-/* 调节控件 */
 .control-section {
   margin: 0 32rpx 24rpx;
 }
@@ -236,18 +268,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24rpx;
+  gap: 16rpx;
 }
 
 .control-title {
   font-size: 30rpx;
   font-weight: 600;
   color: #5D4E37;
+  white-space: nowrap;
 }
 
 .control-value {
   font-size: 36rpx;
   font-weight: 700;
   color: #E8A87C;
+  white-space: nowrap;
 }
 
 .temp-slider {
@@ -273,6 +308,7 @@
 .timer-add-btn {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   padding: 8rpx 18rpx;
   border-radius: 999rpx;
   background: rgba(232, 168, 124, 0.15);
@@ -288,6 +324,7 @@
 .timer-add-text {
   font-size: 24rpx;
   color: #8B7355;
+  white-space: nowrap;
 }
 
 .timer-list {
@@ -305,10 +342,14 @@
   margin-top: 12rpx;
 }
 
+.timer-item picker {
+  flex: 1;
+  min-width: 0;
+}
+
 .timer-time {
   display: flex;
   align-items: center;
-  flex: 1;
   min-width: 0;
   padding: 12rpx 16rpx;
   background: #FFF8F0;
@@ -318,6 +359,7 @@
 .timer-icon {
   width: 32rpx;
   height: 32rpx;
+  flex-shrink: 0;
   margin-right: 12rpx;
 }
 
@@ -326,6 +368,7 @@
   font-size: 30rpx;
   color: #5D4E37;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .timer-arrow {
@@ -334,6 +377,7 @@
 }
 
 .timer-delete-btn {
+  flex-shrink: 0;
   font-size: 24rpx;
   color: #C47A57;
   background: rgba(255, 226, 210, 0.8);
@@ -354,13 +398,6 @@
   color: #B8A090;
 }
 
-.timer-bottom-safe-space {
-  height: 48rpx;
+.bottom-safe-spacer {
+  height: 260rpx;
 }
-
-
-.nav-subrow{display:flex;justify-content:space-between;align-items:center;margin-top:24rpx;gap:20rpx;}
-.status-icons,.status-item,.status-value,.status-name,.add-text,.action-text{white-space:nowrap;}
-.status-icons{flex-shrink:0;}
-.device-status{max-width:58%;}
-.timer-add-text{white-space:nowrap;}
