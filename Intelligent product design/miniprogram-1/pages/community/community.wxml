@@ -19,6 +19,5 @@
     </view>
   </scroll-view>
   <view class="floating-post-btn" bindtap="onCreatePost"><text>发帖</text></view>
-  <tabbar active="community" />
   <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
 </view>

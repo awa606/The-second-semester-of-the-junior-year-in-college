@@ -1,6 +1,6 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "tabbar": "/components/tabbar/tabbar"
+    "doudou": "/components/doudou/doudou"
   }
 }

@@ -67,6 +67,12 @@ const MOCK_RECORDS = [
 ];
 
 Page({
+  updateCustomTabBar() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 1 });
+    }
+  },
+
   data: {
     statusBarHeight: 20,
     navHeight: 112,
@@ -98,6 +104,7 @@ Page({
     this.loadData();
   },
   onShow() {
+    this.updateCustomTabBar();
     this.loadData();
   },
   initSafeLayout() {
@@ -135,7 +142,9 @@ Page({
   },
   mergeBabyInfo(rawInfo) {
     const source = rawInfo && typeof rawInfo === 'object' ? rawInfo : {};
-    const next = { ...DEFAULT_BABY_INFO, ...source };
+    const next = {};
+    Object.keys(DEFAULT_BABY_INFO).forEach(function (k) { next[k] = DEFAULT_BABY_INFO[k]; });
+    Object.keys(source).forEach(function (k) { next[k] = source[k]; });
     ['height', 'weight', 'head'].forEach((key) => {
       const value = source[key];
       if (value === undefined || value === null || value === '') {
@@ -157,16 +166,16 @@ Page({
   },
   normalizeRecord(record) {
     const tags = this.buildRecordTags(record);
-    return {
-      ...record,
-      tags
-    };
+    const nextRecord = {};
+    Object.keys(record || {}).forEach(function (k) { nextRecord[k] = record[k]; });
+    nextRecord.tags = tags;
+    return nextRecord;
   },
   formatDateParts(dateString) {
     const dateObj = new Date(dateString);
     return {
-      day: `${dateObj.getDate()}`.padStart(2, '0'),
-      month: `${dateObj.getMonth() + 1}`
+      day: String(dateObj.getDate()).padStart(2, '0'),
+      month: String(dateObj.getMonth() + 1)
     };
   },
   buildRecordTags(record) {
@@ -175,13 +184,13 @@ Page({
       tags.push(record.typeText);
     }
     if (record.height !== '' && record.height !== undefined) {
-      tags.push(`身高${record.height}cm`);
+      tags.push('身高' + record.height + 'cm');
     }
     if (record.weight !== '' && record.weight !== undefined) {
-      tags.push(`体重${record.weight}kg`);
+      tags.push('体重' + record.weight + 'kg');
     }
     if (record.head !== '' && record.head !== undefined) {
-      tags.push(`头围${record.head}cm`);
+      tags.push('头围' + record.head + 'cm');
     }
     if (Array.isArray(record.tags)) {
       record.tags.forEach((tag) => {
@@ -221,7 +230,9 @@ Page({
   },
   onFormInput(e) {
     const field = e.currentTarget.dataset.field;
-    this.setData({ [`recordForm.${field}`]: e.detail.value });
+    const data = {};
+    data['recordForm.' + field] = e.detail.value;
+    this.setData(data);
   },
   onSaveRecord() {
     const { recordForm, typeOptions, records } = this.data;
@@ -260,7 +271,8 @@ Page({
   },
   syncBabyInfoFromRecord(record) {
     const { babyInfo } = this.data;
-    const nextBabyInfo = { ...babyInfo };
+    const nextBabyInfo = {};
+    Object.keys(babyInfo || {}).forEach(function (k) { nextBabyInfo[k] = babyInfo[k]; });
     let changed = false;
     ['height', 'weight', 'head'].forEach((key) => {
       if (record[key] !== '' && record[key] !== undefined) {
