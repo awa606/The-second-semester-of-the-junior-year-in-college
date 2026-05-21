@@ -5,16 +5,25 @@
   overflow: hidden;
 }
 
-.page-scroll{height:100vh;box-sizing:border-box;padding-bottom: calc(260rpx + env(safe-area-inset-bottom));}
+.page-scroll {
+  box-sizing: border-box;
+  padding-top: 24rpx;
+  padding-bottom: calc(340rpx + env(safe-area-inset-bottom));
+}
 
 /* 导航栏 */
 .nav-bar {
   background: #FFFFFF;
-  padding: 120rpx 32rpx 20rpx;
   box-shadow: 0 2rpx 12rpx rgba(93, 78, 55, 0.05);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 20;
 }
 
 .nav-content {
+  height: 80rpx;
+  padding: 0 32rpx;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,12 +39,19 @@
   display: flex;
   align-items: center;
   gap: 8rpx;
-  padding: 12rpx 24rpx;
+  padding: 12rpx 22rpx;
+  min-width: 132rpx;
+  justify-content: center;
+  flex-shrink: 0;
   background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
   border-radius: 30rpx;
   color: #FFFFFF;
   font-size: 26rpx;
   font-weight: 500;
+}
+
+.add-btn text {
+  white-space: nowrap;
 }
 
 .add-icon {
@@ -45,7 +61,7 @@
 
 /* 宝宝卡片 */
 .baby-card {
-  margin: 24rpx 32rpx;
+  margin: 0 32rpx 24rpx;
 }
 
 .baby-info {
@@ -85,6 +101,7 @@
 
 .baby-stats {
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-around;
   align-items: center;
   padding-top: 24rpx;
@@ -92,6 +109,8 @@
 }
 
 .stat-item {
+  flex: 1;
+  min-width: 0;
   text-align: center;
 }
 
@@ -106,6 +125,7 @@
 .stat-label {
   font-size: 24rpx;
   color: #B8A090;
+  white-space: nowrap;
 }
 
 .stat-divider {
@@ -225,8 +245,12 @@
   padding-top: 16rpx;
 }
 
+.history-title {
+  margin-left: 32rpx;
+}
+
 .history-list {
-  padding: 24rpx 32rpx calc(56rpx + env(safe-area-inset-bottom));
+  padding: 24rpx 32rpx 0;
   display: flex;
   flex-direction: column;
   gap: 20rpx;
@@ -236,6 +260,15 @@
   display: flex;
   align-items: center;
   padding: 24rpx;
+}
+
+.history-item-last {
+  margin-bottom: 40rpx;
+}
+
+.bottom-safe-spacer {
+  height: calc(360rpx + env(safe-area-inset-bottom));
+  flex-shrink: 0;
 }
 
 .history-date {
@@ -258,6 +291,7 @@
 
 .history-content {
   flex: 1;
+  min-width: 0;
 }
 
 .record-title {
@@ -395,15 +429,4 @@
 .detail-content {
   display: flex;
   align-items: flex-start;
-}
-
-.add-btn{min-width:160rpx;justify-content:center;flex-shrink:0;}
-.add-btn text{white-space:nowrap;}
-.baby-stats{display:flex;flex-wrap:nowrap;}
-.stat-item{flex:1;min-width:0;}
-.stat-label{white-space:nowrap;}
-.history-title{margin-left:32rpx;}
-
-.history-item-last {
-  margin-bottom: 260rpx;
 }
