@@ -1,56 +1,28 @@
 <view class="assistant-page">
   <view class="nav-bar" style="{{navBarStyle}}">
     <view class="nav-inner">
-      <view class="back-btn" bindtap="onBack">‹</view>
-      <view class="title-wrap">
-        <text class="page-title">{{title}}</text>
-        <text class="page-subtitle">{{subtitle}}</text>
-      </view>
+      <text class="page-title">育儿助手</text>
+      <text class="clear-btn" bindtap="onClearChat">清空</text>
     </view>
   </view>
 
-  <scroll-view class="chat-list" scroll-y enhanced="true" shows-scrollbar="false">
-    <view class="message-list">
-      <view class="message-row assistant-row welcome-row" wx:if="{{messages.length <= 1}}">
-        <view class="assistant-avatar">豆</view>
-        <view class="bubble assistant welcome-bubble">
-          <text class="bubble-text">{{messages[0].text}}</text>
-        </view>
-      </view>
+  <view class="welcome-card">
+    <image class="mascot" src="/assets/mascot/doudou-speaking.png" mode="aspectFit" />
+    <text class="welcome-text">你好呀，我是安吉豆豆，可以帮你解答日常喂养、睡眠、辅食、成长记录等问题～</text>
+  </view>
 
-      <view class="quick-list" wx:if="{{messages.length <= 1}}">
-        <text class="quick-title">快捷提问</text>
-        <view class="quick-group">
-          <view
-            class="quick-item"
-            wx:for="{{quickQuestions}}"
-            wx:key="index"
-            bindtap="onQuickQuestionTap"
-            data-question="{{item}}"
-          >
-            {{item}}
-          </view>
-        </view>
-      </view>
-
-      <view class="message-row {{item.role === 'user' ? 'user-row' : 'assistant-row'}}" wx:for="{{messages}}" wx:key="index" wx:if="{{index > 0}}">
-        <view class="bubble {{item.role}} {{item.pending ? 'pending' : ''}}">
-          <text class="bubble-text">{{item.text}}</text>
-        </view>
-      </view>
+  <scroll-view class="chat-list" scroll-y scroll-into-view="{{scrollIntoView}}" enhanced="true" shows-scrollbar="false">
+    <view wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}" class="message-row {{item.role === 'user' ? 'user-row' : 'assistant-row'}}">
+      <view class="bubble {{item.role}}"><text class="bubble-text">{{item.text}}</text></view>
     </view>
   </scroll-view>
 
+  <view class="quick-list">
+    <view class="quick-item" wx:for="{{quickQuestions}}" wx:key="index" data-question="{{item}}" bindtap="onQuickQuestionTap">{{item}}</view>
+  </view>
+
   <view class="input-bar">
-    <input
-      class="question-input"
-      placeholder="请输入你的育儿问题..."
-      placeholder-class="input-placeholder"
-      value="{{inputText}}"
-      bindinput="onInput"
-      confirm-type="send"
-      bindconfirm="onSendTap"
-    />
-    <button class="send-btn" bindtap="onSendTap" loading="{{loading}}">发送</button>
+    <input class="question-input" value="{{inputValue}}" bindinput="onInput" confirm-type="send" bindconfirm="onSend" placeholder="请输入你的育儿问题" />
+    <button class="send-btn" bindtap="onSend">发送</button>
   </view>
 </view>
