@@ -1,147 +1,85 @@
-const QUICK_QUESTIONS = [
-  '宝宝6个月第一口辅食吃什么？',
-  '宝宝夜间频繁醒来喝奶怎么办？',
-  '冲奶水温为什么不能太高？'
-];
+const { answerParentingQuestion, fallbackSuggestions } = require('../../utils/parentingLocalKB');
+
+const STORAGE_KEY = 'assistantChatMessages';
+const WELCOME_TEXT = '你好呀，我是安吉豆豆，可以帮你解答日常喂养、睡眠、辅食、成长记录等问题～';
+const SAFETY_TEXT = '豆豆提供的是日常育儿参考，不能替代医生诊断；如宝宝出现高热、呼吸困难、抽搐等情况，请及时就医。';
 
 Page({
   data: {
-    title: '豆豆育儿助手',
-    subtitle: '育儿问题，随时问我',
-    inputText: '',
-    loading: false,
-    quickQuestions: QUICK_QUESTIONS,
-    navBarStyle: '',
-    messages: [
-      {
-        role: 'assistant',
-        text: '你好呀，我是豆豆～\n可以问我喂养、睡眠和护理问题。'
-      }
-    ]
+    messages: [],
+    inputValue: '',
+    quickQuestions: ['宝宝夜醒怎么办？', '辅食什么时候添加？', '发烧多少度需要注意？', '奶量怎么判断够不够？'],
+    scrollIntoView: '',
+    isTyping: false,
+    navBarStyle: ''
   },
 
   onLoad() {
     this.updateNavBarLayout();
+    this.loadMessages();
   },
 
   updateNavBarLayout() {
     const menuButton = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
     const systemInfo = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
     const statusBarHeight = systemInfo.statusBarHeight || 20;
-
     let navBarStyle = `padding-top:${statusBarHeight}px;`;
     if (menuButton && menuButton.left) {
       const rightSafe = systemInfo.windowWidth - menuButton.left;
       navBarStyle += `padding-right:${rightSafe + 16}px;`;
     }
-
     this.setData({ navBarStyle });
   },
 
-  onBack() {
-    const pages = getCurrentPages();
-    if (pages.length > 1) {
-      wx.navigateBack({ delta: 1 });
+  loadMessages() {
+    const saved = wx.getStorageSync(STORAGE_KEY);
+    if (Array.isArray(saved) && saved.length) {
+      this.setData({ messages: saved }, this.scrollToBottom);
       return;
     }
-    wx.reLaunch({ url: '/pages/home/home' });
-  },
-
-  onInput(e) {
-    this.setData({ inputText: e.detail.value });
-  },
-
-  onQuickQuestionTap(e) {
-    const question = e.currentTarget.dataset.question;
-    this.setData({ inputText: question });
-    this.sendMessage(question);
-  },
-
-  onSendTap() {
-    const question = (this.data.inputText || '').trim();
-    if (!question || this.data.loading) {
-      return;
-    }
-    this.sendMessage(question);
-  },
-
-  sendMessage(question) {
-    const userMessage = { role: 'user', text: question };
-    const pendingMessage = { role: 'assistant', text: '思考中…', pending: true };
-    const messages = this.data.messages.concat([userMessage, pendingMessage]);
-
     this.setData({
-      messages,
-      inputText: '',
-      loading: true
+      messages: [{ id: `m_${Date.now()}`, role: 'assistant', text: `${WELCOME_TEXT}\n\n${SAFETY_TEXT}` }]
+    }, this.scrollToBottom);
+  },
+
+  onInput(e) { this.setData({ inputValue: e.detail.value }); },
+
+  onSend() {
+    const question = (this.data.inputValue || '').trim();
+    if (!question || this.data.isTyping) return;
+    this.sendQuestion(question);
+  },
+
+  onQuickQuestionTap(e) { this.sendQuestion(e.currentTarget.dataset.question); },
+
+  sendQuestion(question) {
+    const userMsg = { id: `u_${Date.now()}`, role: 'user', text: question };
+    const { answer, suggestions } = answerParentingQuestion(question);
+    const botMsg = { id: `a_${Date.now()}_${Math.random()}`, role: 'assistant', text: answer };
+    const messages = this.data.messages.concat([userMsg, botMsg]);
+    this.setData({ messages, inputValue: '', isTyping: false, quickQuestions: suggestions || fallbackSuggestions }, () => {
+      wx.setStorageSync(STORAGE_KEY, this.data.messages);
+      this.scrollToBottom();
     });
-
-    this.requestAssistantAnswer(question);
   },
 
-
-  getAgeMonths() {
-    const app = getApp();
-    const babyInfo = (app && app.globalData && app.globalData.babyInfo) || wx.getStorageSync('babyInfo') || {};
-    const birthday = babyInfo.birthday;
-    if (!birthday) return 6;
-    const birthDate = new Date(birthday);
-    if (Number.isNaN(birthDate.getTime())) return 6;
-    const now = new Date();
-    const months = (now.getFullYear() - birthDate.getFullYear()) * 12 + (now.getMonth() - birthDate.getMonth());
-    return Math.max(0, months);
+  scrollToBottom() {
+    const last = this.data.messages[this.data.messages.length - 1];
+    if (!last) return;
+    this.setData({ scrollIntoView: `msg-${last.id}` });
   },
 
-  requestAssistantAnswer(question) {
-    wx.request({
-      url: '/api/ask',
-      method: 'POST',
-      data: {
-        question,
-        age_months: this.getAgeMonths()
-      },
+  onClearChat() {
+    wx.showModal({
+      title: '清空聊天记录',
+      content: '确定要清空当前聊天记录吗？',
       success: (res) => {
-        const data = (res && res.data) || {};
-        if (res.statusCode >= 200 && res.statusCode < 300 && data) {
-          const answerText = this.formatAssistantResponse(data);
-          this.replacePendingMessage(answerText);
-        } else {
-          this.replacePendingMessage('当前育儿助手服务暂时未连接');
-        }
-      },
-      fail: () => {
-        this.replacePendingMessage('当前育儿助手服务暂时未连接');
-      },
-      complete: () => {
-        this.setData({ loading: false });
+        if (!res.confirm) return;
+        wx.removeStorageSync(STORAGE_KEY);
+        this.setData({
+          messages: [{ id: `m_${Date.now()}`, role: 'assistant', text: `${WELCOME_TEXT}\n\n${SAFETY_TEXT}` }]
+        }, this.scrollToBottom);
       }
     });
-  },
-  formatAssistantResponse(data) {
-    const summary = data.summary || '我暂时没有整理出结论。';
-    const adviceList = Array.isArray(data.advice) ? data.advice : [data.advice || '可以先观察宝宝状态，并按需咨询儿保医生。'];
-    const warningList = Array.isArray(data.warning) ? data.warning : (data.warning ? [data.warning] : []);
-
-    const sources = Array.isArray(data.sources) && data.sources.length
-      ? `\n\n参考来源：\n${data.sources.map((item, index) => `${index + 1}. ${item}`).join('\n')}`
-      : '';
-
-    const disclaimer = data.disclaimer ? `\n\n${data.disclaimer}` : '';
-
-    const advice = adviceList.map((item) => `- ${item}`).join('\n');
-    const warning = warningList.length ? `\n\n⚠️ 注意：\n${warningList.map((item) => `- ${item}`).join('\n')}` : '';
-    return `💡 结论：${summary}\n\n✅ 建议：\n${advice}${warning}${sources}${disclaimer}`;
-  },
-
-  replacePendingMessage(text) {
-    const messages = this.data.messages.slice();
-    const pendingIndex = messages.findIndex((item) => item.pending);
-    if (pendingIndex >= 0) {
-      messages.splice(pendingIndex, 1, { role: 'assistant', text });
-    } else {
-      messages.push({ role: 'assistant', text });
-    }
-
-    this.setData({ messages });
   }
 });
