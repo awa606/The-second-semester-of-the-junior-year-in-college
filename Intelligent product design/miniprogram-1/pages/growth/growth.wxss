@@ -5,12 +5,15 @@
   overflow: hidden;
 }
 
-.page-scroll{height:100vh;box-sizing:border-box;padding-bottom: calc(180rpx + env(safe-area-inset-bottom));}
+.page-scroll {
+  height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: 260rpx;
+}
 
-/* 导航栏 */
 .nav-bar {
   background: #FFFFFF;
-  padding: 120rpx 32rpx 20rpx;
+  padding: 136rpx 32rpx 24rpx;
   box-shadow: 0 2rpx 12rpx rgba(93, 78, 55, 0.05);
 }
 
@@ -20,22 +23,34 @@
   align-items: center;
 }
 
+.nav-action-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+
 .page-title {
-  font-size: 36rpx;
+  font-size: 38rpx;
   font-weight: 700;
   color: #5D4E37;
+  white-space: nowrap;
 }
 
 .add-btn {
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 180rpx;
+  height: 64rpx;
   gap: 8rpx;
-  padding: 12rpx 24rpx;
+  padding: 0 24rpx;
   background: linear-gradient(135deg, #E8A87C 0%, #F5C6A5 100%);
-  border-radius: 30rpx;
+  border-radius: 999rpx;
   color: #FFFFFF;
   font-size: 26rpx;
   font-weight: 500;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
 .add-icon {
@@ -43,7 +58,11 @@
   font-weight: bold;
 }
 
-/* 宝宝卡片 */
+.add-label,
+.add-btn text {
+  white-space: nowrap;
+}
+
 .baby-card {
   margin: 24rpx 32rpx;
 }
@@ -64,10 +83,12 @@
   align-items: center;
   justify-content: center;
   font-size: 60rpx;
+  flex-shrink: 0;
 }
 
 .baby-detail {
   flex: 1;
+  min-width: 0;
 }
 
 .baby-name {
@@ -76,6 +97,7 @@
   color: #5D4E37;
   display: block;
   margin-bottom: 8rpx;
+  white-space: nowrap;
 }
 
 .baby-age {
@@ -85,6 +107,7 @@
 
 .baby-stats {
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-around;
   align-items: center;
   padding-top: 24rpx;
@@ -92,6 +115,8 @@
 }
 
 .stat-item {
+  flex: 1;
+  min-width: 0;
   text-align: center;
 }
 
@@ -101,11 +126,13 @@
   color: #E8A87C;
   display: block;
   margin-bottom: 8rpx;
+  white-space: nowrap;
 }
 
 .stat-label {
   font-size: 24rpx;
   color: #B8A090;
+  white-space: nowrap;
 }
 
 .stat-divider {
@@ -114,7 +141,6 @@
   background: #F0E6DC;
 }
 
-/* 成长曲线 */
 .curve-section {
   margin: 0 32rpx 24rpx;
 }
@@ -124,16 +150,19 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24rpx;
+  gap: 16rpx;
 }
 
 .section-title {
   font-size: 30rpx;
   font-weight: 600;
   color: #5D4E37;
+  white-space: nowrap;
 }
 
 .tab-switch {
   display: flex;
+  flex-shrink: 0;
   background: #F5EDE4;
   border-radius: 20rpx;
   padding: 4rpx;
@@ -145,6 +174,7 @@
   color: #8B7355;
   border-radius: 16rpx;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .tab-item.active {
@@ -220,9 +250,12 @@
   color: #B8A090;
 }
 
-/* 历史记录 */
 .history-section {
   padding-top: 16rpx;
+}
+
+.history-title {
+  margin-left: 32rpx;
 }
 
 .history-list {
@@ -242,6 +275,7 @@
   width: 80rpx;
   text-align: center;
   margin-right: 24rpx;
+  flex-shrink: 0;
 }
 
 .date-day {
@@ -258,6 +292,7 @@
 
 .history-content {
   flex: 1;
+  min-width: 0;
 }
 
 .record-title {
@@ -266,6 +301,9 @@
   color: #5D4E37;
   display: block;
   margin-bottom: 12rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .record-tags {
@@ -280,12 +318,14 @@
   background: #FFF8F0;
   padding: 6rpx 16rpx;
   border-radius: 12rpx;
+  white-space: nowrap;
 }
 
 .history-arrow {
   font-size: 40rpx;
   color: #D0C4B4;
   margin-left: 16rpx;
+  flex-shrink: 0;
 }
 
 .modal-mask {
@@ -397,9 +437,6 @@
   align-items: flex-start;
 }
 
-.add-btn{min-width:160rpx;justify-content:center;flex-shrink:0;}
-.add-btn text{white-space:nowrap;}
-.baby-stats{display:flex;flex-wrap:nowrap;}
-.stat-item{flex:1;min-width:0;}
-.stat-label{white-space:nowrap;}
-.history-title{margin-left:32rpx;}
+.bottom-safe-spacer {
+  height: 260rpx;
+}
