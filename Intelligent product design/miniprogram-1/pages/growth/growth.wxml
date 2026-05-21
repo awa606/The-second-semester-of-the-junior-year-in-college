@@ -77,7 +77,7 @@
   <view class="history-section">
     <text class="section-title history-title">历史记录</text>
     <view class="history-list">
-      <view class="history-item card" wx:for="{{records}}" wx:key="id" bindtap="onOpenRecordDetail" data-record="{{item}}">
+      <view class="history-item card {{index === records.length - 1 ? 'history-item-last' : ''}}" wx:for="{{records}}" wx:key="id" bindtap="onOpenRecordDetail" data-record="{{item}}">
         <view class="history-date">
           <text class="date-day">{{item.day}}</text>
           <text class="date-month">{{item.month}}月</text>

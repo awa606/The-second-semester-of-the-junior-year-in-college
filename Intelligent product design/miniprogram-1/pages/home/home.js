@@ -11,7 +11,8 @@ Page({
     },
     currentMode: 'standby',
     targetTemp: 40,
-    timers: []
+    timers: [],
+    headerTopPadding: 64
   },
   modeTexts: {
     warm: '保温模式',
@@ -20,12 +21,22 @@ Page({
     standby: '待机中'
   },
   onLoad() {
+    this.updateHeaderLayout();
     this.loadDeviceInfo();
     this.loadTimers();
   },
   onShow() {
     this.loadDeviceInfo();
     this.loadTimers();
+  },
+
+  updateHeaderLayout() {
+    const sys = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
+    const menu = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
+    const statusBarHeight = sys.statusBarHeight || 20;
+    const fallback = statusBarHeight + 44;
+    const headerTopPadding = menu && menu.bottom ? (menu.bottom + 12) : fallback;
+    this.setData({ headerTopPadding });
   },
   normalizeMode(mode) {
     const modeMap = {
