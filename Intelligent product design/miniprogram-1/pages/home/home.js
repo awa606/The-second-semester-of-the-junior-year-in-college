@@ -12,7 +12,8 @@ Page({
     currentMode: 'standby',
     targetTemp: 40,
     timers: [],
-    headerTopPadding: 64
+    headerTopPadding: 64,
+    navRightSafePx: 110
   },
   modeTexts: {
     warm: '保温模式',
@@ -34,9 +35,13 @@ Page({
     const sys = wx.getSystemInfoSync ? wx.getSystemInfoSync() : {};
     const menu = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null;
     const statusBarHeight = sys.statusBarHeight || 20;
+    const windowWidth = sys.windowWidth || 375;
     const fallback = statusBarHeight + 44;
     const headerTopPadding = menu && menu.bottom ? (menu.bottom + 12) : fallback;
-    this.setData({ headerTopPadding });
+    const capsuleLeft = menu && menu.left ? menu.left : windowWidth - 96;
+    const rightGap = Math.max(windowWidth - capsuleLeft, 8);
+    const navRightSafePx = Math.max(rightGap + 12, 92);
+    this.setData({ headerTopPadding, navRightSafePx });
   },
   normalizeMode(mode) {
     const modeMap = {

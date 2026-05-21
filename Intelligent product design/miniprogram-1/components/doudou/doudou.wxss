@@ -1,17 +1,14 @@
 .doudou-wrapper {
   position: fixed;
-  z-index: 999;
+  z-index: 90;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
 
 .doudou-body {
-  width: 100rpx;
-  height: 100rpx;
-  background: linear-gradient(135deg, #FFF1DD 0%, #F7D5AD 58%, #FFFAF2 100%);
-  border-radius: 50%;
-  box-shadow: 0 8rpx 24rpx rgba(232, 168, 124, 0.4);
+  width: 116rpx;
+  height: 116rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,15 +16,19 @@
   transition: transform 0.3s ease;
 }
 
-.doudou-face-text {font-size:44rpx;line-height:1;color:#8B5A2B;font-weight:700;}
+.doudou-image {
+  width: 116rpx;
+  height: 116rpx;
+}
 
 .doudou-voice {
-  background: #FFFFFF;
+  background: #FFFCF8;
   border-radius: 20rpx;
   padding: 16rpx 24rpx;
   margin-bottom: 16rpx;
   box-shadow: 0 4rpx 16rpx rgba(93, 78, 55, 0.1);
   max-width: 300rpx;
+  word-break: break-all;
   position: relative;
 }
 
@@ -40,7 +41,7 @@
   height: 0;
   border-left: 12rpx solid transparent;
   border-right: 12rpx solid transparent;
-  border-top: 16rpx solid #FFFFFF;
+  border-top: 16rpx solid #FFFCF8;
 }
 
 .voice-text {

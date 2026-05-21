@@ -1,4 +1,12 @@
 const app = getApp();
+const DEFAULT_BABY_INFO = {
+  name: '宝宝',
+  gender: 'girl',
+  ageText: '10个月15天',
+  height: 75,
+  weight: 9.5,
+  head: 44
+};
 
 const TYPE_OPTIONS = [
   { value: 'milestone', text: '里程碑' },
@@ -63,15 +71,10 @@ Page({
     statusBarHeight: 20,
     navHeight: 112,
     capsuleSafeRight: 120,
-    babyInfo: {
-      name: '小豆芽',
-      gender: 'girl',
-      birthday: '2024-06-01',
-      ageText: '10个月15天',
-      height: 75,
-      weight: 9.5,
-      head: 44
-    },
+    capsuleLeft: 0,
+    capsuleWidth: 0,
+    navRightSafePx: 120,
+    babyInfo: DEFAULT_BABY_INFO,
     curveType: 'height',
     records: [],
     typeOptions: TYPE_OPTIONS,
@@ -102,29 +105,49 @@ Page({
       const systemInfo = wx.getSystemInfoSync();
       const capsule = wx.getMenuButtonBoundingClientRect();
       const statusBarHeight = systemInfo.statusBarHeight || 20;
+      const windowWidth = systemInfo.windowWidth || 375;
       const capsuleBottom = capsule && capsule.bottom ? capsule.bottom : statusBarHeight + 40;
-      const capsuleLeft = capsule && capsule.left ? capsule.left : systemInfo.windowWidth - 100;
+      const capsuleLeft = capsule && capsule.left ? capsule.left : windowWidth - 96;
+      const capsuleWidth = capsule && capsule.width ? capsule.width : 88;
       const navHeight = capsuleBottom + 28;
-      const capsuleSafeRight = Math.max(systemInfo.windowWidth - capsuleLeft + 18, 128);
+      const rightGap = Math.max(windowWidth - capsuleLeft, 8);
+      const navRightSafePx = Math.max(rightGap + 12, 92);
+      const capsuleSafeRight = navRightSafePx;
 
       this.setData({
         statusBarHeight,
         navHeight,
-        capsuleSafeRight
+        capsuleSafeRight,
+        capsuleLeft,
+        capsuleWidth,
+        navRightSafePx
       });
     } catch (err) {
       this.setData({
         statusBarHeight: 24,
         navHeight: 116,
-        capsuleSafeRight: 128
+        capsuleSafeRight: 128,
+        capsuleLeft: 280,
+        capsuleWidth: 88,
+        navRightSafePx: 128
       });
     }
   },
+  mergeBabyInfo(rawInfo) {
+    const source = rawInfo && typeof rawInfo === 'object' ? rawInfo : {};
+    const next = { ...DEFAULT_BABY_INFO, ...source };
+    ['height', 'weight', 'head'].forEach((key) => {
+      const value = source[key];
+      if (value === undefined || value === null || value === '') {
+        next[key] = DEFAULT_BABY_INFO[key];
+      }
+    });
+    return next;
+  },
   loadData() {
-    const babyInfo = wx.getStorageSync('babyInfo') || app.globalData.babyInfo;
-    if (babyInfo) {
-      this.setData({ babyInfo });
-    }
+    const rawBabyInfo = wx.getStorageSync('babyInfo') || app.globalData.babyInfo;
+    const babyInfo = this.mergeBabyInfo(rawBabyInfo);
+    this.setData({ babyInfo });
 
     const storedRecords = wx.getStorageSync('growthRecords');
     const records = Array.isArray(storedRecords) && storedRecords.length > 0

@@ -1,9 +1,9 @@
 <view class="growth-page">
   <!-- 顶部导航：独立放在滚动区外，并给微信右上角胶囊按钮预留安全距离 -->
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px; height: {{navHeight}}px;">
-    <view class="nav-content" style="padding-right: {{capsuleSafeRight}}px;">
+    <view class="nav-content">
       <text class="page-title">成长记录</text>
-      <view class="add-btn" bindtap="onAddRecord">
+      <view class="add-btn" bindtap="onAddRecord" style="right: {{navRightSafePx}}px;">
         <text class="add-icon">+</text>
         <text>添加</text>
       </view>
@@ -101,7 +101,7 @@
   <tabbar active="growth" />
   
   <!-- 悬浮豆豆：保留 IP 形象，点击进入育儿助手 -->
-  <doudou bottom="150" right="28" showVoice="{{showVoice}}" voiceText="{{voiceText}}" bind:doudouclick="onDoudouClick" />
+  <doudou bottom="166" right="26" showVoice="{{showVoice}}" voiceText="{{voiceText}}" bind:doudouclick="onDoudouClick" />
 
   <view class="modal-mask" wx:if="{{showForm}}" catchtouchmove="true">
     <view class="modal-card form-modal card">
