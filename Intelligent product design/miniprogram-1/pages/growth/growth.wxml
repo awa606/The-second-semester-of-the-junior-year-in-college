@@ -1,105 +1,101 @@
 <view class="growth-page">
   <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
-  <!-- 顶部导航 -->
-  <view class="nav-bar safe-area-top">
-    <view class="nav-content">
-      <text class="page-title">成长记录</text>
-      <view class="add-btn" bindtap="onAddRecord">
-        <text class="add-icon">+</text>
-        <text>添加</text>
+    <view class="nav-bar safe-area-top">
+      <view class="nav-content">
+        <text class="page-title">成长记录</text>
       </view>
-    </view>
-  </view>
-
-  <!-- 宝宝信息卡片 -->
-  <view class="baby-card card">
-    <view class="baby-info">
-      <view class="baby-avatar">{{babyInfo.gender === 'girl' ? '👧' : '👦'}}</view>
-      <view class="baby-detail">
-        <text class="baby-name">{{babyInfo.name}}</text>
-        <text class="baby-age">{{babyInfo.ageText}}</text>
-      </view>
-    </view>
-    <view class="baby-stats">
-      <view class="stat-item">
-        <text class="stat-value">{{babyInfo.height}}</text>
-        <text class="stat-label">身高(cm)</text>
-      </view>
-      <view class="stat-divider"></view>
-      <view class="stat-item">
-        <text class="stat-value">{{babyInfo.weight}}</text>
-        <text class="stat-label">体重(kg)</text>
-      </view>
-      <view class="stat-divider"></view>
-      <view class="stat-item">
-        <text class="stat-value">{{babyInfo.head}}</text>
-        <text class="stat-label">头围(cm)</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 成长曲线 -->
-  <view class="curve-section card">
-    <view class="curve-header">
-      <text class="section-title">成长曲线</text>
-      <view class="tab-switch">
-        <view class="tab-item {{curveType === 'height' ? 'active' : ''}}" bindtap="switchCurve" data-type="height">身高</view>
-        <view class="tab-item {{curveType === 'weight' ? 'active' : ''}}" bindtap="switchCurve" data-type="weight">体重</view>
-      </view>
-    </view>
-    <view class="curve-chart">
-      <view class="chart-area">
-        <view class="chart-line">
-          <view class="data-point" style="left: 10%; bottom: 20%;"></view>
-          <view class="data-point" style="left: 30%; bottom: 35%;"></view>
-          <view class="data-point highlight" style="left: 50%; bottom: 55%;"></view>
-          <view class="data-point" style="left: 70%; bottom: 70%;"></view>
-          <view class="data-point" style="left: 90%; bottom: 85%;"></view>
-        </view>
-        <view class="chart-grid">
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
-          <view class="grid-line"></view>
+      <view class="nav-action-row">
+        <view class="add-btn" bindtap="onAddRecord">
+          <text class="add-icon">+</text>
+          <text class="add-label">添加记录</text>
         </view>
       </view>
-      <view class="chart-labels">
-        <text>1月</text>
-        <text>3月</text>
-        <text>6月</text>
-        <text>9月</text>
-        <text>12月</text>
+    </view>
+
+    <view class="baby-card card">
+      <view class="baby-info">
+        <view class="baby-avatar">{{babyInfo.gender === 'girl' ? '👧' : '👦'}}</view>
+        <view class="baby-detail">
+          <text class="baby-name">{{babyInfo.name}}</text>
+          <text class="baby-age">{{babyInfo.ageText}}</text>
+        </view>
+      </view>
+      <view class="baby-stats">
+        <view class="stat-item">
+          <text class="stat-value">{{babyInfo.height}}</text>
+          <text class="stat-label">身高(cm)</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">{{babyInfo.weight}}</text>
+          <text class="stat-label">体重(kg)</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-item">
+          <text class="stat-value">{{babyInfo.head}}</text>
+          <text class="stat-label">头围(cm)</text>
+        </view>
       </view>
     </view>
-  </view>
 
-  <!-- 历史记录列表 -->
-  <view class="history-section">
-    <text class="section-title history-title">历史记录</text>
-    <view class="history-list">
-      <view class="history-item card" wx:for="{{records}}" wx:key="id" bindtap="onOpenRecordDetail" data-record="{{item}}">
-        <view class="history-date">
-          <text class="date-day">{{item.day}}</text>
-          <text class="date-month">{{item.month}}月</text>
+    <view class="curve-section card">
+      <view class="curve-header">
+        <text class="section-title">成长曲线</text>
+        <view class="tab-switch">
+          <view class="tab-item {{curveType === 'height' ? 'active' : ''}}" bindtap="switchCurve" data-type="height">身高</view>
+          <view class="tab-item {{curveType === 'weight' ? 'active' : ''}}" bindtap="switchCurve" data-type="weight">体重</view>
         </view>
-        <view class="history-content">
-          <text class="record-title">{{item.title}}</text>
-          <view class="record-tags">
-            <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="index">{{tag}}</text>
+      </view>
+      <view class="curve-chart">
+        <view class="chart-area">
+          <view class="chart-line">
+            <view class="data-point" style="left: 10%; bottom: 20%;"></view>
+            <view class="data-point" style="left: 30%; bottom: 35%;"></view>
+            <view class="data-point highlight" style="left: 50%; bottom: 55%;"></view>
+            <view class="data-point" style="left: 70%; bottom: 70%;"></view>
+            <view class="data-point" style="left: 90%; bottom: 85%;"></view>
+          </view>
+          <view class="chart-grid">
+            <view class="grid-line"></view>
+            <view class="grid-line"></view>
+            <view class="grid-line"></view>
+            <view class="grid-line"></view>
           </view>
         </view>
-        <view class="history-arrow">›</view>
+        <view class="chart-labels">
+          <text>1月</text>
+          <text>3月</text>
+          <text>6月</text>
+          <text>9月</text>
+          <text>12月</text>
+        </view>
       </view>
     </view>
-  </view>
 
+    <view class="history-section">
+      <text class="section-title history-title">历史记录</text>
+      <view class="history-list">
+        <view class="history-item card" wx:for="{{records}}" wx:key="id" bindtap="onOpenRecordDetail" data-record="{{item}}">
+          <view class="history-date">
+            <text class="date-day">{{item.day}}</text>
+            <text class="date-month">{{item.month}}月</text>
+          </view>
+          <view class="history-content">
+            <text class="record-title">{{item.title}}</text>
+            <view class="record-tags">
+              <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="index">{{tag}}</text>
+            </view>
+          </view>
+          <view class="history-arrow">›</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-safe-spacer"></view>
   </scroll-view>
 
-  <!-- 底部导航 -->
   <tabbar active="growth" />
-  
-  <!-- 悬浮豆豆 -->
-  <doudou bottom="180" right="30" showVoice="{{showVoice}}" voiceText="{{voiceText}}" bind:doudouclick="onDoudouClick" />
+  <doudou bottom="210" right="30" showVoice="{{showVoice}}" voiceText="{{voiceText}}" bind:doudouclick="onDoudouClick" />
 
   <view class="modal-mask" wx:if="{{showForm}}" catchtouchmove="true">
     <view class="modal-card form-modal card">
