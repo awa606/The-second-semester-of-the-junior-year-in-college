@@ -1,5 +1,3 @@
-const { askParentingAssistant } = require('../../utils/parentingLocalKB');
-
 const QUICK_QUESTIONS = [
   '宝宝6个月第一口辅食吃什么？',
   '宝宝夜间频繁醒来喝奶怎么办？',
@@ -78,14 +76,47 @@ Page({
       loading: true
     });
 
-    setTimeout(() => {
-      const response = askParentingAssistant(question, 6);
-      const answerText = this.formatAssistantResponse(response || {});
-      this.replacePendingMessage(answerText);
-      this.setData({ loading: false });
-    }, 500);
+    this.requestAssistantAnswer(question);
   },
 
+
+  getAgeMonths() {
+    const app = getApp();
+    const babyInfo = (app && app.globalData && app.globalData.babyInfo) || wx.getStorageSync('babyInfo') || {};
+    const birthday = babyInfo.birthday;
+    if (!birthday) return 6;
+    const birthDate = new Date(birthday);
+    if (Number.isNaN(birthDate.getTime())) return 6;
+    const now = new Date();
+    const months = (now.getFullYear() - birthDate.getFullYear()) * 12 + (now.getMonth() - birthDate.getMonth());
+    return Math.max(0, months);
+  },
+
+  requestAssistantAnswer(question) {
+    wx.request({
+      url: '/api/ask',
+      method: 'POST',
+      data: {
+        question,
+        age_months: this.getAgeMonths()
+      },
+      success: (res) => {
+        const data = (res && res.data) || {};
+        if (res.statusCode >= 200 && res.statusCode < 300 && data) {
+          const answerText = this.formatAssistantResponse(data);
+          this.replacePendingMessage(answerText);
+        } else {
+          this.replacePendingMessage('当前育儿助手服务暂时未连接');
+        }
+      },
+      fail: () => {
+        this.replacePendingMessage('当前育儿助手服务暂时未连接');
+      },
+      complete: () => {
+        this.setData({ loading: false });
+      }
+    });
+  },
   formatAssistantResponse(data) {
     const summary = data.summary || '我暂时没有整理出结论。';
     const adviceList = Array.isArray(data.advice) ? data.advice : [data.advice || '可以先观察宝宝状态，并按需咨询儿保医生。'];

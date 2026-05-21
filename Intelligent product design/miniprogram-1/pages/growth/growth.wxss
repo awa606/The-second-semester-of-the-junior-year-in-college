@@ -5,7 +5,7 @@
   overflow: hidden;
 }
 
-.page-scroll{height:100vh;box-sizing:border-box;padding-bottom: calc(180rpx + env(safe-area-inset-bottom));}
+.page-scroll{height:100vh;box-sizing:border-box;padding-bottom: calc(260rpx + env(safe-area-inset-bottom));}
 
 /* 导航栏 */
 .nav-bar {
@@ -226,7 +226,7 @@
 }
 
 .history-list {
-  padding: 24rpx 32rpx 56rpx;
+  padding: 24rpx 32rpx calc(56rpx + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 20rpx;
@@ -403,3 +403,7 @@
 .stat-item{flex:1;min-width:0;}
 .stat-label{white-space:nowrap;}
 .history-title{margin-left:32rpx;}
+
+.history-item-last {
+  margin-bottom: 260rpx;
+}
