@@ -1,4 +1,4 @@
-const { API_BASE_URL } = require('../../utils/config');
+const { askParentingAssistant } = require('../../utils/parentingLocalKB');
 
 const QUICK_QUESTIONS = [
   '宝宝6个月第一口辅食吃什么？',
@@ -78,31 +78,18 @@ Page({
       loading: true
     });
 
-    wx.request({
-      url: `${API_BASE_URL}/api/ask`,
-      method: 'POST',
-      timeout: 12000,
-      data: {
-        question,
-        age_months: 6
-      },
-      success: (res) => {
-        const answerText = this.formatAssistantResponse(res.data || {});
-        this.replacePendingMessage(answerText);
-      },
-      fail: () => {
-        this.replacePendingMessage('抱歉，豆豆刚刚走神了😥\n请检查网络或稍后重试。');
-      },
-      complete: () => {
-        this.setData({ loading: false });
-      }
-    });
+    setTimeout(() => {
+      const response = askParentingAssistant(question, 6);
+      const answerText = this.formatAssistantResponse(response || {});
+      this.replacePendingMessage(answerText);
+      this.setData({ loading: false });
+    }, 500);
   },
 
   formatAssistantResponse(data) {
     const summary = data.summary || '我暂时没有整理出结论。';
-    const advice = data.advice || '可以先观察宝宝状态，并按需咨询儿保医生。';
-    const warning = data.warning ? `\n\n⚠️ 注意：${data.warning}` : '';
+    const adviceList = Array.isArray(data.advice) ? data.advice : [data.advice || '可以先观察宝宝状态，并按需咨询儿保医生。'];
+    const warningList = Array.isArray(data.warning) ? data.warning : (data.warning ? [data.warning] : []);
 
     const sources = Array.isArray(data.sources) && data.sources.length
       ? `\n\n参考来源：\n${data.sources.map((item, index) => `${index + 1}. ${item}`).join('\n')}`
@@ -110,7 +97,9 @@ Page({
 
     const disclaimer = data.disclaimer ? `\n\n${data.disclaimer}` : '';
 
-    return `💡 结论：${summary}\n\n✅ 建议：${advice}${warning}${sources}${disclaimer}`;
+    const advice = adviceList.map((item) => `- ${item}`).join('\n');
+    const warning = warningList.length ? `\n\n⚠️ 注意：\n${warningList.map((item) => `- ${item}`).join('\n')}` : '';
+    return `💡 结论：${summary}\n\n✅ 建议：\n${advice}${warning}${sources}${disclaimer}`;
   },
 
   replacePendingMessage(text) {

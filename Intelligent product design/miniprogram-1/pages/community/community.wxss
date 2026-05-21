@@ -1,8 +1,6 @@
-.community-page {
-  min-height: 100vh;
-  background-color: #FFF8F0;
-  padding-bottom: 180rpx;
-}
+.community-page {height:100vh;background-color:#FFF8F0;overflow:hidden;}
+
+.page-scroll{height:100vh;box-sizing:border-box;padding-bottom: calc(220rpx + env(safe-area-inset-bottom));}
 
 /* 导航栏 */
 .nav-bar {
@@ -44,10 +42,7 @@
 }
 
 /* 瀑布流列表 */
-.post-list {
-  height: calc(100vh - 140rpx - env(safe-area-inset-bottom));
-  padding: 24rpx;
-}
+.post-list {padding:24rpx;}
 
 .masonry {
   display: flex;
@@ -176,3 +171,8 @@
   font-size: 24rpx;
   color: #B8A090;
 }
+
+.floating-post-btn{position:fixed;left:50%;bottom:calc(140rpx + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:50;min-width:160rpx;height:72rpx;border-radius:999rpx;background:linear-gradient(135deg,#E8A87C 0%,#F5C6A5 100%);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8rpx 24rpx rgba(232,168,124,.35);white-space:nowrap;}
+.post-card,.post-content,.post-author{min-width:0;}
+.post-meta,.meta-text,.author-name{white-space:nowrap;flex-shrink:0;}
+.post-title{word-break:break-word;}

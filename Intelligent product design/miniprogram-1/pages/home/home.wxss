@@ -1,7 +1,13 @@
 .home-page {
-  min-height: 100vh;
+  height: 100vh;
   background-color: #FFF8F0;
-  padding-bottom: 180rpx;
+  overflow: hidden;
+}
+
+.page-scroll {
+  height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: calc(180rpx + env(safe-area-inset-bottom));
 }
 
 /* 导航栏 */
@@ -14,7 +20,7 @@
 .nav-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .nav-left {
@@ -351,3 +357,10 @@
 .timer-bottom-safe-space {
   height: 48rpx;
 }
+
+
+.nav-subrow{display:flex;justify-content:space-between;align-items:center;margin-top:24rpx;gap:20rpx;}
+.status-icons,.status-item,.status-value,.status-name,.add-text,.action-text{white-space:nowrap;}
+.status-icons{flex-shrink:0;}
+.device-status{max-width:58%;}
+.timer-add-text{white-space:nowrap;}
