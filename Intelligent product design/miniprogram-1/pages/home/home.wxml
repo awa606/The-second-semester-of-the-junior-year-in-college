@@ -19,7 +19,7 @@ module.exports = {
         <view class="nav-left">
           <text class="nav-title">智育</text>
         </view>
-        <view class="add-device-btn content-add-device-btn" bindtap="goToPair">
+        <view class="add-device-btn content-add-device-btn" bindtap="goToPair" style="right: {{navRightSafePx}}px;">
           <text class="add-icon">+</text>
           <text class="add-text">添加设备</text>
         </view>
@@ -112,5 +112,5 @@ module.exports = {
     </view>
   </scroll-view>
   <tabbar active="home" />
-  <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
+  <doudou bottom="172" right="26" bind:doudouclick="onDoudouClick" />
 </view>

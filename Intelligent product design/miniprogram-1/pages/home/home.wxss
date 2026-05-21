@@ -18,8 +18,8 @@
 }
 
 .nav-header {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -54,7 +54,9 @@
 }
 
 .add-device-btn {
-  margin-top: 8rpx;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   padding: 12rpx 24rpx;
@@ -91,7 +93,7 @@
 }
 
 .content-add-device-btn {
-  align-self: flex-end;
+  margin-top: 0;
 }
 
 .status-item {
