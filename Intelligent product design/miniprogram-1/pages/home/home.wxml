@@ -15,16 +15,10 @@ module.exports = {
 <view class="home-page">
   <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
     <view class="nav-bar safe-area-top">
-      <view class="nav-header">
-        <view class="nav-left">
-          <text class="nav-title">智育</text>
-        </view>
-        <view class="add-device-btn" bindtap="goToPair">
-          <text class="add-icon">+</text>
-          <text class="add-text">添加设备</text>
-        </view>
+      <view class="nav-title-row">
+        <text class="nav-title">智育</text>
       </view>
-      <view class="nav-subrow">
+      <view class="nav-status-row">
         <view class="device-status {{deviceInfo.connected ? 'online' : 'offline'}}">
           <view class="status-dot"></view>
           <text class="status-name">{{deviceInfo.connected ? deviceInfo.name : '未连接'}}</text>
@@ -38,6 +32,12 @@ module.exports = {
             <image class="status-icon" src="/assets/icons/home/water-level.png" mode="aspectFit"/>
             <text class="status-value">{{deviceInfo.waterLevel}}%</text>
           </view>
+        </view>
+      </view>
+      <view class="nav-action-row">
+        <view class="add-device-btn" bindtap="goToPair">
+          <text class="add-icon">+</text>
+          <text class="add-text">添加设备</text>
         </view>
       </view>
     </view>
@@ -82,7 +82,9 @@ module.exports = {
       </view>
       <slider class="temp-slider" min="30" max="50" step="1" value="{{targetTemp}}" block-size="24" bindchange="onTempChange" activeColor="#E8A87C" backgroundColor="#F0E6DC" />
       <view class="slider-labels">
-        <text>30°C</text><text>40°C</text><text>50°C</text>
+        <text>30°C</text>
+        <text>40°C</text>
+        <text>50°C</text>
       </view>
     </view>
 
@@ -107,10 +109,13 @@ module.exports = {
           <view class="timer-delete-btn" data-id="{{item.id}}" bindtap="onDeleteTimer">删除</view>
         </view>
       </view>
-      <view class="timer-empty" wx:if="{{!timers || timers.length === 0}}"><text>暂无定时，点击“+ 添加定时”创建</text></view>
-      <view class="timer-bottom-safe-space"></view>
+      <view class="timer-empty" wx:if="{{!timers || timers.length === 0}}">
+        <text>暂无定时，点击“+ 添加定时”创建</text>
+      </view>
     </view>
+
+    <view class="bottom-safe-spacer"></view>
   </scroll-view>
   <tabbar active="home" />
-  <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
+  <doudou bottom="210" right="30" bind:doudouclick="onDoudouClick" />
 </view>
