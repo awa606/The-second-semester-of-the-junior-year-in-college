@@ -1,70 +1,24 @@
 <view class="community-page">
-  <!-- 顶部导航 -->
-  <view class="nav-bar safe-area-top" style="height: 268rpx; display: block; box-sizing: border-box; top: 0rpx">
-    <view class="nav-content" style="position: relative; left: 0rpx; top: 52rpx">
-      <text class="page-title">宝妈社群</text>
-      <view class="post-btn" bindtap="onCreatePost">
-        <image class="post-icon" src="/assets/icons/community/post-write.png" mode="aspectFit"/>
-        <text>发帖</text>
-      </view>
+  <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}" bindscrolltolower="onLoadMore">
+    <view class="nav-bar safe-area-top">
+      <view class="nav-content"><text class="page-title">宝妈社群</text></view>
     </view>
-  </view>
-
-  <!-- 瀑布流帖子列表 -->
-  <scroll-view 
-    class="post-list" 
-    scroll-y 
-    bindscrolltolower="onLoadMore"
-    enhanced
-    shows-scrollbar="false"
-  >
-    <view class="masonry">
-      <view 
-        class="post-card {{item.height === 'tall' ? 'tall' : ''}}" 
-        wx:for="{{posts}}" 
-        wx:key="id"
-        bindtap="onPostTap"
-        data-id="{{item.id}}"
-      >
-        <!-- 图片 -->
-        <view class="post-image-wrapper" wx:if="{{item.images.length > 0}}">
-          <text class="post-image-placeholder">{{item.imageEmoji}}</text>
-        </view>
-        
-        <!-- 内容 -->
-        <view class="post-content">
-          <text class="post-title text-ellipsis-2">{{item.title}}</text>
-          
-          <!-- 标签 -->
-          <view class="post-tags" wx:if="{{item.tags.length > 0}}">
-            <text class="post-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="index">{{tag}}</text>
-          </view>
-          
-          <!-- 作者信息 -->
-          <view class="post-author">
-            <view class="author-avatar-placeholder">{{item.avatarEmoji}}</view>
-            <text class="author-name">{{item.author}}</text>
-            <view class="post-meta">
-              <image class="meta-icon" src="/assets/icons/community/like-heart.png" mode="aspectFit"/>
-              <text class="meta-text">{{item.likes}}</text>
-            </view>
+    <view class="post-list">
+      <view class="masonry">
+        <view class="post-card {{item.height === 'tall' ? 'tall' : ''}}" wx:for="{{posts}}" wx:key="id" bindtap="onPostTap" data-id="{{item.id}}">
+          <view class="post-image-wrapper" wx:if="{{item.images.length > 0}}"><text class="post-image-placeholder">{{item.imageEmoji}}</text></view>
+          <view class="post-content">
+            <text class="post-title text-ellipsis-2">{{item.title}}</text>
+            <view class="post-tags" wx:if="{{item.tags.length > 0}}"><text class="post-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="index">{{tag}}</text></view>
+            <view class="post-author"><view class="author-avatar-placeholder">{{item.avatarEmoji}}</view><text class="author-name">{{item.author}}</text><view class="post-meta"><image class="meta-icon" src="/assets/icons/community/like-heart.png" mode="aspectFit"/><text class="meta-text">{{item.likes}}</text></view></view>
           </view>
         </view>
       </view>
-    </view>
-    
-    <!-- 加载更多 -->
-    <view class="load-more" wx:if="{{hasMore}}">
-      <text class="loading-text">加载更多...</text>
-    </view>
-    <view class="load-more" wx:else>
-      <text class="loading-text">— 没有更多了 —</text>
+      <view class="load-more" wx:if="{{hasMore}}"><text class="loading-text">加载更多...</text></view>
+      <view class="load-more" wx:else><text class="loading-text">— 没有更多了 —</text></view>
     </view>
   </scroll-view>
-
-  <!-- 底部导航 -->
+  <view class="floating-post-btn" bindtap="onCreatePost"><text>发帖</text></view>
   <tabbar active="community" />
-  
-  <!-- 悬浮豆豆 -->
   <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
 </view>

@@ -13,123 +13,104 @@ module.exports = {
 </wxs>
 
 <view class="home-page">
-  <!-- 自定义导航栏 -->
-  <view class="nav-bar safe-area-top" style="height: 343rpx; display: block; box-sizing: border-box">
-    <view class="nav-header" style="height: 66rpx; display: flex; box-sizing: border-box; position: relative; left: 0rpx; top: 52rpx">
-      <view class="nav-left">
-        <text class="nav-title">智育</text>
-        <view class="device-status {{deviceInfo.connected ? 'online' : 'offline'}}" style="position: relative; left: 516rpx; top: 22rpx">
-          <view class="status-dot"></view>
-          <text>{{deviceInfo.connected ? deviceInfo.name : '未连接'}}</text>
+  <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="nav-bar safe-area-top">
+      <view class="nav-header">
+        <view class="nav-left">
+          <text class="nav-title">智育</text>
+        </view>
+        <view class="add-device-btn" bindtap="goToPair">
+          <text class="add-icon">+</text>
+          <text class="add-text">添加设备</text>
         </view>
       </view>
-      <view class="add-device-btn" bindtap="goToPair" style="width: 174rpx; display: flex; box-sizing: border-box">
-        <text class="add-icon">+</text>
-        <text class="add-text">添加设备</text>
-      </view>
-    </view>
-    <view class="status-icons" style="position: relative; left: 0rpx; top: 93rpx">
-      <view class="status-item">
-        <image class="status-icon" src="/assets/icons/home/battery.png" mode="aspectFit"/>
-        <text class="status-value">{{deviceInfo.battery}}%</text>
-      </view>
-      <view class="status-item">
-        <image class="status-icon" src="/assets/icons/home/water-level.png" mode="aspectFit"/>
-        <text class="status-value">{{deviceInfo.waterLevel}}%</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 智能提醒 -->
-  <view class="reminder-section">
-    <text class="reminder-text">🌡️ 当前水温 {{deviceInfo.temperature}}°C · 适合宝宝饮用</text>
-  </view>
-
-  <!-- 设备状态卡片 -->
-  <view class="device-card card">
-    <view class="device-main">
-      <view class="device-visual">
-        <image class="device-emoji" src="/assets/icons/home/device-station.png" mode="aspectFit"/>
-        <view class="device-glow"></view>
-      </view>
-      <view class="device-info">
-        <text class="device-name">{{deviceInfo.name}}</text>
-        <text class="device-mode">{{utils.getModeText(currentMode)}}</text>
-        <text class="device-temp">水温 {{deviceInfo.temperature}}°C</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 三按钮横向排列 -->
-  <view class="action-buttons">
-    <view class="action-btn {{currentMode === 'warm' ? 'active' : ''}}" bindtap="setMode" data-mode="warm">
-      <image class="action-icon" src="/assets/icons/home/warm.png" mode="aspectFit"/>
-      <text class="action-text">保温</text>
-    </view>
-    <view class="action-btn {{currentMode === 'dispense' ? 'active' : ''}}" bindtap="setMode" data-mode="dispense">
-      <text class="action-icon clean-text-icon">🍼</text>
-      <text class="action-text">出奶</text>
-    </view>
-    <view class="action-btn {{currentMode === 'sterilize' ? 'active' : ''}}" bindtap="setMode" data-mode="sterilize">
-      <text class="action-icon clean-text-icon">✨</text>
-      <text class="action-text">消毒</text>
-    </view>
-  </view>
-
-  <!-- 调节控件 -->
-  <view class="control-section card">
-    <view class="control-header">
-      <text class="control-title">温度调节</text>
-      <text class="control-value">{{targetTemp}}°C</text>
-    </view>
-    <slider 
-      class="temp-slider"
-      min="30" 
-      max="50" 
-      step="1"
-      value="{{targetTemp}}"
-      block-size="24"
-      bindchange="onTempChange"
-      activeColor="#E8A87C"
-      backgroundColor="#F0E6DC"
-    />
-    <view class="slider-labels">
-      <text>30°C</text>
-      <text>40°C</text>
-      <text>50°C</text>
-    </view>
-  </view>
-
-  <view class="control-section card">
-    <view class="control-header">
-      <text class="control-title">定时功能</text>
-      <view class="timer-add-btn" bindtap="onAddTimer">
-        <text class="timer-add-icon">+</text>
-        <text class="timer-add-text">添加定时</text>
-      </view>
-    </view>
-    <view class="timer-list" wx:if="{{timers && timers.length > 0}}">
-      <view class="timer-item" wx:for="{{timers}}" wx:key="id">
-        <picker mode="time" value="{{item.time}}" data-id="{{item.id}}" bindchange="onTimerTimeChange">
-          <view class="timer-time">
-            <image class="timer-icon" src="/assets/icons/home/timer.png" mode="aspectFit"/>
-            <text class="timer-text">{{item.time}}</text>
-            <text class="timer-arrow">›</text>
+      <view class="nav-subrow">
+        <view class="device-status {{deviceInfo.connected ? 'online' : 'offline'}}">
+          <view class="status-dot"></view>
+          <text class="status-name">{{deviceInfo.connected ? deviceInfo.name : '未连接'}}</text>
+        </view>
+        <view class="status-icons">
+          <view class="status-item">
+            <image class="status-icon" src="/assets/icons/home/battery.png" mode="aspectFit"/>
+            <text class="status-value">{{deviceInfo.battery}}%</text>
           </view>
-        </picker>
-        <switch class="timer-switch" checked="{{item.enabled}}" data-id="{{item.id}}" bindchange="onToggleTimer" color="#E8A87C"/>
-        <view class="timer-delete-btn" data-id="{{item.id}}" bindtap="onDeleteTimer">删除</view>
+          <view class="status-item">
+            <image class="status-icon" src="/assets/icons/home/water-level.png" mode="aspectFit"/>
+            <text class="status-value">{{deviceInfo.waterLevel}}%</text>
+          </view>
+        </view>
       </view>
     </view>
-    <view class="timer-empty" wx:if="{{!timers || timers.length === 0}}">
-      <text>暂无定时，点击“+ 添加定时”创建</text>
-    </view>
-    <view class="timer-bottom-safe-space"></view>
-  </view>
 
-  <!-- 底部导航 -->
+    <view class="reminder-section">
+      <text class="reminder-text">🌡️ 当前水温 {{deviceInfo.temperature}}°C · 适合宝宝饮用</text>
+    </view>
+
+    <view class="device-card card">
+      <view class="device-main">
+        <view class="device-visual">
+          <image class="device-emoji" src="/assets/icons/home/device-station.png" mode="aspectFit"/>
+          <view class="device-glow"></view>
+        </view>
+        <view class="device-info">
+          <text class="device-name">{{deviceInfo.name}}</text>
+          <text class="device-mode">{{utils.getModeText(currentMode)}}</text>
+          <text class="device-temp">水温 {{deviceInfo.temperature}}°C</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="action-buttons">
+      <view class="action-btn {{currentMode === 'warm' ? 'active' : ''}}" bindtap="setMode" data-mode="warm">
+        <image class="action-icon" src="/assets/icons/home/warm.png" mode="aspectFit"/>
+        <text class="action-text">保温</text>
+      </view>
+      <view class="action-btn {{currentMode === 'dispense' ? 'active' : ''}}" bindtap="setMode" data-mode="dispense">
+        <text class="action-icon clean-text-icon">🍼</text>
+        <text class="action-text">出奶</text>
+      </view>
+      <view class="action-btn {{currentMode === 'sterilize' ? 'active' : ''}}" bindtap="setMode" data-mode="sterilize">
+        <text class="action-icon clean-text-icon">✨</text>
+        <text class="action-text">消毒</text>
+      </view>
+    </view>
+
+    <view class="control-section card">
+      <view class="control-header">
+        <text class="control-title">温度调节</text>
+        <text class="control-value">{{targetTemp}}°C</text>
+      </view>
+      <slider class="temp-slider" min="30" max="50" step="1" value="{{targetTemp}}" block-size="24" bindchange="onTempChange" activeColor="#E8A87C" backgroundColor="#F0E6DC" />
+      <view class="slider-labels">
+        <text>30°C</text><text>40°C</text><text>50°C</text>
+      </view>
+    </view>
+
+    <view class="control-section card">
+      <view class="control-header">
+        <text class="control-title">定时功能</text>
+        <view class="timer-add-btn" bindtap="onAddTimer">
+          <text class="timer-add-icon">+</text>
+          <text class="timer-add-text">添加定时</text>
+        </view>
+      </view>
+      <view class="timer-list" wx:if="{{timers && timers.length > 0}}">
+        <view class="timer-item" wx:for="{{timers}}" wx:key="id">
+          <picker mode="time" value="{{item.time}}" data-id="{{item.id}}" bindchange="onTimerTimeChange">
+            <view class="timer-time">
+              <image class="timer-icon" src="/assets/icons/home/timer.png" mode="aspectFit"/>
+              <text class="timer-text">{{item.time}}</text>
+              <text class="timer-arrow">›</text>
+            </view>
+          </picker>
+          <switch class="timer-switch" checked="{{item.enabled}}" data-id="{{item.id}}" bindchange="onToggleTimer" color="#E8A87C"/>
+          <view class="timer-delete-btn" data-id="{{item.id}}" bindtap="onDeleteTimer">删除</view>
+        </view>
+      </view>
+      <view class="timer-empty" wx:if="{{!timers || timers.length === 0}}"><text>暂无定时，点击“+ 添加定时”创建</text></view>
+      <view class="timer-bottom-safe-space"></view>
+    </view>
+  </scroll-view>
   <tabbar active="home" />
-  
-  <!-- 悬浮豆豆 -->
   <doudou bottom="180" right="30" bind:doudouclick="onDoudouClick" />
 </view>

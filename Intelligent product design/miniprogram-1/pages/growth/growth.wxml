@@ -1,7 +1,8 @@
 <view class="growth-page">
+  <scroll-view class="page-scroll" scroll-y enhanced show-scrollbar="{{false}}">
   <!-- 顶部导航 -->
-  <view class="nav-bar safe-area-top" style="height: 277rpx; display: block; box-sizing: border-box">
-    <view class="nav-content" style="position: relative; left: 0rpx; top: 60rpx">
+  <view class="nav-bar safe-area-top">
+    <view class="nav-content">
       <text class="page-title">成长记录</text>
       <view class="add-btn" bindtap="onAddRecord">
         <text class="add-icon">+</text>
@@ -74,7 +75,7 @@
 
   <!-- 历史记录列表 -->
   <view class="history-section">
-    <text class="section-title" style="margin-left: 32rpx;">历史记录</text>
+    <text class="section-title history-title">历史记录</text>
     <view class="history-list">
       <view class="history-item card" wx:for="{{records}}" wx:key="id" bindtap="onOpenRecordDetail" data-record="{{item}}">
         <view class="history-date">
@@ -91,6 +92,8 @@
       </view>
     </view>
   </view>
+
+  </scroll-view>
 
   <!-- 底部导航 -->
   <tabbar active="growth" />
