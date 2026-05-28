@@ -2,3 +2,4 @@ fastapi
 pydantic>=2
 uvicorn[standard]
 python-docx
+openpyxl>=3.1

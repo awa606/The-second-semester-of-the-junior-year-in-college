@@ -8,3 +8,6 @@ data/medical_record_agent.sqlite3
 data/uploads/
 data/outputs/*
 !data/outputs/.gitkeep
+
+# Local external datasets copied for exploration
+Chinese-medical-dialogue-data/
