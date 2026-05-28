@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Runtime data generated locally
+data/medical_record_agent.sqlite3
+data/uploads/
+data/outputs/*
+!data/outputs/.gitkeep

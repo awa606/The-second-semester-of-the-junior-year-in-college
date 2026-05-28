@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>病历生成 Agent V0.1</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f8fb;
+        --panel: #ffffff;
+        --line: #d9dee7;
+        --text: #1d2733;
+        --muted: #64748b;
+        --blue: #1f6feb;
+        --green: #15803d;
+        --red: #b42318;
+        --amber: #a16207;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, "Microsoft YaHei", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 18px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 22px;
+        line-height: 1.25;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 15px;
+        line-height: 1.3;
+      }
+
+      button {
+        min-height: 38px;
+        padding: 8px 14px;
+        border: 0;
+        border-radius: 6px;
+        background: var(--blue);
+        color: #fff;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 220px;
+        resize: vertical;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 10px;
+        background: #fff;
+        color: var(--text);
+        font: inherit;
+        line-height: 1.55;
+      }
+
+      pre {
+        min-height: 120px;
+        margin: 0;
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 10px;
+        background: #fbfcfe;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .status {
+        padding: 8px 12px;
+        border: 1px solid #bfdbfe;
+        border-radius: 6px;
+        background: #eff6ff;
+        color: #1e3a8a;
+        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.95fr) minmax(320px, 1.15fr) minmax(300px, 1fr);
+        gap: 12px;
+      }
+
+      .panel {
+        min-height: 560px;
+        padding: 12px;
+        border: 1px solid #e3e8f0;
+        border-radius: 6px;
+        background: var(--panel);
+      }
+
+      .progress {
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .progress li {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        color: var(--muted);
+      }
+
+      .progress li.active {
+        border-color: #93c5fd;
+        background: #eff6ff;
+        color: #1d4ed8;
+      }
+
+      .progress li.done {
+        border-color: #bbf7d0;
+        background: #f0fdf4;
+        color: var(--green);
+      }
+
+      .progress li.failed {
+        border-color: #fecaca;
+        background: #fef2f2;
+        color: var(--red);
+      }
+
+      .stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .meta {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 1000px) {
+        header {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          min-height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div>
+          <h1>病历生成 Agent V0.1</h1>
+          <div id="taskMeta" class="meta">未创建任务</div>
+        </div>
+        <div class="stack">
+          <button id="generateButton">生成病历草稿</button>
+          <span id="statusText" class="status">等待输入</span>
+        </div>
+      </header>
+
+      <div class="grid">
+        <section class="panel stack">
+          <h2>医患对话文本</h2>
+          <textarea id="conversationInput">你好，哪里不好，你是哪里被咬了吗？我是左手手掌被咬了。现在什么感受？
+感觉这里有点肿痛。大概被咬了多久了？大概咬了两个小时左右。
+你被咬了后做没做过什么处理，用酒精冲洗了一下，有没有包扎伤口，我这伤口这里绑了绷带，你有没有吃过什么药？
+吃的季德胜蛇药片。现在除了咬伤部位不舒服，还有什么其他难受的？
+我现在有一些胃寒，然后还有一些头晕胸闷，严重的时候还有心慌，然后我感觉我的牙龈也有一些出血。</textarea>
+          <h2>任务进度</h2>
+          <ul id="progressList" class="progress"></ul>
+        </section>
+
+        <section class="panel stack">
+          <h2>结构化字段 JSON</h2>
+          <pre id="fieldsOutput">-</pre>
+          <h2>病历草稿</h2>
+          <pre id="draftOutput">-</pre>
+        </section>
+
+        <section class="panel stack">
+          <h2>安全校验结果</h2>
+          <pre id="safetyOutput">-</pre>
+          <h2>步骤日志</h2>
+          <pre id="stepsOutput">-</pre>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const PROGRESS_STEPS = [
+        ["CREATED", "任务已创建"],
+        ["EXTRACTING_FIELDS", "字段抽取"],
+        ["GENERATING_DRAFT", "草稿生成"],
+        ["SAFETY_CHECKING", "安全校验"],
+        ["WAITING_DOCTOR_REVIEW", "等待医生审核"],
+      ];
+
+      const generateButton = document.getElementById("generateButton");
+      const conversationInput = document.getElementById("conversationInput");
+      const statusText = document.getElementById("statusText");
+      const taskMeta = document.getElementById("taskMeta");
+      const progressList = document.getElementById("progressList");
+      const fieldsOutput = document.getElementById("fieldsOutput");
+      const draftOutput = document.getElementById("draftOutput");
+      const safetyOutput = document.getElementById("safetyOutput");
+      const stepsOutput = document.getElementById("stepsOutput");
+
+      let currentTaskId = null;
+
+      function resetProgress() {
+        progressList.innerHTML = "";
+        for (const [status, label] of PROGRESS_STEPS) {
+          const item = document.createElement("li");
+          item.dataset.status = status;
+          item.innerHTML = `<span>${label}</span><strong>${status}</strong>`;
+          progressList.appendChild(item);
+        }
+      }
+
+      function markProgress(status, failed = false) {
+        const order = PROGRESS_STEPS.map(([stepStatus]) => stepStatus);
+        const activeIndex = order.indexOf(status);
+        for (const item of progressList.children) {
+          const itemIndex = order.indexOf(item.dataset.status);
+          item.className = "";
+          if (failed) {
+            if (itemIndex <= Math.max(activeIndex, 0)) {
+              item.classList.add("failed");
+            }
+          } else if (itemIndex < activeIndex || status === "WAITING_DOCTOR_REVIEW") {
+            item.classList.add("done");
+          } else if (itemIndex === activeIndex) {
+            item.classList.add("active");
+          }
+        }
+      }
+
+      function renderJson(element, value) {
+        element.textContent = JSON.stringify(value ?? {}, null, 2);
+      }
+
+      async function api(path, options = {}) {
+        const response = await fetch(path, options);
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(JSON.stringify(data.detail || data, null, 2));
+        }
+        return data;
+      }
+
+      async function renderTask(taskId, taskFromEvent = null) {
+        const task = taskFromEvent || await api(`/api/tasks/${taskId}`);
+        const result = task.result_json || {};
+        const steps = await api(`/api/tasks/${taskId}/steps`);
+
+        taskMeta.textContent = `任务 ${task.id} · ${task.status}`;
+        renderJson(fieldsOutput, result.fields);
+        draftOutput.textContent = result.draft || "-";
+        renderJson(safetyOutput, result.safety_check);
+        renderJson(stepsOutput, steps);
+      }
+
+      function listenForEvents(taskId, eventsUrl) {
+        const events = new EventSource(eventsUrl);
+        const statuses = ["CREATED", "EXTRACTING_FIELDS", "GENERATING_DRAFT", "SAFETY_CHECKING", "DEGRADED"];
+        let terminalReceived = false;
+
+        for (const status of statuses) {
+          events.addEventListener(status, (event) => {
+            const data = JSON.parse(event.data);
+            statusText.textContent = `任务 ${data.task_id}: ${data.status}`;
+            taskMeta.textContent = `任务 ${data.task_id} · ${data.current_stage || data.status}`;
+            markProgress(data.status);
+          });
+        }
+
+        events.addEventListener("WAITING_DOCTOR_REVIEW", async (event) => {
+          const data = JSON.parse(event.data);
+          terminalReceived = true;
+          statusText.textContent = `任务 ${data.task_id}: 等待医生审核`;
+          markProgress("WAITING_DOCTOR_REVIEW");
+          await renderTask(data.task_id, data.task);
+          events.close();
+          generateButton.disabled = false;
+        });
+
+        events.addEventListener("FAILED", async (event) => {
+          const data = JSON.parse(event.data);
+          terminalReceived = true;
+          statusText.textContent = `任务 ${data.task_id}: FAILED`;
+          markProgress(data.status, true);
+          await renderTask(data.task_id, data.task);
+          events.close();
+          generateButton.disabled = false;
+        });
+
+        events.onerror = () => {
+          if (terminalReceived) {
+            events.close();
+            return;
+          }
+          statusText.textContent = "任务事件连接异常";
+          events.close();
+          generateButton.disabled = false;
+        };
+      }
+
+      generateButton.addEventListener("click", async () => {
+        const conversationText = conversationInput.value.trim();
+        if (!conversationText) {
+          statusText.textContent = "请输入医患对话文本";
+          return;
+        }
+
+        resetProgress();
+        currentTaskId = null;
+        generateButton.disabled = true;
+        fieldsOutput.textContent = "-";
+        draftOutput.textContent = "-";
+        safetyOutput.textContent = "-";
+        stepsOutput.textContent = "-";
+        statusText.textContent = "提交中...";
+        taskMeta.textContent = "正在创建任务";
+
+        try {
+          const created = await api("/api/records/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ conversation_text: conversationText }),
+          });
+          currentTaskId = created.task_id;
+          statusText.textContent = `任务 ${created.task_id}: ${created.status}`;
+          taskMeta.textContent = `任务 ${created.task_id} · ${created.status}`;
+          markProgress(created.status);
+          listenForEvents(created.task_id, created.events_url);
+        } catch (error) {
+          statusText.textContent = error.message;
+          generateButton.disabled = false;
+        }
+      });
+
+      resetProgress();
+    </script>
+  </body>
+</html>
