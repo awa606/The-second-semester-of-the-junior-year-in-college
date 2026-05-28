@@ -84,6 +84,45 @@ python -m unittest discover -s tests
 - `GET /api/tasks/{task_id}/steps`
 - `GET /api/tasks/{task_id}/events`
 
+## 外部数据集处理流程
+
+本项目支持将 Toyhom/Chinese-medical-dialogue-data 中文医疗问答 CSV 转换为课程项目可用的“病历字段抽取测试集”和“问诊表达语料库”。该数据仅用于字段抽取评测和语料分析，不用于真实诊疗、自动诊断或自动处方。
+
+原始 CSV 请放在：
+
+```text
+data/raw_external/
+```
+
+`data/raw_external/` 已加入 `.gitignore`，不要把原始医疗问答数据提交到 GitHub。仓库只保留清洗脚本、标注指南和必要的小型结构模板。
+
+推荐 PowerShell 流程：
+
+```powershell
+python scripts/ingest_toyhom_dataset.py
+python scripts/filter_toyhom_cold_cases.py
+python scripts/build_pseudo_emr_dataset.py
+python scripts/sample_annotation_set.py
+python scripts/evaluate_on_gold_set.py
+```
+
+输出文件：
+
+- `data/processed/toyhom_clean.jsonl`：统一字段后的清洗数据。
+- `data/processed/toyhom_cold_candidates.jsonl`：感冒、发热、咳嗽、鼻塞、流涕、咽痛、上呼吸道感染等候选病例。
+- `data/processed/pseudo_emr_cases.jsonl`：规则生成的 `pseudo_fields`，仅作预标注和评测样例，不作为人工真值。
+- `data/annotation/annotation_sample_100.jsonl`：人工标注抽样文件。
+- `data/annotation/annotation_guide.md`：人工标注指南。
+- `data/output/toyhom_gold_evaluation_report.md`：基于 `data/annotation/gold_100.jsonl` 的评估报告。
+
+注意事项：
+
+- Toyhom CSV 常见编码为 `gb18030`，导入脚本会自动尝试常见中文编码。
+- 标注时只根据 `title` 和 `question` 记录患者事实，不从 `answer` 中补充新事实。
+- 未提及字段必须标记为 `missing=true`，不能默认写“无”。
+- 诊断相关内容只能作为“候选/待医生确认”。
+- 如发现手机号、微信、QQ、广告或明显无关内容，样本会被标记 `needs_manual_review=true`。
+
 ## 已知边界
 
 - 暂不做真实语音采集和 ASR。

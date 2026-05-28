@@ -11,3 +11,8 @@ data/outputs/*
 
 # Local external datasets copied for exploration
 Chinese-medical-dialogue-data/
+Medical-Dialogue-Dataset-Chinese/
+
+# Raw external medical QA data must stay local
+data/raw_external/*
+!data/raw_external/.gitkeep
