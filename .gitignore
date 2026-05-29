@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-Fundamentals of Artificial Intelligence/week5/Project_One/clip_model/model.safetensors
-Fundamentals of Artificial Intelligence/week5/Project_One.7z
-*.7z
-*.safetensors
-=======
 # Python
 __pycache__/
 *.pyc
@@ -18,7 +12,7 @@ dist/
 build/
 .cache/
 
-# Large archives/videos
+# Archives, videos, and large model/data artifacts
 *.zip
 *.rar
 *.7z
@@ -26,15 +20,41 @@ build/
 *.avi
 *.mov
 *.mkv
+*.safetensors
+*.tar.gz
+Fundamentals of Artificial Intelligence/week5/Project_One/clip_model/model.safetensors
+Fundamentals of Artificial Intelligence/week5/Project_One.7z
+Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/data/cifar-10-batches-py/cifar-10-python.tar.gz
+Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/*.tar.gz
+
+# Keil/MDK generated files
+**/MDK-ARM/*/
+!**/MDK-ARM/User/
+!**/MDK-ARM/RTE/
+!**/MDK-ARM/DebugConfig/
+**/OBJ/
+**/Objects/
+**/Listings/
+*.o
+*.obj
+*.d
+*.crf
+*.lst
+*.map
+*.lnp
+*.dep
+*.axf
+*.hex
+*.htm
+*.build_log.htm
+*.plg
+*.M51
+*.uvguix.*
+*.bak
+Intelligent product design/DS18B20资料包 v3.0/**/main
 
 # OS/editor
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
->>>>>>> d7a2b9d (Initial commit)
-Fundamentals of Artificial Intelligence/week5/Project_One/clip_model/model.safetensors
-Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/data/cifar-10-batches-py/cifar-10-python.tar.gz
-Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/*.tar.gz
-Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/*.tar.gz
-Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/*.tar.gz
