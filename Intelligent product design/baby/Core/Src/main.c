@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "ds18b20.h"
 #include "variables.hpp"
 /* USER CODE END Includes */
 
@@ -93,6 +94,8 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+  DS18B20_DelayInit();
+  DS18B20_Init();
 
   /* USER CODE END 2 */
 
@@ -101,6 +104,8 @@ int main(void)
   while (1)
   {
       test_moter();
+      test_ds18b20();
+      HAL_Delay(10);
 //      WS2812_SetAllColorBrightness(255, 140, 20, 10);
 //      
 //      bspGpioToggle(led_red_GPIO_Port,led_red_Pin);
