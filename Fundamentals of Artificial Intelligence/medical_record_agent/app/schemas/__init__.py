@@ -5,6 +5,7 @@ from app.schemas.medical_record import (
     SafetyCheckResult,
     SourceSpan,
 )
+from app.schemas.asr import ASRResult, ASRSegment, AudioRecord
 from app.schemas.task import (
     AgentTaskResponse,
     AgentTaskStepResponse,
@@ -15,6 +16,9 @@ from app.schemas.task import (
 __all__ = [
     "AgentTaskResponse",
     "AgentTaskStepResponse",
+    "ASRResult",
+    "ASRSegment",
+    "AudioRecord",
     "CandidateDiagnosis",
     "MedicalField",
     "MedicalRecordFields",

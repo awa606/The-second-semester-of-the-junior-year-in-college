@@ -3,19 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>病历生成 Agent V0.1</title>
+    <title>病历生成 Agent V0.2</title>
     <style>
       :root {
         color-scheme: light;
-        --bg: #f7f8fb;
+        --bg: #f6f8fb;
         --panel: #ffffff;
-        --line: #d9dee7;
-        --text: #1d2733;
+        --line: #d8dee9;
+        --text: #17202a;
         --muted: #64748b;
         --blue: #1f6feb;
         --green: #15803d;
         --red: #b42318;
-        --amber: #a16207;
       }
 
       * {
@@ -30,7 +29,7 @@
       }
 
       main {
-        max-width: 1280px;
+        max-width: 1320px;
         margin: 0 auto;
         padding: 18px;
       }
@@ -67,26 +66,38 @@
         cursor: pointer;
       }
 
+      button.secondary {
+        background: #334155;
+      }
+
       button:disabled {
         background: #94a3b8;
         cursor: not-allowed;
       }
 
+      input[type="file"],
       textarea {
         width: 100%;
-        min-height: 220px;
-        resize: vertical;
         border: 1px solid var(--line);
         border-radius: 6px;
-        padding: 10px;
         background: #fff;
         color: var(--text);
         font: inherit;
+      }
+
+      input[type="file"] {
+        padding: 9px;
+      }
+
+      textarea {
+        min-height: 220px;
+        resize: vertical;
+        padding: 10px;
         line-height: 1.55;
       }
 
       pre {
-        min-height: 120px;
+        min-height: 110px;
         margin: 0;
         overflow: auto;
         white-space: pre-wrap;
@@ -108,18 +119,37 @@
         font-size: 14px;
       }
 
-      .grid {
+      .entry-grid,
+      .result-grid {
         display: grid;
-        grid-template-columns: minmax(260px, 0.95fr) minmax(320px, 1.15fr) minmax(300px, 1fr);
         gap: 12px;
       }
 
+      .entry-grid {
+        grid-template-columns: repeat(3, minmax(260px, 1fr));
+        margin-bottom: 12px;
+      }
+
+      .result-grid {
+        grid-template-columns: minmax(300px, 0.9fr) minmax(340px, 1.1fr) minmax(320px, 1fr);
+      }
+
       .panel {
-        min-height: 560px;
         padding: 12px;
         border: 1px solid #e3e8f0;
         border-radius: 6px;
         background: var(--panel);
+      }
+
+      .stack {
+        display: grid;
+        gap: 12px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
       }
 
       .progress {
@@ -158,29 +188,21 @@
         color: var(--red);
       }
 
-      .stack {
-        display: grid;
-        gap: 12px;
-      }
-
       .meta {
         margin-top: 8px;
         color: var(--muted);
         font-size: 13px;
       }
 
-      @media (max-width: 1000px) {
+      @media (max-width: 1080px) {
         header {
           align-items: stretch;
           flex-direction: column;
         }
 
-        .grid {
+        .entry-grid,
+        .result-grid {
           grid-template-columns: 1fr;
-        }
-
-        .panel {
-          min-height: auto;
         }
       }
     </style>
@@ -189,25 +211,43 @@
     <main>
       <header>
         <div>
-          <h1>病历生成 Agent V0.1</h1>
+          <h1>病历生成 Agent V0.2</h1>
           <div id="taskMeta" class="meta">未创建任务</div>
         </div>
-        <div class="stack">
-          <button id="generateButton">生成病历草稿</button>
-          <span id="statusText" class="status">等待输入</span>
-        </div>
+        <span id="statusText" class="status">等待输入</span>
       </header>
 
-      <div class="grid">
+      <div class="entry-grid">
         <section class="panel stack">
-          <h2>医患对话文本</h2>
-          <textarea id="conversationInput">你好，哪里不好，你是哪里被咬了吗？我是左手手掌被咬了。现在什么感受？
-感觉这里有点肿痛。大概被咬了多久了？大概咬了两个小时左右。
-你被咬了后做没做过什么处理，用酒精冲洗了一下，有没有包扎伤口，我这伤口这里绑了绷带，你有没有吃过什么药？
-吃的季德胜蛇药片。现在除了咬伤部位不舒服，还有什么其他难受的？
-我现在有一些胃寒，然后还有一些头晕胸闷，严重的时候还有心慌，然后我感觉我的牙龈也有一些出血。</textarea>
+          <h2>从文本生成病历</h2>
+          <textarea id="conversationInput">[医生] 你好，哪里不舒服？
+[患者] 左手手掌被蛇咬伤了，肿痛两个小时左右。
+[医生] 被咬后做过什么处理吗？
+[患者] 用酒精冲洗了，绑了绷带，吃了季德胜蛇药片。
+[医生] 现在除了咬伤部位不舒服，还有什么其他难受的？
+[患者] 现在有些畏寒、头晕、胸闷、心慌，牙龈也有些出血。</textarea>
+          <button id="generateTextButton">从文本生成病历</button>
+        </section>
+
+        <section class="panel stack">
+          <h2>上传预录音频测试转写</h2>
+          <input id="asrOnlyFile" type="file" accept=".wav,.mp3,audio/wav,audio/mpeg" />
+          <button id="transcribeOnlyButton" class="secondary">测试 Mock ASR</button>
+        </section>
+
+        <section class="panel stack">
+          <h2>上传预录音频生成病历</h2>
+          <input id="audioRecordFile" type="file" accept=".wav,.mp3,audio/wav,audio/mpeg" />
+          <button id="audioGenerateButton">音频生成病历</button>
+        </section>
+      </div>
+
+      <div class="result-grid">
+        <section class="panel stack">
           <h2>任务进度</h2>
           <ul id="progressList" class="progress"></ul>
+          <h2>ASR 测试结果</h2>
+          <pre id="asrOutput">-</pre>
         </section>
 
         <section class="panel stack">
@@ -235,17 +275,26 @@
         ["WAITING_DOCTOR_REVIEW", "等待医生审核"],
       ];
 
-      const generateButton = document.getElementById("generateButton");
+      const generateTextButton = document.getElementById("generateTextButton");
+      const transcribeOnlyButton = document.getElementById("transcribeOnlyButton");
+      const audioGenerateButton = document.getElementById("audioGenerateButton");
       const conversationInput = document.getElementById("conversationInput");
+      const asrOnlyFile = document.getElementById("asrOnlyFile");
+      const audioRecordFile = document.getElementById("audioRecordFile");
       const statusText = document.getElementById("statusText");
       const taskMeta = document.getElementById("taskMeta");
       const progressList = document.getElementById("progressList");
+      const asrOutput = document.getElementById("asrOutput");
       const fieldsOutput = document.getElementById("fieldsOutput");
       const draftOutput = document.getElementById("draftOutput");
       const safetyOutput = document.getElementById("safetyOutput");
       const stepsOutput = document.getElementById("stepsOutput");
 
-      let currentTaskId = null;
+      function setBusy(isBusy) {
+        generateTextButton.disabled = isBusy;
+        transcribeOnlyButton.disabled = isBusy;
+        audioGenerateButton.disabled = isBusy;
+      }
 
       function resetProgress() {
         progressList.innerHTML = "";
@@ -257,6 +306,13 @@
         }
       }
 
+      function resetRecordOutputs() {
+        fieldsOutput.textContent = "-";
+        draftOutput.textContent = "-";
+        safetyOutput.textContent = "-";
+        stepsOutput.textContent = "-";
+      }
+
       function markProgress(status, failed = false) {
         const order = PROGRESS_STEPS.map(([stepStatus]) => stepStatus);
         const activeIndex = order.indexOf(status);
@@ -264,9 +320,7 @@
           const itemIndex = order.indexOf(item.dataset.status);
           item.className = "";
           if (failed) {
-            if (itemIndex <= Math.max(activeIndex, 0)) {
-              item.classList.add("failed");
-            }
+            if (itemIndex <= Math.max(activeIndex, 0)) item.classList.add("failed");
           } else if (itemIndex < activeIndex || status === "WAITING_DOCTOR_REVIEW") {
             item.classList.add("done");
           } else if (itemIndex === activeIndex) {
@@ -279,6 +333,16 @@
         element.textContent = JSON.stringify(value ?? {}, null, 2);
       }
 
+      function renderAsr(result) {
+        renderJson(asrOutput, {
+          engine: result.engine,
+          text: result.text,
+          conversation_text: result.conversation_text,
+          segments: result.segments,
+          medical_keywords: result.medical_keywords,
+        });
+      }
+
       async function api(path, options = {}) {
         const response = await fetch(path, options);
         const data = await response.json().catch(() => ({}));
@@ -288,12 +352,32 @@
         return data;
       }
 
+      async function uploadAndTranscribe(file) {
+        if (!file) throw new Error("请选择 wav 或 mp3 文件");
+        const form = new FormData();
+        form.append("file", file);
+
+        statusText.textContent = "正在上传音频";
+        const uploaded = await api("/api/audio/upload", {
+          method: "POST",
+          body: form,
+        });
+
+        statusText.textContent = `音频 ${uploaded.audio_id}: 正在 Mock ASR 转写`;
+        const transcribed = await api(`/api/audio/${uploaded.audio_id}/transcribe`, {
+          method: "POST",
+        });
+        renderAsr(transcribed.asr_result);
+        statusText.textContent = `音频 ${uploaded.audio_id}: Mock ASR 完成`;
+        return transcribed;
+      }
+
       async function renderTask(taskId, taskFromEvent = null) {
         const task = taskFromEvent || await api(`/api/tasks/${taskId}`);
         const result = task.result_json || {};
         const steps = await api(`/api/tasks/${taskId}/steps`);
 
-        taskMeta.textContent = `任务 ${task.id} · ${task.status}`;
+        taskMeta.textContent = `任务 ${task.id} / ${task.status}`;
         renderJson(fieldsOutput, result.fields);
         draftOutput.textContent = result.draft || "-";
         renderJson(safetyOutput, result.safety_check);
@@ -309,7 +393,7 @@
           events.addEventListener(status, (event) => {
             const data = JSON.parse(event.data);
             statusText.textContent = `任务 ${data.task_id}: ${data.status}`;
-            taskMeta.textContent = `任务 ${data.task_id} · ${data.current_stage || data.status}`;
+            taskMeta.textContent = `任务 ${data.task_id} / ${data.current_stage || data.status}`;
             markProgress(data.status);
           });
         }
@@ -321,7 +405,7 @@
           markProgress("WAITING_DOCTOR_REVIEW");
           await renderTask(data.task_id, data.task);
           events.close();
-          generateButton.disabled = false;
+          setBusy(false);
         });
 
         events.addEventListener("FAILED", async (event) => {
@@ -331,7 +415,7 @@
           markProgress(data.status, true);
           await renderTask(data.task_id, data.task);
           events.close();
-          generateButton.disabled = false;
+          setBusy(false);
         });
 
         events.onerror = () => {
@@ -341,41 +425,70 @@
           }
           statusText.textContent = "任务事件连接异常";
           events.close();
-          generateButton.disabled = false;
+          setBusy(false);
         };
       }
 
-      generateButton.addEventListener("click", async () => {
+      async function createRecordTask(conversationText) {
+        resetProgress();
+        resetRecordOutputs();
+        statusText.textContent = "正在创建任务";
+        taskMeta.textContent = "正在创建任务";
+        const created = await api("/api/records/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ conversation_text: conversationText }),
+        });
+        statusText.textContent = `任务 ${created.task_id}: ${created.status}`;
+        taskMeta.textContent = `任务 ${created.task_id} / ${created.status}`;
+        markProgress(created.status);
+        listenForEvents(created.task_id, created.events_url);
+      }
+
+      generateTextButton.addEventListener("click", async () => {
         const conversationText = conversationInput.value.trim();
         if (!conversationText) {
           statusText.textContent = "请输入医患对话文本";
           return;
         }
-
-        resetProgress();
-        currentTaskId = null;
-        generateButton.disabled = true;
-        fieldsOutput.textContent = "-";
-        draftOutput.textContent = "-";
-        safetyOutput.textContent = "-";
-        stepsOutput.textContent = "-";
-        statusText.textContent = "提交中...";
-        taskMeta.textContent = "正在创建任务";
-
+        setBusy(true);
         try {
-          const created = await api("/api/records/generate", {
+          await createRecordTask(conversationText);
+        } catch (error) {
+          statusText.textContent = error.message;
+          setBusy(false);
+        }
+      });
+
+      transcribeOnlyButton.addEventListener("click", async () => {
+        setBusy(true);
+        resetRecordOutputs();
+        try {
+          await uploadAndTranscribe(asrOnlyFile.files[0]);
+        } catch (error) {
+          statusText.textContent = error.message;
+        } finally {
+          setBusy(false);
+        }
+      });
+
+      audioGenerateButton.addEventListener("click", async () => {
+        setBusy(true);
+        resetProgress();
+        resetRecordOutputs();
+        try {
+          const transcribed = await uploadAndTranscribe(audioRecordFile.files[0]);
+          statusText.textContent = "正在用转写文本创建病历任务";
+          const created = await api(`/api/audio/${transcribed.audio_id}/generate-record`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ conversation_text: conversationText }),
           });
-          currentTaskId = created.task_id;
           statusText.textContent = `任务 ${created.task_id}: ${created.status}`;
-          taskMeta.textContent = `任务 ${created.task_id} · ${created.status}`;
+          taskMeta.textContent = `任务 ${created.task_id} / ${created.status}`;
           markProgress(created.status);
           listenForEvents(created.task_id, created.events_url);
         } catch (error) {
           statusText.textContent = error.message;
-          generateButton.disabled = false;
+          setBusy(false);
         }
       });
 
