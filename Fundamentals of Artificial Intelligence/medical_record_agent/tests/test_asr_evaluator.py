@@ -39,6 +39,20 @@ class ASREvaluatorTests(unittest.TestCase):
         self.assertLess(result["keyword_recall"], 1)
         self.assertEqual(result["missing"], ["胸闷"])
 
+    def test_keyword_aliases_match_canonical_keywords(self):
+        result = self.evaluator.keyword_metrics(
+            [
+                {"name": "40度", "aliases": ["40度", "四十度", "40摄氏度", "四十摄氏度"]},
+                {"name": "食欲不佳", "aliases": ["食欲不佳", "胃口不是很好"]},
+                {"name": "铁锈色痰", "aliases": ["铁锈色痰", "铁锈涩痰"]},
+            ],
+            "患者最高体温四十摄氏度，胃口不是很好，伴有铁锈涩痰。",
+        )
+
+        self.assertEqual(result["keyword_recall"], 1)
+        self.assertEqual(result["recognized"], ["40度", "食欲不佳", "铁锈色痰"])
+        self.assertEqual(result["missing"], [])
+
     def test_clean_ground_truth_text_removes_speaker_and_timestamp_lines(self):
         cleaned = self.evaluator.clean_ground_truth_text(
             """

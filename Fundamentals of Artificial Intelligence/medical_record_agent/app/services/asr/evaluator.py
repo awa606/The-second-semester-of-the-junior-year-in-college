@@ -9,6 +9,8 @@ PUNCTUATION_PATTERN = re.compile(r"[\s，。！？、；：,.!?;:\-—（）()�
 SPEAKER_LINE_PATTERN = re.compile(r"^发言人[12]\s*(?:\d{1,2}:\d{2})?\s*$")
 LINE_PREFIX_PATTERN = re.compile(r"^(?:发言人[12]\s+)?(?:\d{1,2}:\d{2})\s*")
 
+KeywordSpec = str | dict[str, object]
+
 
 class ASREvaluator:
     def clean_ground_truth_text(self, text: str) -> str:
@@ -72,16 +74,16 @@ class ASREvaluator:
 
     def keyword_metrics(
         self,
-        expected_keywords: list[str],
+        expected_keywords: list[KeywordSpec],
         recognized_text: str,
     ) -> dict[str, object]:
-        expected = list(dict.fromkeys(keyword.strip() for keyword in expected_keywords if keyword.strip()))
+        keyword_specs = self._normalize_keyword_specs(expected_keywords)
+        expected = [name for name, _aliases in keyword_specs]
         normalized_text = self.normalize_text(recognized_text)
-        recognized = [
-            keyword
-            for keyword in expected
-            if self.normalize_text(keyword) in normalized_text
-        ]
+        recognized = []
+        for name, aliases in keyword_specs:
+            if any(self.normalize_text(alias) in normalized_text for alias in aliases):
+                recognized.append(name)
         missing = [keyword for keyword in expected if keyword not in recognized]
         recall = len(recognized) / len(expected) if expected else 0.0
         return {
@@ -98,7 +100,7 @@ class ASREvaluator:
         engine: str,
         ground_truth_text: str,
         recognized_text: str,
-        expected_keywords: list[str],
+        expected_keywords: list[KeywordSpec],
         clean_speaker_labels: bool = True,
     ) -> ASREvaluationResult:
         cer_value, reference_length, distance = self.cer(
@@ -120,3 +122,34 @@ class ASREvaluator:
                 "missing": keyword_result["missing"],
             },
         )
+
+    def _normalize_keyword_specs(
+        self,
+        expected_keywords: list[KeywordSpec],
+    ) -> list[tuple[str, list[str]]]:
+        specs: list[tuple[str, list[str]]] = []
+        seen: set[str] = set()
+        for item in expected_keywords:
+            name: str | None = None
+            aliases: list[str] = []
+            if isinstance(item, str):
+                name = item.strip()
+                aliases = [name]
+            elif isinstance(item, dict):
+                raw_name = item.get("name")
+                if isinstance(raw_name, str):
+                    name = raw_name.strip()
+                raw_aliases = item.get("aliases")
+                if isinstance(raw_aliases, list):
+                    aliases = [
+                        alias.strip()
+                        for alias in raw_aliases
+                        if isinstance(alias, str) and alias.strip()
+                    ]
+            if not name or name in seen:
+                continue
+            seen.add(name)
+            if name not in aliases:
+                aliases.insert(0, name)
+            specs.append((name, list(dict.fromkeys(aliases))))
+        return specs
