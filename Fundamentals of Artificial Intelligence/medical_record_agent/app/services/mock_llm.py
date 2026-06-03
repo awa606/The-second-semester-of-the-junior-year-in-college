@@ -51,6 +51,82 @@ def _field(value: str, source_spans: list[SourceSpan], confidence: float = 0.85)
     )
 
 
+def _required_spans(segments: list[str], keywords: list[str], conversation: str) -> list[SourceSpan]:
+    spans = _source_spans(segments, keywords)
+    if spans:
+        return spans
+    fallback_text = segments[0] if segments else conversation
+    return [SourceSpan(index=0, text=fallback_text)]
+
+
+def _is_fever_case(conversation: str) -> bool:
+    return _contains(conversation, ["发烧", "发热", "体温", "布洛芬", "铁锈色痰"])
+
+
+def _extract_fever_fields(conversation: str, segments: list[str]) -> MedicalRecordFields:
+    fever_spans = _required_spans(
+        segments,
+        ["发烧", "发热", "体温", "40", "39", "淋雨", "受凉"],
+        conversation,
+    )
+    treatment_spans = _required_spans(
+        segments,
+        ["卫生院", "感冒", "布洛芬", "退热", "反复发热"],
+        conversation,
+    )
+    symptom_spans = _required_spans(
+        segments,
+        ["咳嗽", "咳痰", "铁锈色痰", "食欲不佳"],
+        conversation,
+    )
+    history_spans = _required_spans(
+        segments,
+        ["既往体健", "肺结核", "肝炎", "传染病", "预防接种"],
+        conversation,
+    )
+    allergy_spans = _required_spans(
+        segments,
+        ["过敏", "食物", "药品"],
+        conversation,
+    )
+    physical_exam_spans = _required_spans(
+        segments,
+        ["查体", "体温", "发热"],
+        conversation,
+    )
+    diagnosis_spans = _merge_spans(fever_spans, symptom_spans, treatment_spans)
+
+    return MedicalRecordFields(
+        chief_complaint=_field("发热3天", fever_spans, 0.9),
+        present_illness=_field(
+            "3天前淋雨受凉后发热，最高体温40℃，体温多在39~40℃，伴咳嗽、咳痰，"
+            "曾有铁锈色痰；当地卫生院考虑感冒，服用布洛芬后可退热但反复发热；"
+            "病程中食欲不佳，睡眠尚可，大小便正常。",
+            _merge_spans(fever_spans, treatment_spans, symptom_spans),
+            0.88,
+        ),
+        previous_treatment=_field("当地卫生院就诊，服用布洛芬", treatment_spans, 0.88),
+        accompanying_symptoms=_field("咳嗽、咳痰、铁锈色痰、食欲不佳", symptom_spans, 0.86),
+        past_history=_field(
+            "既往体健，否认肺结核、肝炎等传染病史，按计划预防接种",
+            history_spans,
+            0.84,
+        ),
+        allergy_history=_field("未发现食物或药品过敏史", allergy_spans, 0.84),
+        physical_exam=_field("待医生查体补充", physical_exam_spans, 0.6),
+        candidate_diagnoses=[
+            CandidateDiagnosis(
+                name="发热待查",
+                evidence=diagnosis_spans,
+            ),
+            CandidateDiagnosis(
+                name="肺部感染可能/肺炎待排",
+                evidence=diagnosis_spans,
+            ),
+        ],
+    )
+
+
 def _extract_treatments(conversation: str) -> list[str]:
     treatments: list[str] = []
     if _contains(conversation, ["酒精"]):
@@ -76,6 +152,9 @@ def _extract_symptoms(conversation: str) -> list[str]:
 
 def mock_extract_fields(conversation: str) -> MedicalRecordFields:
     segments = _split_segments(conversation)
+    if _is_fever_case(conversation):
+        return _extract_fever_fields(conversation, segments)
+
     treatments = _extract_treatments(conversation)
     symptoms = _extract_symptoms(conversation)
 
