@@ -6,14 +6,30 @@ from app.schemas.asr import ASREvaluationResult
 
 
 PUNCTUATION_PATTERN = re.compile(r"[\s，。！？、；：,.!?;:\-—（）()《》<>\"'“”‘’\[\]【】]+")
+SPEAKER_LINE_PATTERN = re.compile(r"^发言人[12]\s*(?:\d{1,2}:\d{2})?\s*$")
+LINE_PREFIX_PATTERN = re.compile(r"^(?:发言人[12]\s+)?(?:\d{1,2}:\d{2})\s*")
 
 
 class ASREvaluator:
+    def clean_ground_truth_text(self, text: str) -> str:
+        cleaned_lines: list[str] = []
+        for raw_line in (text or "").splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if SPEAKER_LINE_PATTERN.match(line):
+                continue
+            line = LINE_PREFIX_PATTERN.sub("", line).strip()
+            if line:
+                cleaned_lines.append(line)
+        return "\n".join(cleaned_lines)
+
     def normalize_text(self, text: str) -> str:
         return PUNCTUATION_PATTERN.sub("", text or "")
 
-    def edit_distance(self, reference: str, hypothesis: str) -> int:
-        ref = self.normalize_text(reference)
+    def edit_distance(self, reference: str, hypothesis: str, *, clean_speaker_labels: bool = True) -> int:
+        reference_text = self.clean_ground_truth_text(reference) if clean_speaker_labels else reference
+        ref = self.normalize_text(reference_text)
         hyp = self.normalize_text(hypothesis)
         if not ref:
             return len(hyp)
@@ -35,10 +51,21 @@ class ASREvaluator:
             previous = current
         return previous[-1]
 
-    def cer(self, reference: str, hypothesis: str) -> tuple[float, int, int]:
-        normalized_reference = self.normalize_text(reference)
+    def cer(
+        self,
+        reference: str,
+        hypothesis: str,
+        *,
+        clean_speaker_labels: bool = True,
+    ) -> tuple[float, int, int]:
+        reference_text = self.clean_ground_truth_text(reference) if clean_speaker_labels else reference
+        normalized_reference = self.normalize_text(reference_text)
         reference_length = len(normalized_reference)
-        distance = self.edit_distance(reference, hypothesis)
+        distance = self.edit_distance(
+            reference,
+            hypothesis,
+            clean_speaker_labels=clean_speaker_labels,
+        )
         if reference_length == 0:
             return (0.0 if distance == 0 else 1.0, reference_length, distance)
         return distance / reference_length, reference_length, distance
@@ -72,8 +99,13 @@ class ASREvaluator:
         ground_truth_text: str,
         recognized_text: str,
         expected_keywords: list[str],
+        clean_speaker_labels: bool = True,
     ) -> ASREvaluationResult:
-        cer_value, reference_length, distance = self.cer(ground_truth_text, recognized_text)
+        cer_value, reference_length, distance = self.cer(
+            ground_truth_text,
+            recognized_text,
+            clean_speaker_labels=clean_speaker_labels,
+        )
         keyword_result = self.keyword_metrics(expected_keywords, recognized_text)
         return ASREvaluationResult(
             audio_id=audio_id,
