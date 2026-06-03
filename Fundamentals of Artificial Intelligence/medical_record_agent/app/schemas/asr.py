@@ -25,6 +25,7 @@ class ASRResult(BaseModel):
     speaker_mode: str | None = None
     evaluate_diarization: bool = False
     role_strategy: str | None = None
+    warnings: list[str] = Field(default_factory=list)
 
 
 class AudioRecord(BaseModel):

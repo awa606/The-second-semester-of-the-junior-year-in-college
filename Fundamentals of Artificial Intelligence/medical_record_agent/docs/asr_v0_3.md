@@ -26,6 +26,20 @@ FunASR 可选依赖：
 pip install -r requirements-asr.txt
 ```
 
+如果本机需要安装 CPU 版 PyTorch，可先运行：
+
+```powershell
+python -m pip install torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+```
+
+FunASR 环境诊断：
+
+```powershell
+python scripts/check_funasr_env.py
+```
+
+该脚本会输出当前 `sys.executable`、`torch` / `funasr` 是否可导入、`torch.__version__`、`torch.cuda.is_available()`，以及 `from funasr import AutoModel` 是否成功。失败时会打印完整 traceback。
+
 ## 启动
 
 ```powershell
@@ -90,6 +104,8 @@ Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/api/audio/{audio_id}/
 `medical_keywords`: 包含 expected、recognized、missing。
 
 `manifest_sample_id`、`scenario`、`speaker_mode`、`evaluate_diarization`、`role_strategy`: 来自 manifest 的样本元数据，用于说明该样本是否适合说话人分离评测，以及使用了哪种角色恢复策略。
+
+`warnings`: ASR 后处理警告。例如 FunASR 只返回一个长 segment 时，系统不会强行套用双人 `speaker_role_map`，而会提示需要人工校正角色。
 
 ## 评测方法
 
@@ -170,6 +186,8 @@ sample_id,scenario,speaker_mode,evaluate_diarization,role_strategy,speaker_role_
 
 API 和 `scripts/evaluate_asr.py` 会按音频文件名 stem 匹配 `sample_id`。例如上传 `snakebite_01.wav` 时，会应用 `snakebite_01` 的角色策略与关键词配置。
 
+如果 `chest_pain_01` 或 `fever_01` 的真实 ASR 结果只有一个长 segment，或者没有两个可靠 speaker label，系统会把 `role_strategy` 改为 `single_segment_needs_review`，`conversation_text` 使用 `[待校正] 原始转写文本`，并在 `warnings` 中提示人工复核。这样避免把整段内容错误映射成单一“医生”或“患者”。
+
 ## 热词
 
 医疗热词位于：
@@ -185,6 +203,8 @@ FunASR 引擎会读取该文件，并在调用 `generate()` 时尝试作为 hotw
 V0.3 不保证真实声纹级说话人分离。`snakebite_01` 是单人朗读样本，不能用于真实说话人分离评测；`chest_pain_01` 和 `fever_01` 只使用 manifest 中的手动角色映射。
 
 FunASR 返回 speaker 时，V0.3 只把 speaker label 映射为医生/患者，不判断声纹身份。
+
+FunASR 只返回单段长文本时，V0.3.1 不再强行使用 manifest 的双人角色映射，需人工校正后再用于严格的医患轮次评估。
 
 真实门诊噪声、多人插话、方言和远场录音效果需要后续单独测试。
 

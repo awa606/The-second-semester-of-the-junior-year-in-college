@@ -77,8 +77,15 @@ def apply_manifest_role_strategy(
         updated.conversation_text = conversation_from_segments(updated.segments)
     elif strategy == "manual_speaker_role_map":
         speaker_role_map = sample.get("speaker_role_map") or {}
-        updated.segments = apply_speaker_role_map(updated.segments, speaker_role_map)
-        updated.conversation_text = conversation_from_segments(updated.segments)
+        if sample.get("speaker_mode") == "two_speaker_consultation" and not _has_reliable_speaker_turns(updated.segments):
+            updated.role_strategy = "single_segment_needs_review"
+            updated.conversation_text = f"[待校正] {updated.text}"
+            updated.warnings.append(
+                "FunASR returned a single long segment; speaker role mapping was not applied. Please manually review roles."
+            )
+        else:
+            updated.segments = apply_speaker_role_map(updated.segments, speaker_role_map)
+            updated.conversation_text = conversation_from_segments(updated.segments)
 
     expected_keywords = sample.get("expected_keywords") or []
     if expected_keywords:
@@ -93,7 +100,8 @@ def apply_manifest_role_strategy(
     updated.scenario = sample.get("scenario")
     updated.speaker_mode = sample.get("speaker_mode")
     updated.evaluate_diarization = bool(sample.get("evaluate_diarization", False))
-    updated.role_strategy = strategy
+    if not updated.role_strategy:
+        updated.role_strategy = strategy
     return updated
 
 
@@ -128,6 +136,15 @@ def apply_speaker_role_map(
         if role:
             segment.role = role
     return mapped_segments
+
+
+def _has_reliable_speaker_turns(segments: list[ASRSegment]) -> bool:
+    if len(segments) <= 1:
+        return False
+    speakers = [segment.speaker for segment in segments if segment.speaker]
+    if len(set(speakers)) < 2:
+        return False
+    return True
 
 
 def conversation_from_segments(segments: list[ASRSegment]) -> str:

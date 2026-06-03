@@ -43,6 +43,29 @@ class ASRRoleStrategyTests(unittest.TestCase):
         self.assertIn("[医生]", mapped.conversation_text)
         self.assertIn("[患者]", mapped.conversation_text)
 
+    def test_single_segment_two_speaker_sample_needs_manual_review(self):
+        result = ASRResult(
+            audio_id="fever_01",
+            engine="funasr-paraformer-zh",
+            text="发烧三天，淋雨后体温40度，咳嗽，有铁锈色痰，吃过布洛芬后仍反复发热。",
+            conversation_text="[spk0] 发烧三天，淋雨后体温40度，咳嗽，有铁锈色痰，吃过布洛芬后仍反复发热。",
+            segments=[
+                ASRSegment(
+                    speaker="spk0",
+                    text="发烧三天，淋雨后体温40度，咳嗽，有铁锈色痰，吃过布洛芬后仍反复发热。",
+                )
+            ],
+        )
+
+        mapped = apply_manifest_role_strategy(result, "fever_01")
+
+        self.assertEqual(mapped.role_strategy, "single_segment_needs_review")
+        self.assertIn("[待校正]", mapped.conversation_text)
+        self.assertNotIn("[患者]", mapped.conversation_text)
+        self.assertTrue(mapped.warnings)
+        self.assertIn("speaker role mapping was not applied", mapped.warnings[0])
+        self.assertIn("发烧", mapped.medical_keywords["recognized"])
+
 
 if __name__ == "__main__":
     unittest.main()

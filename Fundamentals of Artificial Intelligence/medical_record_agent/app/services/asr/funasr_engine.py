@@ -26,7 +26,10 @@ class FunASREngine:
             from funasr import AutoModel
         except ImportError as exc:
             raise RuntimeError(
-                "FunASR dependencies are not installed. Please run: pip install -r requirements-asr.txt"
+                "FunASR import failed. Please check ASR dependencies with "
+                "`python scripts/check_funasr_env.py` and install optional dependencies with "
+                "`pip install -r requirements-asr.txt`. "
+                f"Original error: {exc!r}"
             ) from exc
 
         self.hotwords = self._load_hotwords(hotword_path)
