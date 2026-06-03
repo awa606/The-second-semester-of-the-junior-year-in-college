@@ -12,4 +12,8 @@ def create_asr_engine(engine_name: str = "mock") -> ASREngine:
         from app.services.asr.funasr_engine import FunASREngine
 
         return FunASREngine()
-    raise ValueError(f"Unsupported ASR engine: {engine_name}. Expected 'mock' or 'funasr'.")
+    if normalized_name == "online":
+        from app.services.asr.online_engine import OnlineASREngine
+
+        return OnlineASREngine()
+    raise ValueError(f"Unsupported ASR engine: {engine_name}. Expected 'mock', 'funasr', or 'online'.")

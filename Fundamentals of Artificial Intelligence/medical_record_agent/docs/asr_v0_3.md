@@ -73,6 +73,16 @@ FunASR 转写：
 Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/api/audio/{audio_id}/transcribe?engine=funasr"
 ```
 
+预留线上 ASR 转写：
+
+```powershell
+$env:ONLINE_ASR_API_URL = "https://your-asr-provider.example/api/transcribe"
+$env:ONLINE_ASR_API_KEY = "<set-in-environment-only>"
+Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/api/audio/{audio_id}/transcribe?engine=online"
+```
+
+`engine=online` 是预留线上 ASR 接口，真实平台 API 地址、鉴权方式和返回字段后续按所选平台配置。项目不会写死或提交任何 API Key；`ONLINE_ASR_API_URL` 和 `ONLINE_ASR_API_KEY` 必须由运行环境提供。当前骨架以 JSON 请求发送 `audio_id`、`filename`、`audio_base64`，并期望平台返回可映射到统一 `ASRResult` 的 JSON。
+
 读取 transcript：
 
 ```powershell
@@ -91,7 +101,7 @@ Invoke-RestMethod -Method Post -Uri "http://127.0.0.1:8000/api/audio/{audio_id}/
 
 `audio_id`: 上传音频 ID。
 
-`engine`: `mock` 或 `funasr-paraformer-zh`。
+`engine`: `mock-asr-v0.2`、`funasr-paraformer-zh` 或线上 ASR 返回的 engine 名称。
 
 `text`: ASR 完整转写文本。
 
