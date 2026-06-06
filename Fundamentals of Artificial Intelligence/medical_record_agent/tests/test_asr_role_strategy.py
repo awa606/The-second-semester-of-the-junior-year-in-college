@@ -66,6 +66,27 @@ class ASRRoleStrategyTests(unittest.TestCase):
         self.assertIn("speaker role mapping was not applied", mapped.warnings[0])
         self.assertIn("发烧", mapped.medical_keywords["recognized"])
 
+    def test_qwen3_single_segment_keeps_qwen3_manual_review_warning(self):
+        result = ASRResult(
+            audio_id="fever_01",
+            engine="qwen3-asr-0.6b",
+            text="patient has fever for three days",
+            conversation_text="[待校正] patient has fever for three days",
+            segments=[ASRSegment(speaker="qwen3", text="patient has fever for three days")],
+            warnings=[
+                "Qwen3-ASR did not provide reliable speaker roles; please manually review roles."
+            ],
+        )
+
+        mapped = apply_manifest_role_strategy(result, "fever_01")
+
+        self.assertEqual(mapped.role_strategy, "single_segment_needs_review")
+        self.assertEqual(mapped.conversation_text, "[待校正] patient has fever for three days")
+        self.assertEqual(
+            mapped.warnings,
+            ["Qwen3-ASR did not provide reliable speaker roles; please manually review roles."],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

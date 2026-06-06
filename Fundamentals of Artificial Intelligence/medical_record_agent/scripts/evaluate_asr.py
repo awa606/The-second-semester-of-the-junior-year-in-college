@@ -24,7 +24,7 @@ AUDIO_SUFFIXES = {".wav", ".mp3", ".m4a", ".flac", ".ogg"}
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Evaluate ASR output with CER and keyword recall.")
-    parser.add_argument("--engine", default="mock", choices=["mock", "funasr"])
+    parser.add_argument("--engine", default="mock", choices=["mock", "funasr", "qwen3", "online"])
     parser.add_argument("--audio-dir", required=True, type=Path)
     parser.add_argument("--truth-dir", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)

@@ -27,6 +27,15 @@ Fundamentals of Artificial Intelligence/week5/Project_One.7z
 Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/data/cifar-10-batches-py/cifar-10-python.tar.gz
 Fundamentals of Artificial Intelligence/week7/deep_learning_platform/data/*.tar.gz
 
+# Medical record agent local datasets, uploads, and demo media
+Fundamentals of Artificial Intelligence/medical_record_agent/data/annotation/*.jsonl
+Fundamentals of Artificial Intelligence/medical_record_agent/data/asr_eval/audio/
+Fundamentals of Artificial Intelligence/medical_record_agent/data/asr_eval/ground_truth/
+Fundamentals of Artificial Intelligence/medical_record_agent/data/processed/*.jsonl
+Fundamentals of Artificial Intelligence/medical_record_agent/data/uploads/*
+!Fundamentals of Artificial Intelligence/medical_record_agent/data/uploads/.gitkeep
+Fundamentals of Artificial Intelligence/medical_record_agent/video/
+
 # Keil/MDK generated files
 **/MDK-ARM/*/
 !**/MDK-ARM/User/

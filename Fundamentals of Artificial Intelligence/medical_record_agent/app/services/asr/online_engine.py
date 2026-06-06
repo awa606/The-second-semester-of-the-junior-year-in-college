@@ -11,6 +11,101 @@ from typing import Any
 from app.schemas.asr import ASRResult, ASRSegment
 
 
+def _first_text(data: dict[str, Any], keys: tuple[str, ...]) -> str:
+    for key in keys:
+        value = data.get(key)
+        if value is not None:
+            return str(value)
+    return ""
+
+
+def _as_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
+
+
+def _normalize_segment(segment: Any) -> ASRSegment | None:
+    if isinstance(segment, str):
+        text = segment.strip()
+        return ASRSegment(speaker="online", role=None, text=text) if text else None
+    if not isinstance(segment, dict):
+        return None
+
+    text = _first_text(segment, ("text", "transcript", "sentence", "utterance"))
+    if not text:
+        return None
+    return ASRSegment(
+        speaker=(
+            str(segment.get("speaker"))
+            if segment.get("speaker") is not None
+            else str(segment.get("spk"))
+            if segment.get("spk") is not None
+            else str(segment.get("speaker_id"))
+            if segment.get("speaker_id") is not None
+            else None
+        ),
+        role=str(segment.get("role")) if segment.get("role") is not None else None,
+        text=text,
+        start_time=segment.get("start_time", segment.get("start", segment.get("begin"))),
+        end_time=segment.get("end_time", segment.get("end")),
+        confidence=segment.get("confidence", segment.get("conf")),
+    )
+
+
+def _normalize_keywords(value: Any) -> dict[str, list[str]]:
+    if isinstance(value, dict):
+        return {
+            "expected": [str(item) for item in _as_list(value.get("expected"))],
+            "recognized": [str(item) for item in _as_list(value.get("recognized"))],
+            "missing": [str(item) for item in _as_list(value.get("missing"))],
+        }
+    if isinstance(value, list):
+        return {"expected": [], "recognized": [str(item) for item in value], "missing": []}
+    return {"expected": [], "recognized": [], "missing": []}
+
+
+def normalize_online_asr_response(data: dict[str, Any], audio_id: str = "") -> ASRResult:
+    """Adapt common online ASR JSON shapes to the project's ASRResult schema."""
+    if not isinstance(data, dict):
+        raise RuntimeError("Online ASR response JSON must be an object")
+
+    body = data
+    nested = data.get("data") or data.get("result")
+    if isinstance(nested, dict):
+        body = {**data, **nested}
+
+    text = _first_text(body, ("text", "transcript", "recognized_text", "raw_text"))
+    raw_segments = body.get("segments", body.get("sentences", body.get("utterances")))
+    segments = [
+        normalized
+        for normalized in (_normalize_segment(segment) for segment in _as_list(raw_segments))
+        if normalized is not None
+    ]
+    if not text and segments:
+        text = "".join(segment.text for segment in segments)
+    if not segments and text:
+        segments = [ASRSegment(speaker="online", role=None, text=text)]
+
+    conversation_text = _first_text(body, ("conversation_text", "dialogue_text"))
+    if not conversation_text:
+        conversation_text = text
+
+    warnings = body.get("warnings", body.get("warning"))
+    return ASRResult(
+        audio_id=str(body.get("audio_id") or audio_id),
+        engine=str(body.get("engine") or body.get("provider") or "online"),
+        text=text,
+        conversation_text=conversation_text,
+        segments=segments,
+        duration=body.get("duration", body.get("audio_duration")),
+        medical_keywords=_normalize_keywords(body.get("medical_keywords", body.get("keywords"))),
+        warnings=[str(item) for item in _as_list(warnings)],
+    )
+
+
 class OnlineASREngine:
     name = "online"
 
@@ -67,35 +162,7 @@ class OnlineASREngine:
         except json.JSONDecodeError as exc:
             raise RuntimeError("Online ASR response is not valid JSON") from exc
 
-        return self._result_from_response(audio_id, data)
+        return normalize_online_asr_response(data, audio_id=audio_id)
 
     def _result_from_response(self, audio_id: str, data: dict[str, Any]) -> ASRResult:
-        text = str(data.get("text") or data.get("transcript") or "")
-        conversation_text = str(data.get("conversation_text") or text)
-        raw_segments = data.get("segments") if isinstance(data.get("segments"), list) else []
-        segments = [
-            ASRSegment.model_validate(segment)
-            for segment in raw_segments
-            if isinstance(segment, dict)
-        ]
-        if not segments and text:
-            segments = [ASRSegment(speaker="online", role=None, text=text)]
-
-        keywords = data.get("medical_keywords")
-        if not isinstance(keywords, dict):
-            keywords = {"expected": [], "recognized": [], "missing": []}
-
-        return ASRResult(
-            audio_id=str(data.get("audio_id") or audio_id),
-            engine=str(data.get("engine") or self.name),
-            text=text,
-            conversation_text=conversation_text,
-            segments=segments,
-            duration=data.get("duration"),
-            medical_keywords={
-                "expected": list(keywords.get("expected") or []),
-                "recognized": list(keywords.get("recognized") or []),
-                "missing": list(keywords.get("missing") or []),
-            },
-            warnings=list(data.get("warnings") or []),
-        )
+        return normalize_online_asr_response(data, audio_id=audio_id)

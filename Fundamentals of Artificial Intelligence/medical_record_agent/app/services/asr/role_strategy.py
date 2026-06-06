@@ -80,9 +80,15 @@ def apply_manifest_role_strategy(
         if sample.get("speaker_mode") == "two_speaker_consultation" and not _has_reliable_speaker_turns(updated.segments):
             updated.role_strategy = "single_segment_needs_review"
             updated.conversation_text = f"[待校正] {updated.text}"
-            updated.warnings.append(
-                "FunASR returned a single long segment; speaker role mapping was not applied. Please manually review roles."
-            )
+            if updated.engine == "qwen3-asr-0.6b":
+                warning = "Qwen3-ASR did not provide reliable speaker roles; please manually review roles."
+            else:
+                warning = (
+                    "FunASR returned a single long segment; speaker role mapping was not applied. "
+                    "Please manually review roles."
+                )
+            if warning not in updated.warnings:
+                updated.warnings.append(warning)
         else:
             updated.segments = apply_speaker_role_map(updated.segments, speaker_role_map)
             updated.conversation_text = conversation_from_segments(updated.segments)
