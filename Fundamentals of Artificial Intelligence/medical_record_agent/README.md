@@ -43,6 +43,8 @@ medical_record_agent/
     db/
       sqlite.py                SQLite 任务表、步骤表、审计日志封装
     prompts/                   字段抽取、草稿生成、安全校验 Prompt 模板
+      medical_record_prompts.py
+                                课程汇报用 Prompt 链示例，不接入当前 MockLLM 主流程
     schemas/                   Pydantic 数据结构
       asr.py                   ASRResult、ASRSegment、AudioRecord、评测结果
       medical_record.py        病历字段、候选诊断、安全校验结构
@@ -76,13 +78,23 @@ medical_record_agent/
     online_asr.md              Online ASR 环境变量与对比方法
     qwen3_asr.md               Qwen3-ASR 本地对比引擎说明
     course_scoring_plan.md     课程评分点映射说明
+    scoring/                   课程评分冲刺材料
+      course_scoring_plan.md   评分证据总表
+      agent_design.md          Agent 设计模式说明
+      agent_architecture_diagram.md
+                                Agent 架构 Mermaid 图
+      decision_system.md       决策系统设计
+      prompt_chain_design.md   Prompt 链和 JSON 约束说明
+      ethics_compliance.md     伦理合规说明
     dev_logs/                  开发日志目录
       TEMPLATE.md              开发日志模板
+      DEVELOPMENT_RULES.md     Issue 驱动、日志同步和验证规范
       V0.x_*.md                各版本回顾和变更记录
 
   scripts/                     数据处理、评测和诊断脚本
     check_funasr_env.py        FunASR 环境检查
     evaluate_asr.py            ASR 评测脚本
+    save_run_log.py            根据 task_id 和 audio_id 生成演示运行日志
     ingest_toyhom_dataset.py   Toyhom 数据导入
     build_pseudo_emr_dataset.py
                                 伪 EMR 数据集构建
@@ -236,6 +248,24 @@ docs/dev_logs/
 
 ```text
 docs/dev_logs/TEMPLATE.md
+```
+
+课程评分材料位于：
+
+```text
+docs/scoring/
+```
+
+演示运行日志可以通过脚本生成：
+
+```powershell
+python scripts/save_run_log.py --task-id 19 --audio-id xxx --title fever_01_demo
+```
+
+默认输出到：
+
+```text
+docs/dev_logs/runs/YYYY-MM-DD_fever_01_demo.md
 ```
 
 ## 版本回顾
