@@ -4,6 +4,14 @@
 
 Online ASR 只作为对比引擎接入，不替换 FunASR，也不改变病历 Agent 主流程。当前项目仍只支持上传预录音频后的批量转写，不做实时 ASR，不接真实患者数据。
 
+## ASR 与 LLM 的区别
+
+- ASR 负责“音频 -> 文字”，例如 FunASR、Mock ASR、Qwen3-ASR、Online ASR。
+- LLM 负责“文字 -> 病历字段/草稿/安全校验”，例如 MockLLM、Online LLM、Ollama LLM。
+- `Online ASR` 和 `Online LLM` 是两套不同配置，互不替代。
+
+如果只是测试 DeepSeek 或其他在线大模型，请不要在音频转写下拉框选择 `Online ASR`；请使用文本导入，或将 ASR 选择为 `FunASR` 后上传生成病历，再通过 LLM 状态/自检查看 `LLM_PROVIDER=online` 是否配置成功。
+
 ## 环境变量
 
 不要把任何真实 API Key 写入代码、文档或测试文件。运行前在本机环境中设置：
@@ -16,6 +24,8 @@ $env:ONLINE_ASR_API_KEY = "<your-runtime-api-key>"
 `ONLINE_ASR_API_URL` 是线上 ASR 的 HTTP JSON 接口地址。`ONLINE_ASR_API_KEY` 会以 `Authorization: Bearer <key>` 请求头发送。
 
 如果任一变量缺失，`engine=online` 会返回清晰错误，提示缺少 `ONLINE_ASR_API_URL` 或 `ONLINE_ASR_API_KEY`。
+
+这些变量只用于在线语音识别。DeepSeek/OpenAI-compatible 大模型配置使用 `ONLINE_LLM_*`，详见 `docs/online_llm.md`。
 
 ## fever_01.wav 测试
 

@@ -75,7 +75,7 @@
 - 字段抽取 Prompt 要求输出 JSON，并对未提及字段设置 `missing=true`。
 - 草稿生成 Prompt 不允许把候选诊断写成最终诊断。
 - 安全校验 Prompt 检查编造、导出门禁和 Prompt 注入。
-- 当前 `MockLLM` 是 POC 阶段规则模拟，Prompt 文件作为未来真实 LLM 接入契约。
+- 当前默认 `MockLLM` 是 POC 阶段稳定兜底；`app/services/llm/` 已提供 online / ollama 字段抽取 Adapter，Prompt 文件作为真实 LLM 接入契约。
 
 ## 6. ASR 对比与评测
 
@@ -100,6 +100,7 @@
 展示文件：
 
 - `app/db/sqlite.py`
+- `app/services/agent_trace.py`
 - `docs/scoring/ethics_compliance.md`
 
 讲解要点：
@@ -107,6 +108,7 @@
 - `agent_task` 记录任务总体状态。
 - `agent_task_step` 记录每个执行步骤。
 - `audit_log` 记录任务创建、状态变化、重试和降级。
+- `agent_trace.py` 基于现有 task、steps、ASRResult 和 SafetyCheckResult 动态组装 Agent Trace，不新增数据库结构。
 - 审计追踪支撑医疗安全和课程评分中的过程可解释性。
 
 ## 代码展示收束
@@ -116,3 +118,13 @@
 - 智能体设计模式：Orchestrator、SSE、Human-in-the-loop。
 - 决策系统设计：Prompt 链、Schema、SafetyCheck、ASR role_strategy。
 - 伦理合规设计：模拟数据、隐私保护、防注入、审计日志、医生确认。
+
+## 相关文档
+
+- 评分总表：`docs/scoring/course_scoring_plan.md`
+- 现场演示讲稿：`docs/scoring/demo_script.md`
+- 演示验收清单：`docs/scoring/demo_checklist.md`
+- Agent 设计：`docs/scoring/agent_design.md`
+- 决策系统：`docs/scoring/decision_system.md`
+- Prompt 链：`docs/scoring/prompt_chain_design.md`
+- 伦理合规：`docs/scoring/ethics_compliance.md`

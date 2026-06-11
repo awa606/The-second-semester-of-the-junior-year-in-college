@@ -25,6 +25,8 @@
 - [ ] 能生成病历字段。
 - [ ] 能看到候选诊断。
 - [ ] 能看到安全校验。
+- [ ] 能看到 Agent 决策轨迹，且导出决策为 `export_allowed=false`、`reason=doctor_review_required`。
+- [ ] 能看到 LLM Provider / model / fallback 状态；默认应为 `mock`，真实 LLM 卡住时应自动 fallback。
 - [ ] 任务状态进入 `WAITING_DOCTOR_REVIEW`。
 
 ## 音频链路检查
@@ -48,6 +50,7 @@
 ## 调试与审计检查
 
 - [ ] 调试台能展示 ASRResult JSON。
+- [ ] 调试台能展示 Agent Trace JSON。
 - [ ] 调试台能展示 Task JSON。
 - [ ] 调试台能展示 Steps JSON。
 - [ ] 调试台能展示 Safety JSON。
@@ -85,3 +88,13 @@ python scripts/save_run_log.py --task-id 19 --audio-id xxx --title fever_01_demo
 - [ ] 不上传 `data/medical_record_agent.sqlite3`。
 - [ ] 不上传 `.venv/`、模型权重、模型缓存或大体积视频。
 - [ ] 汇报中明确说明 AI 只生成草稿，最终由医生确认。
+
+## 相关文档
+
+- 评分总表：`docs/scoring/course_scoring_plan.md`
+- 现场演示讲稿：`docs/scoring/demo_script.md`
+- 代码展示路线：`docs/scoring/code_walkthrough.md`
+- Agent 设计：`docs/scoring/agent_design.md`
+- 决策系统：`docs/scoring/decision_system.md`
+- Prompt 链：`docs/scoring/prompt_chain_design.md`
+- 伦理合规：`docs/scoring/ethics_compliance.md`

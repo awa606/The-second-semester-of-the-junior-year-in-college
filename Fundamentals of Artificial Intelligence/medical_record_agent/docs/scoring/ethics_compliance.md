@@ -102,3 +102,12 @@
 3. 展示安全校验 JSON 和医生审核状态。
 4. 展示 `agent_task_step` 和 `audit_log`，说明可审计。
 5. 用一句话收束：本系统是医生辅助工具，不是自动诊断系统。
+
+## 相关文档
+
+- 评分总表：`docs/scoring/course_scoring_plan.md`
+- Prompt 链：`docs/scoring/prompt_chain_design.md`
+- 决策系统：`docs/scoring/decision_system.md`
+- Agent 设计：`docs/scoring/agent_design.md`
+- 现场演示讲稿：`docs/scoring/demo_script.md`
+- 演示验收清单：`docs/scoring/demo_checklist.md`

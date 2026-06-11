@@ -8,11 +8,13 @@ const appState = {
   currentRecordFields: null,
   currentDraft: "",
   currentSafetyCheck: null,
+  currentAgentTrace: null,
+  currentLlmStatus: null,
 };
 
 const uiState = {
   audioMode: "transcribe",
-  selectedEngine: "mock",
+  selectedEngine: "funasr",
   selectedEvidenceField: "chief_complaint",
   highlightedEvidenceText: "",
 };
@@ -38,10 +40,10 @@ const STATUS_TO_STEP = {
 };
 
 const ENGINE_LABELS = {
-  mock: "Mock",
+  mock: "Mock ASR",
   funasr: "FunASR",
-  qwen3: "Qwen3",
-  online: "Online",
+  qwen3: "Qwen3-ASR 0.6B",
+  online: "Online ASR",
 };
 
 const FIELD_DEFS = [
@@ -81,12 +83,33 @@ async function api(path, options = {}) {
 }
 
 function updateTopbar() {
+  const llm = llmDisplayState();
   $("sessionId").textContent = appState.currentTaskId
     ? `T-${appState.currentTaskId}`
     : appState.currentAudioId
       ? `A-${appState.currentAudioId}`
       : "未创建";
   $("currentEngineLabel").textContent = ENGINE_LABELS[uiState.selectedEngine] || uiState.selectedEngine;
+  $("llmProviderLabel").textContent = llm.provider;
+  $("llmModelLabel").textContent = llm.model;
+  $("llmFallbackLabel").textContent = llm.fallbackLabel;
+}
+
+function llmDisplayState() {
+  const traceLlm = appState.currentAgentTrace?.llm;
+  const status = appState.currentLlmStatus || {};
+  const provider = traceLlm?.llm_provider || status.provider || "mock";
+  const model = traceLlm?.model || status.model || "mock-deterministic-extractor";
+  const fallback = traceLlm?.fallback ?? status.fallback ?? false;
+  const checked = status.checked ?? Boolean(traceLlm);
+  const configured = status.configured ?? true;
+  let fallbackLabel = "否";
+  if (!configured || fallback) {
+    fallbackLabel = `是：${status.fallback_provider || traceLlm?.actual_provider || "mock"}`;
+  } else if (!checked && provider !== "mock") {
+    fallbackLabel = "未测试";
+  }
+  return { provider, model, fallbackLabel };
 }
 
 function renderWorkflowStatus(status = "CREATED") {
@@ -358,6 +381,117 @@ function renderSafetyPanel() {
   renderJson($("debugSafetyJson"), safety);
 }
 
+function buildLocalAgentTrace() {
+  const asr = appState.currentAsrResult;
+  const task = appState.currentTask || {};
+  const llmStatus = appState.currentLlmStatus || {};
+  const llmFallback = llmStatus.configured === false || llmStatus.checked
+    ? Boolean(llmStatus.fallback)
+    : false;
+  const inputType = asr && asr.audio_id ? "audio" : "text";
+  const plan = inputType === "audio"
+    ? ["ASR_TRANSCRIBE", "FIELD_EXTRACTION", "DRAFT_GENERATION", "SAFETY_CHECK", "DOCTOR_REVIEW"]
+    : ["TEXT_INPUT_NORMALIZE", "FIELD_EXTRACTION", "DRAFT_GENERATION", "SAFETY_CHECK", "DOCTOR_REVIEW"];
+  return {
+    agent_mode: "Plan-and-Execute + Human-in-the-loop",
+    input_type: inputType,
+    perception: inputType === "audio"
+      ? {
+          source: "audio_asr",
+          asr_engine: asr?.engine || uiState.selectedEngine,
+          audio_id: asr?.audio_id || appState.currentAudioId,
+          role_strategy: asr?.role_strategy || null,
+          warnings: asr?.warnings || [],
+          segments_count: asr?.segments?.length || 0,
+        }
+      : {
+          source: "text_input",
+          text_length: (asr?.conversation_text || asr?.text || "").length,
+          warnings: [],
+        },
+    llm: {
+      llm_provider: llmStatus.provider || "mock",
+      model: llmStatus.model || "mock-deterministic-extractor",
+      latency_ms: null,
+      fallback: llmFallback,
+      fallback_reason: llmFallback ? llmStatus.fallback_reason || null : null,
+      actual_provider: llmFallback ? "mock" : llmStatus.provider || "mock",
+    },
+    plan,
+    executed_steps: (appState.currentSteps || []).map((step) => ({
+      step: {
+        extract_fields: "FIELD_EXTRACTION",
+        generate_draft: "DRAFT_GENERATION",
+        safety_check: "SAFETY_CHECK",
+      }[step.step_name] || String(step.step_name || "UNKNOWN_STEP").toUpperCase(),
+      status: step.status || "UNKNOWN",
+      duration_ms: step.duration_ms ?? null,
+    })),
+    decision: {
+      next_state: task.status || "CREATED",
+      export_allowed: false,
+      reason: "doctor_review_required",
+      human_in_the_loop_required: true,
+      doctor_review_required: true,
+      safety_passed: appState.currentSafetyCheck?.passed ?? null,
+      safety_blocked: appState.currentSafetyCheck?.blocked ?? null,
+    },
+  };
+}
+
+function currentAgentTrace() {
+  return appState.currentAgentTrace || buildLocalAgentTrace();
+}
+
+async function refreshAgentTrace(taskId) {
+  if (!taskId) {
+    appState.currentAgentTrace = buildLocalAgentTrace();
+    return;
+  }
+  const suffix = appState.currentAudioId
+    ? `?audio_id=${encodeURIComponent(appState.currentAudioId)}`
+    : "";
+  try {
+    appState.currentAgentTrace = await api(`/api/tasks/${taskId}/trace${suffix}`);
+  } catch (_error) {
+    appState.currentAgentTrace = buildLocalAgentTrace();
+  }
+}
+
+async function refreshLlmStatus({ test = false } = {}) {
+  try {
+    appState.currentLlmStatus = await api(
+      test ? "/api/llm/test" : "/api/llm/status",
+      { method: test ? "POST" : "GET" },
+    );
+    updateTopbar();
+    renderDebugJson();
+    return appState.currentLlmStatus;
+  } catch (error) {
+    appState.currentLlmStatus = {
+      provider: "unknown",
+      model: "not_configured",
+      configured: false,
+      reachable: false,
+      checked: test,
+      fallback_provider: "mock",
+      fallback: true,
+      fallback_reason: error.message,
+    };
+    updateTopbar();
+    return appState.currentLlmStatus;
+  }
+}
+
+async function testLlmConnection() {
+  const status = await refreshLlmStatus({ test: true });
+  const message = status.reachable
+    ? `LLM自检通过：${status.provider} / ${status.model}`
+    : `LLM自检未通过，运行时将使用 ${status.fallback_provider || "mock"} 兜底`;
+  alert(message);
+  renderAll();
+}
+
 function renderRightColumn() {
   renderMissingPanel();
   renderCandidatePanel();
@@ -366,7 +500,16 @@ function renderRightColumn() {
 }
 
 function renderDebugJson() {
+  const llm = currentAgentTrace().llm || {};
   renderJson($("debugAsrJson"), appState.currentAsrResult);
+  renderJson($("debugAgentTraceJson"), currentAgentTrace());
+  renderJson($("debugLlmTraceJson"), {
+    llm_provider: llm.llm_provider,
+    model: llm.model,
+    latency_ms: llm.latency_ms,
+    fallback: llm.fallback,
+    fallback_reason: llm.fallback_reason,
+  });
   renderJson($("debugTaskJson"), appState.currentTask);
   renderJson($("debugStepsJson"), appState.currentSteps);
   renderJson($("debugSafetyJson"), appState.currentSafetyCheck);
@@ -491,6 +634,7 @@ async function createRecordTask(conversationText) {
   appState.currentRecordFields = null;
   appState.currentDraft = "";
   appState.currentSafetyCheck = null;
+  appState.currentAgentTrace = null;
   renderWorkflowStatus("CREATED");
   renderAll();
   const created = await api("/api/records/generate", {
@@ -548,6 +692,7 @@ async function refreshTask(taskId, taskFromEvent = null) {
   appState.currentRecordFields = result.fields || appState.currentRecordFields;
   appState.currentDraft = result.draft || appState.currentDraft;
   appState.currentSafetyCheck = result.safety_check || appState.currentSafetyCheck;
+  await refreshAgentTrace(appState.currentTaskId);
   renderAll();
 }
 
@@ -609,6 +754,7 @@ async function exportRecord() {
 function init() {
   renderWorkflowStatus("CREATED");
   renderAll();
+  refreshLlmStatus();
   $("audioEngineSelect").addEventListener("change", () => {
     uiState.selectedEngine = $("audioEngineSelect").value;
     updateTopbar();
@@ -621,6 +767,7 @@ Object.assign(window, {
   uploadAudioGenerateRecord,
   openEvaluationDrawer,
   openDebugDrawer,
+  testLlmConnection,
   closeDrawer,
   submitTextRecord,
   submitAudioTranscribe,

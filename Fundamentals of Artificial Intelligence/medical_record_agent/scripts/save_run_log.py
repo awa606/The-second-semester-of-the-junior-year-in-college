@@ -17,6 +17,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.db import get_task, get_task_steps  # noqa: E402
+from app.services.agent_trace import build_agent_trace  # noqa: E402
 
 
 AUDIO_SUFFIXES = {".wav", ".mp3", ".m4a", ".flac", ".ogg"}
@@ -256,6 +257,13 @@ def build_markdown(
     evaluation_source = evaluation.get("_source") if evaluation else "未找到"
     cer = evaluation.get("cer") if evaluation else "未找到"
     keyword_recall = evaluation.get("keyword_recall") if evaluation else "未找到"
+    agent_trace = build_agent_trace(task=task, steps=steps, asr_result=asr_result)
+    decision = agent_trace["decision"]
+    llm_trace = agent_trace.get("llm") or {}
+    safety_decision = (
+        f"passed={decision.get('safety_passed')}, "
+        f"blocked={decision.get('safety_blocked')}"
+    )
 
     lines = [
         f"# 运行日志：{title}",
@@ -296,6 +304,22 @@ def build_markdown(
         "",
         f"- role_strategy：{asr_result.get('role_strategy') if asr_result else '未找到'}",
         f"- warnings：{list_text(asr_result.get('warnings') if asr_result else [])}",
+        "",
+        "## Agent Trace / Decision Loop",
+        "",
+        f"- Agent mode: {agent_trace['agent_mode']}",
+        f"- Input type: {agent_trace['input_type']}",
+        f"- LLM provider: {llm_trace.get('llm_provider')}",
+        f"- LLM model: {llm_trace.get('model')}",
+        f"- LLM latency_ms: {llm_trace.get('latency_ms')}",
+        f"- LLM fallback: {llm_trace.get('fallback')}",
+        f"- LLM fallback_reason: {llm_trace.get('fallback_reason') or 'none'}",
+        f"- Plan steps: {' -> '.join(agent_trace['plan'])}",
+        f"- Executed steps: {', '.join(step['step'] + ':' + str(step['status']) for step in agent_trace['executed_steps']) or 'none'}",
+        f"- Decision summary: next_state={decision.get('next_state')}, reason={decision.get('reason')}",
+        f"- Safety decision: {safety_decision}",
+        f"- Human-in-the-loop: {decision.get('human_in_the_loop_required')}",
+        f"- Export allowed: {decision.get('export_allowed')}",
         "",
         "## 任务状态",
         "",

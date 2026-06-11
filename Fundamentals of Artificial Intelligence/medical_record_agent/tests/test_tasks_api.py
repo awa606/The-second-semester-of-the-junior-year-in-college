@@ -13,6 +13,7 @@ from app.api.tasks import (
     _event_from_audit_log,
     approve_task,
     export_task,
+    read_task_agent_trace,
     read_task,
     read_task_steps,
     review_task,
@@ -44,6 +45,7 @@ class TaskApiTests(unittest.TestCase):
 
         self.assertIn("/api/tasks/{task_id}", route_paths)
         self.assertIn("/api/tasks/{task_id}/steps", route_paths)
+        self.assertIn("/api/tasks/{task_id}/trace", route_paths)
         self.assertIn("/api/tasks/{task_id}/events", route_paths)
         self.assertIn("/api/records/generate", route_paths)
 
@@ -63,6 +65,27 @@ class TaskApiTests(unittest.TestCase):
             [step["step_name"] for step in steps],
             ["extract_fields", "generate_draft", "safety_check"],
         )
+
+    def test_read_task_agent_trace_exposes_decision_boundary(self):
+        result = MedicalRecordOrchestrator().run_from_text(
+            "patient has fever for three days"
+        )
+
+        trace = read_task_agent_trace(result["task_id"])
+
+        self.assertEqual(trace["agent_mode"], "Plan-and-Execute + Human-in-the-loop")
+        self.assertEqual(trace["input_type"], "text")
+        self.assertEqual(trace["llm"]["llm_provider"], "mock")
+        self.assertEqual(trace["llm"]["model"], "mock-deterministic-extractor")
+        self.assertFalse(trace["llm"]["fallback"])
+        self.assertIn("TEXT_INPUT_NORMALIZE", trace["plan"])
+        self.assertEqual(
+            [step["step"] for step in trace["executed_steps"]],
+            ["FIELD_EXTRACTION", "DRAFT_GENERATION", "SAFETY_CHECK"],
+        )
+        self.assertFalse(trace["decision"]["export_allowed"])
+        self.assertEqual(trace["decision"]["reason"], "doctor_review_required")
+        self.assertTrue(trace["decision"]["human_in_the_loop_required"])
 
     def test_audit_logs_can_be_mapped_to_sse_events(self):
         result = MedicalRecordOrchestrator().run_from_text(

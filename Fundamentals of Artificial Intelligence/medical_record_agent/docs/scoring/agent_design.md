@@ -40,7 +40,7 @@ Plan-and-Execute 在本项目中的落点：
 | 阶段 | 项目实现 | 可展示代码 |
 | --- | --- | --- |
 | Plan | 根据输入类型选择文本链路或音频链路；将任务拆成字段抽取、草稿生成、安全校验、医生审核 | `app/api/records.py`、`app/api/audio.py`、`app/agents/medical_record_orchestrator.py` |
-| Execute | 按步骤执行 MockLLM/规则逻辑、ASR 转写、ASR 评测、安全校验 | `app/services/mock_llm.py`、`app/services/asr/` |
+| Execute | 按步骤执行 LLM Adapter/MockLLM 兜底、ASR 转写、ASR 评测、安全校验 | `app/services/llm/`、`app/services/mock_llm.py`、`app/services/asr/` |
 | Observe | 记录每一步输入输出快照、错误、重试和降级状态 | `app/db/sqlite.py` |
 | Feedback | SSE、医生端三栏工作台、调试台 JSON、医生审核按钮 | `app/api/tasks.py`、`static/doctor.html`、`static/debug.html` |
 
@@ -94,3 +94,12 @@ Plan-and-Execute 在本项目中的落点：
 ## 一分钟汇报讲法
 
 本项目采用 `Plan-and-Execute + Human-in-the-loop`。感知层接收文本或音频，音频先通过 ASR 统一成 `ASRResult`；计划层由 Orchestrator 根据输入类型选择路径，并把任务拆为字段抽取、草稿生成、安全校验和医生审核；执行层完成结构化字段、病历草稿和安全校验；反馈层通过 SSE、任务步骤表和审计日志记录过程。医疗安全上，AI 只生成草稿和候选诊断，最终导出前必须由医生审核确认。
+
+## 相关文档
+
+- 评分总表：`docs/scoring/course_scoring_plan.md`
+- 架构图：`docs/scoring/agent_architecture_diagram.md`
+- 决策系统：`docs/scoring/decision_system.md`
+- Prompt 链：`docs/scoring/prompt_chain_design.md`
+- 现场演示讲稿：`docs/scoring/demo_script.md`
+- 代码展示路线：`docs/scoring/code_walkthrough.md`

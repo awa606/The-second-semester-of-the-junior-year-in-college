@@ -23,6 +23,7 @@
           <button type="button" id="openAudioTranscribeButton">上传转写</button>
           <button type="button" id="openAudioGenerateButton">上传生成病历</button>
           <button type="button" id="openEvaluationButton">ASR评测</button>
+          <button type="button" id="testLlmButton">LLM自检</button>
           <button type="button" class="primary-action" id="openDebugButton">调试</button>
         </nav>
       </header>
@@ -45,8 +46,20 @@
           <strong id="recordingStatus">-</strong>
         </div>
         <div>
-          <span class="meta-label">ASR 引擎</span>
+          <span class="meta-label">ASR Engine</span>
           <strong id="asrEngine">-</strong>
+        </div>
+        <div>
+          <span class="meta-label">LLM Provider</span>
+          <strong id="llmProvider">-</strong>
+        </div>
+        <div>
+          <span class="meta-label">LLM Model</span>
+          <strong id="llmModel">-</strong>
+        </div>
+        <div>
+          <span class="meta-label">LLM Fallback</span>
+          <strong id="llmFallback">-</strong>
         </div>
         <div>
           <span class="meta-label">审核状态</span>
@@ -147,6 +160,10 @@
           <summary>ASRResult JSON</summary>
           <pre id="debugAsrJson">-</pre>
         </details>
+        <details open>
+          <summary>Agent Trace JSON</summary>
+          <pre id="debugAgentTraceJson">-</pre>
+        </details>
         <details>
           <summary>Task JSON</summary>
           <pre id="debugTaskJson">-</pre>
@@ -163,6 +180,6 @@
     </aside>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="./doctor.js?v=2026060803"></script>
+    <script src="./doctor.js?v=2026061101"></script>
   </body>
 </html>

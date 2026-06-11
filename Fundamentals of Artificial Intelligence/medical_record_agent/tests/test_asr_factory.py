@@ -111,6 +111,9 @@ class ASRFactoryTests(unittest.TestCase):
 
         self.assertIn("ONLINE_ASR_API_URL", str(context.exception))
         self.assertIn("ONLINE_ASR_API_KEY", str(context.exception))
+        self.assertIn("当前选择的是在线 ASR，不是在线 LLM", str(context.exception))
+        self.assertIn("如果要测试 DeepSeek", str(context.exception))
+        self.assertIn("ASR 选择 FunASR 后上传生成病历", str(context.exception))
 
     def test_create_online_engine_from_environment(self):
         with patch.dict(

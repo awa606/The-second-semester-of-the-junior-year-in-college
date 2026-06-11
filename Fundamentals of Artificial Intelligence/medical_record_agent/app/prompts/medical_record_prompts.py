@@ -1,8 +1,8 @@
-"""Prompt examples for course scoring and future LLM integration.
+"""Prompt contract for course scoring and optional real LLM integration.
 
-These prompts are intentionally not wired into the current MockLLM flow. They
-document the intended system, extraction, draft, and safety constraints for the
-medical record Agent.
+The LLM adapter uses the field extraction prompt when LLM_PROVIDER is set to an
+online or Ollama provider. Draft generation and safety checking still use the
+stable MockLLM path in the first integration stage.
 """
 
 from __future__ import annotations

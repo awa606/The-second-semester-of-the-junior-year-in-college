@@ -6,8 +6,8 @@
 
 | 评分点 | 可展示证据 | 主要文件 |
 | --- | --- | --- |
-| 智能体设计模式 | Plan-and-Execute + Human-in-the-loop；感知-决策-行动-反馈闭环；SSE 反馈和任务步骤日志 | `docs/scoring/agent_design.md`、`docs/scoring/agent_architecture_diagram.md`、`app/agents/medical_record_orchestrator.py` |
-| 决策系统设计 | 输入路径选择、ASR 角色策略、字段缺失判断、安全校验、医生确认前不得导出 | `docs/scoring/decision_system.md`、`docs/scoring/prompt_chain_design.md`、`app/prompts/medical_record_prompts.py` |
+| 智能体设计模式 | Plan-and-Execute + Human-in-the-loop；感知-决策-行动-反馈闭环；Agent Trace；SSE 反馈和任务步骤日志 | `docs/scoring/agent_design.md`、`docs/scoring/agent_architecture_diagram.md`、`app/services/agent_trace.py`、`app/agents/medical_record_orchestrator.py` |
+| 决策系统设计 | 输入路径选择、ASR 角色策略、LLM provider 选择与 fallback、字段缺失判断、安全校验、医生确认前不得导出 | `docs/scoring/decision_system.md`、`docs/scoring/prompt_chain_design.md`、`app/prompts/medical_record_prompts.py`、`app/services/llm/` |
 | 伦理合规设计 | 模拟数据、隐私保护、API Key 不入库不入代码、防 Prompt 注入、AI 草稿边界、审计追踪 | `docs/scoring/ethics_compliance.md`、`app/db/sqlite.py`、`docs/dev_logs/DEVELOPMENT_RULES.md` |
 | 现场演示 | 医生端工作台、调试台、文本生成病历、FunASR 音频生成病历、ASR 评测 | `static/index.html`、`static/doctor.html`、`static/debug.html` |
 | 代码展示 | Orchestrator、Prompt 示例、Pydantic Schema、ASR factory、任务表和步骤表 | `app/agents/`、`app/prompts/`、`app/schemas/`、`app/services/asr/`、`app/db/sqlite.py` |
@@ -81,8 +81,10 @@
 1. `app/agents/medical_record_orchestrator.py`：Agent 编排和状态机。
 2. `app/schemas/medical_record.py`：字段、候选诊断、安全校验结构。
 3. `app/prompts/medical_record_prompts.py`：Prompt 链和 JSON 输出约束示例。
-4. `app/services/asr/factory.py`：Mock/FunASR/Qwen3/Online ASR 对比引擎。
-5. `app/db/sqlite.py`：任务表、步骤表、审计日志。
+4. `app/services/llm/factory.py`：Mock/Online/Ollama LLM provider 选择与兜底。
+5. `app/services/asr/factory.py`：Mock/FunASR/Qwen3/Online ASR 对比引擎。
+6. `app/services/agent_trace.py`：Agent 决策轨迹组装。
+7. `app/db/sqlite.py`：任务表、步骤表、审计日志。
 
 ## 与开发日志的关系
 
@@ -95,3 +97,13 @@ Issue #29/#30/#31
   -> 代码或页面演示
   -> 评分细则得分点
 ```
+
+## 相关文档
+
+- 现场演示讲稿：`docs/scoring/demo_script.md`
+- 代码展示路线：`docs/scoring/code_walkthrough.md`
+- 演示验收清单：`docs/scoring/demo_checklist.md`
+- Agent 设计：`docs/scoring/agent_design.md`
+- 决策系统：`docs/scoring/decision_system.md`
+- Prompt 链：`docs/scoring/prompt_chain_design.md`
+- 伦理合规：`docs/scoring/ethics_compliance.md`

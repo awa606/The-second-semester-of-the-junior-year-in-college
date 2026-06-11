@@ -129,7 +129,9 @@ class OnlineASREngine:
         if missing:
             raise RuntimeError(
                 "Online ASR is not configured. Missing environment variables: "
-                f"{', '.join(missing)}. Do not hard-code API keys; set them in the runtime environment."
+                f"{', '.join(missing)}. 当前选择的是在线 ASR，不是在线 LLM。"
+                "如果要测试 DeepSeek，请使用文本导入，或 ASR 选择 FunASR 后上传生成病历。"
+                "Do not hard-code API keys; set them in the runtime environment."
             )
 
     def transcribe(self, audio_id: str, audio_path: Path) -> ASRResult:

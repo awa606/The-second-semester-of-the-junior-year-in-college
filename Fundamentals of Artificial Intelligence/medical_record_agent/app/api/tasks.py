@@ -4,13 +4,14 @@ import asyncio
 import json
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from app.db import create_audit_log, get_audit_logs, get_task, get_task_steps, json_dumps, update_task
 from app.schemas import MedicalRecordFields, SafetyCheckResult
 from app.services import MockLLM, export_record
+from app.services.agent_trace import build_agent_trace, load_asr_result_for_audio
 
 
 router = APIRouter(prefix="/tasks", tags=["tasks"])
@@ -77,6 +78,25 @@ def read_task_steps(task_id: int) -> list[dict[str, Any]]:
     if task is None:
         raise HTTPException(status_code=404, detail="Task not found")
     return [_decode_step_json(step) for step in get_task_steps(task_id)]
+
+
+@router.get("/{task_id}/trace")
+def read_task_agent_trace(
+    task_id: int,
+    audio_id: str | None = Query(default=None),
+) -> dict[str, Any]:
+    task = get_task(task_id)
+    if task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+
+    decoded_task = _decode_result_json(task)
+    decoded_steps = [_decode_step_json(step) for step in get_task_steps(task_id)]
+    asr_result = load_asr_result_for_audio(audio_id)
+    return build_agent_trace(
+        task=decoded_task,
+        steps=decoded_steps,
+        asr_result=asr_result,
+    )
 
 
 @router.post("/{task_id}/review")

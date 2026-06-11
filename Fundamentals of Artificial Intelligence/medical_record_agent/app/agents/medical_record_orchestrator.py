@@ -14,7 +14,7 @@ from app.db import (
     update_task,
 )
 from app.schemas import MedicalRecordFields, SafetyCheckResult
-from app.services import MockLLM
+from app.services import create_llm_record_generator
 
 
 T = TypeVar("T")
@@ -31,14 +31,15 @@ class MedicalRecordOrchestrator:
     STATUS_DEGRADED = "DEGRADED"
     STATUS_FAILED = "FAILED"
 
-    def __init__(self, llm: MockLLM | None = None) -> None:
-        self.llm = llm or MockLLM()
+    def __init__(self, llm: Any | None = None) -> None:
+        self.llm = llm or create_llm_record_generator()
         self.status = self.STATUS_PENDING
         self.step_logs: list[dict[str, Any]] = []
         self.error_message: str | None = None
         self.fields: MedicalRecordFields | None = None
         self.draft: str | None = None
         self.safety_check: SafetyCheckResult | None = None
+        self.llm_trace: dict[str, Any] | None = None
         self.task_id: int | None = None
         self.conversation_text: str | None = None
         self.degraded = False
@@ -84,6 +85,7 @@ class MedicalRecordOrchestrator:
                 self._degraded_fields,
                 input_snapshot={"conversation_text": conversation_text},
             )
+            self._capture_llm_trace()
             self._persist_result()
 
             self.draft = self._run_llm_step(
@@ -131,6 +133,7 @@ class MedicalRecordOrchestrator:
         self.fields = None
         self.draft = None
         self.safety_check = None
+        self.llm_trace = None
         self.task_id = None
         self.conversation_text = None
         self.degraded = False
@@ -253,6 +256,14 @@ class MedicalRecordOrchestrator:
             log["message"] = message
         self.step_logs.append(log)
 
+    def _capture_llm_trace(self) -> None:
+        getter = getattr(self.llm, "get_trace", None)
+        if not callable(getter):
+            return
+        trace = getter()
+        if isinstance(trace, dict):
+            self.llm_trace = trace
+
     def _require_task_id(self) -> int:
         if self.task_id is None:
             raise RuntimeError("task has not been created")
@@ -331,6 +342,7 @@ class MedicalRecordOrchestrator:
             "fields": self.fields.model_dump() if self.fields else None,
             "draft": self.draft,
             "safety_check": self.safety_check.model_dump() if self.safety_check else None,
+            "llm_trace": self.llm_trace,
             "step_logs": self.step_logs,
             "error_message": self.error_message,
             "degraded": self.degraded,
@@ -344,6 +356,7 @@ class MedicalRecordOrchestrator:
             "fields": self.fields,
             "draft": self.draft,
             "safety_check": self.safety_check,
+            "llm_trace": self.llm_trace,
             "step_logs": self.step_logs,
             "error_message": self.error_message,
             "degraded": self.degraded,

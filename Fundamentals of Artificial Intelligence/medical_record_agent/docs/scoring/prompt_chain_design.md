@@ -1,6 +1,6 @@
 # Prompt 链设计说明
 
-本文档用于支撑课程评分中的“决策系统设计”和“展示 System Prompt 代码”要求。当前项目运行时仍使用 `MockLLM` 和规则模拟，`app/prompts/medical_record_prompts.py` 是 POC 阶段的标准 Prompt 示例，用于说明未来接真实 LLM 时的约束方式，不改变现有主流程。
+本文档用于支撑课程评分中的“决策系统设计”和“展示 System Prompt 代码”要求。当前项目默认仍使用 `MockLLM` 和规则模拟保证 `fever_01.wav` 演示稳定，同时已经提供可选 LLM Adapter：`LLM_PROVIDER=online` 可调用 OpenAI-compatible 接口，`LLM_PROVIDER=ollama` 可调用本地 Ollama。第一阶段只让真实 LLM 做字段抽取，草稿生成和安全校验继续走稳定逻辑。
 
 ## Prompt 链总览
 
@@ -104,19 +104,47 @@ JSON 约束示例：
 }
 ```
 
-## 与当前 MockLLM 的关系
+## 与当前 MockLLM / LLM Adapter 的关系
 
-当前项目没有接真实 LLM，`MockLLM` 用规则模拟字段抽取、草稿生成和安全校验，目的是保证课程演示稳定可复现。
+当前项目保留 `MockLLM` 和 deterministic extractor 作为默认兜底，目的是保证课程演示稳定可复现。课程演示重点是 Agent 编排、状态流转、决策边界和医生审核，而不是某个商业模型的生成效果。
 
-后续接真实 LLM 时，可以把 `MockLLM.extract_fields`、`MockLLM.generate_draft`、`MockLLM.safety_check` 替换为：
+`app/prompts/medical_record_prompts.py` 已经作为真实 LLM 接入契约接入字段抽取 Adapter。`app/services/llm/` 中的 Adapter 负责调用 OpenAI-compatible 或 Ollama，并继续返回当前 Pydantic Schema 约束的 JSON。
+
+字段抽取链路为：
 
 ```text
 构造 Prompt -> 调用模型 -> JSON 解析 -> Pydantic Schema 校验 -> 失败重试或降级
 ```
 
+如果接口失败、超时、JSON 解析失败或字段不完整，系统会自动 fallback 到 `MockLLM`，并在 Agent Trace 中记录 `llm_provider`、`model`、`latency_ms`、`fallback` 和 `fallback_reason`。
+
+LLM 状态与连接自检独立于 ASR：
+
+- `GET /api/llm/status`：只检查配置，不调用外部模型，不返回 API Key。
+- `POST /api/llm/test`：调用当前 LLM provider 做连接与 JSON 输出自检，不返回 API Key。
+- 音频转写下拉框中的 `Online ASR` 只代表在线语音识别，不代表 DeepSeek/在线 LLM。
+
+配置示例只写环境变量名，不写真实 key：
+
+```powershell
+$env:LLM_PROVIDER = "online"
+$env:ONLINE_LLM_API_BASE = "https://your-openai-compatible-endpoint.example"
+$env:ONLINE_LLM_API_KEY = "<never-commit-real-key>"
+$env:ONLINE_LLM_MODEL = "your-model"
+```
+
+Ollama 示例：
+
+```powershell
+$env:LLM_PROVIDER = "ollama"
+$env:OLLAMA_BASE_URL = "http://127.0.0.1:11434"
+$env:OLLAMA_MODEL = "your-local-model"
+```
+
 不应改变的边界：
 
 - Orchestrator 主流程不变。
+- Agent Trace 组装逻辑不变。
 - Pydantic Schema 不变。
 - 医生审核边界不变。
 - 安全校验和审计日志不变。
@@ -126,4 +154,13 @@ JSON 约束示例：
 1. 展示 `MEDICAL_RECORD_SYSTEM_PROMPT`，讲安全边界。
 2. 展示字段抽取 JSON Schema，讲结构化决策。
 3. 展示 Safety JSON，讲导出门禁。
-4. 说明当前是 MockLLM POC，Prompt 文件是替换真实 LLM 时的接口契约。
+4. 说明当前默认是 MockLLM 稳定演示链路，但已支持 online / ollama 字段抽取，并带 MockLLM fallback。
+
+## 相关文档
+
+- 评分总表：`docs/scoring/course_scoring_plan.md`
+- 决策系统：`docs/scoring/decision_system.md`
+- 伦理合规：`docs/scoring/ethics_compliance.md`
+- Agent 设计：`docs/scoring/agent_design.md`
+- 代码展示路线：`docs/scoring/code_walkthrough.md`
+- 现场演示讲稿：`docs/scoring/demo_script.md`

@@ -8,6 +8,8 @@ const appState = {
   currentRecordFields: null,
   currentDraft: "",
   currentSafetyCheck: null,
+  currentAgentTrace: null,
+  currentLlmStatus: null,
   currentInputText: "",
   selectedEngine: "funasr",
   audioMode: "transcribe",
@@ -136,6 +138,7 @@ function closeDrawer() {
 }
 
 function renderPatientBar() {
+  const llm = llmDisplayState();
   $("patientName").textContent = "模拟患者";
   $("patientProfile").textContent = "女 / 32岁";
   $("sessionId").textContent = appState.currentTaskId
@@ -145,7 +148,33 @@ function renderPatientBar() {
       : "未创建";
   $("recordingStatus").textContent = appState.uploadedFilename || "未上传";
   $("asrEngine").textContent = ENGINE_LABELS[appState.selectedEngine] || appState.selectedEngine;
+  $("llmProvider").textContent = llm.provider;
+  $("llmModel").textContent = llm.model;
+  $("llmFallback").textContent = llm.fallbackLabel;
   $("reviewStatus").textContent = STATUS_LABELS[appState.taskStatus] || appState.taskStatus || "等待输入";
+}
+
+function llmDisplayState() {
+  const traceLlm = appState.currentAgentTrace?.llm;
+  const status = appState.currentLlmStatus || {};
+  const provider = traceLlm?.llm_provider || status.provider || "mock";
+  const model = traceLlm?.model || status.model || "mock-deterministic-extractor";
+  const fallback = traceLlm?.fallback ?? status.fallback ?? false;
+  const checked = status.checked ?? Boolean(traceLlm);
+  const configured = status.configured ?? true;
+  let fallbackLabel = "否";
+  if (!configured || fallback) {
+    fallbackLabel = `是：${status.fallback_provider || traceLlm?.actual_provider || "mock"}`;
+  } else if (!checked && provider !== "mock") {
+    fallbackLabel = "未测试";
+  }
+  return {
+    provider,
+    model,
+    fallback,
+    fallbackLabel,
+    fallback_reason: traceLlm?.fallback_reason || status.fallback_reason || null,
+  };
 }
 
 function renderWorkflow() {
@@ -356,6 +385,136 @@ function renderEvaluationBlock() {
   `;
 }
 
+function buildLocalAgentTrace() {
+  const asr = appState.currentAsrResult;
+  const task = appState.currentTask || {};
+  const llmStatus = appState.currentLlmStatus || {};
+  const llmFallback = llmStatus.configured === false || llmStatus.checked
+    ? Boolean(llmStatus.fallback)
+    : false;
+  const inputType = asr && asr.audio_id !== "text-import" ? "audio" : "text";
+  const plan = inputType === "audio"
+    ? ["ASR_TRANSCRIBE", "FIELD_EXTRACTION", "DRAFT_GENERATION", "SAFETY_CHECK", "DOCTOR_REVIEW"]
+    : ["TEXT_INPUT_NORMALIZE", "FIELD_EXTRACTION", "DRAFT_GENERATION", "SAFETY_CHECK", "DOCTOR_REVIEW"];
+  return {
+    agent_mode: "Plan-and-Execute + Human-in-the-loop",
+    input_type: inputType,
+    perception: inputType === "audio"
+      ? {
+          source: "audio_asr",
+          asr_engine: asr?.engine || appState.selectedEngine,
+          audio_id: asr?.audio_id || appState.currentAudioId,
+          role_strategy: asr?.role_strategy || null,
+          warnings: asr?.warnings || [],
+          segments_count: asr?.segments?.length || 0,
+        }
+      : {
+          source: "text_input",
+          text_length: (appState.currentInputText || asr?.conversation_text || "").length,
+          warnings: [],
+        },
+    llm: {
+      llm_provider: llmStatus.provider || "mock",
+      model: llmStatus.model || "mock-deterministic-extractor",
+      latency_ms: null,
+      fallback: llmFallback,
+      fallback_reason: llmFallback ? llmStatus.fallback_reason || null : null,
+      actual_provider: llmFallback ? "mock" : llmStatus.provider || "mock",
+    },
+    plan,
+    executed_steps: (appState.currentSteps || []).map((step) => ({
+      step: {
+        extract_fields: "FIELD_EXTRACTION",
+        generate_draft: "DRAFT_GENERATION",
+        safety_check: "SAFETY_CHECK",
+      }[step.step_name] || String(step.step_name || "UNKNOWN_STEP").toUpperCase(),
+      status: step.status || "UNKNOWN",
+      duration_ms: step.duration_ms ?? null,
+    })),
+    decision: {
+      next_state: task.status || appState.taskStatus || "CREATED",
+      export_allowed: false,
+      reason: "doctor_review_required",
+      human_in_the_loop_required: true,
+      doctor_review_required: true,
+      safety_passed: appState.currentSafetyCheck?.passed ?? null,
+      safety_blocked: appState.currentSafetyCheck?.blocked ?? null,
+    },
+  };
+}
+
+function currentAgentTrace() {
+  return appState.currentAgentTrace || buildLocalAgentTrace();
+}
+
+function renderAgentTraceSummary() {
+  const trace = currentAgentTrace();
+  const perception = trace.perception || {};
+  const llm = trace.llm || {};
+  const decision = trace.decision || {};
+  const perceptionText = trace.input_type === "audio"
+    ? `${perception.asr_engine || "ASR"} / role_strategy=${perception.role_strategy || "none"}`
+    : `${perception.source || "text_input"} / length=${perception.text_length || 0}`;
+  return `
+    <section class="assist-block">
+      <div class="assist-title">
+        <h3>Agent 决策轨迹</h3>
+        <span class="status-badge info">Trace</span>
+      </div>
+      <div class="assist-body">
+        <div class="safety-strip"><strong>输入类型</strong><br>${escapeHtml(trace.input_type)}</div>
+        <div class="safety-strip"><strong>感知结果</strong><br>${escapeHtml(perceptionText)}</div>
+        <div class="safety-strip ${llm.fallback ? "warning" : "success"}"><strong>LLM Provider</strong><br>${escapeHtml(llm.llm_provider || "mock")} / ${escapeHtml(llm.model || "mock-deterministic-extractor")}</div>
+        <div class="safety-strip ${llm.fallback ? "warning" : ""}"><strong>LLM Fallback</strong><br>${llm.fallback ? `已兜底：${escapeHtml(llm.fallback_reason || "unknown")}` : `未触发，latency=${escapeHtml(String(llm.latency_ms ?? "-"))}ms`}</div>
+        <div class="safety-strip"><strong>计划步骤</strong><br>${escapeHtml((trace.plan || []).join(" -> "))}</div>
+        <div class="safety-strip"><strong>当前状态</strong><br>${escapeHtml(decision.next_state || "-")}</div>
+        <div class="safety-strip danger"><strong>导出决策</strong><br>禁止自动导出：${escapeHtml(decision.reason || "doctor_review_required")}</div>
+        <div class="safety-strip warning"><strong>医生审核边界</strong><br>Human-in-the-loop required before final export</div>
+      </div>
+    </section>
+  `;
+}
+
+async function refreshAgentTrace(taskId) {
+  if (!taskId) {
+    appState.currentAgentTrace = buildLocalAgentTrace();
+    return;
+  }
+  const suffix = appState.currentAudioId
+    ? `?audio_id=${encodeURIComponent(appState.currentAudioId)}`
+    : "";
+  try {
+    appState.currentAgentTrace = await api(`/api/tasks/${taskId}/trace${suffix}`);
+  } catch (_error) {
+    appState.currentAgentTrace = buildLocalAgentTrace();
+  }
+}
+
+async function refreshLlmStatus({ test = false } = {}) {
+  try {
+    appState.currentLlmStatus = await api(
+      test ? "/api/llm/test" : "/api/llm/status",
+      { method: test ? "POST" : "GET" },
+    );
+    renderPatientBar();
+    renderDebug();
+    return appState.currentLlmStatus;
+  } catch (error) {
+    appState.currentLlmStatus = {
+      provider: "unknown",
+      model: "not_configured",
+      configured: false,
+      reachable: false,
+      checked: test,
+      fallback_provider: "mock",
+      fallback: true,
+      fallback_reason: error.message,
+    };
+    renderPatientBar();
+    return appState.currentLlmStatus;
+  }
+}
+
 function renderAssist() {
   const fields = appState.currentRecordFields;
   const safety = appState.currentSafetyCheck;
@@ -424,6 +583,8 @@ function renderAssist() {
       </div>
     </section>
 
+    ${renderAgentTraceSummary()}
+
     <section class="assist-block">
       <div class="assist-title">
         <h3>安全校验结果</h3>
@@ -440,6 +601,7 @@ function renderAssist() {
 
 function renderDebug() {
   renderJson($("debugAsrJson"), appState.currentAsrResult);
+  renderJson($("debugAgentTraceJson"), currentAgentTrace());
   renderJson($("debugTaskJson"), appState.currentTask);
   renderJson($("debugStepsJson"), appState.currentSteps);
   renderJson($("debugSafetyJson"), appState.currentSafetyCheck);
@@ -469,6 +631,7 @@ function resetTaskState({ keepAsr = false } = {}) {
   appState.currentRecordFields = null;
   appState.currentDraft = "";
   appState.currentSafetyCheck = null;
+  appState.currentAgentTrace = null;
   appState.currentInputText = "";
   if (!keepAsr) {
     appState.currentAsrResult = null;
@@ -488,6 +651,7 @@ async function refreshTask(taskId, taskFromEvent = null) {
   appState.currentRecordFields = result.fields || appState.currentRecordFields;
   appState.currentDraft = result.draft || appState.currentDraft;
   appState.currentSafetyCheck = result.safety_check || appState.currentSafetyCheck;
+  await refreshAgentTrace(appState.currentTaskId);
   renderAll();
 }
 
@@ -748,11 +912,25 @@ function openDebug() {
   openDrawer("debugPanel", "医生端调试详情");
 }
 
+async function testLlmConnection() {
+  try {
+    const status = await refreshLlmStatus({ test: true });
+    const message = status.reachable
+      ? `LLM自检通过：${status.provider} / ${status.model}`
+      : `LLM自检未通过，运行时将使用 ${status.fallback_provider || "mock"} 兜底`;
+    showToast(message);
+    renderAll();
+  } catch (error) {
+    showToast(error.message);
+  }
+}
+
 function bindEvents() {
   $("openTextImportButton").addEventListener("click", openTextImport);
   $("openAudioTranscribeButton").addEventListener("click", openAudioTranscribe);
   $("openAudioGenerateButton").addEventListener("click", openAudioGenerate);
   $("openEvaluationButton").addEventListener("click", openEvaluation);
+  $("testLlmButton").addEventListener("click", testLlmConnection);
   $("openDebugButton").addEventListener("click", openDebug);
   $("closeDrawerButton").addEventListener("click", closeDrawer);
   $("drawerBackdrop").addEventListener("click", closeDrawer);
@@ -777,6 +955,7 @@ function bindEvents() {
 function init() {
   bindEvents();
   renderAll();
+  refreshLlmStatus();
 }
 
 init();
