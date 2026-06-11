@@ -17,6 +17,8 @@
 - [ ] `/static/doctor.html` 显示三栏医生工作台。
 - [ ] `/static/debug.html` 保留 JSON 调试能力。
 - [ ] 医生端主页面不直接展示大段 JSON。
+- [ ] 医生端显示当前 `task_id`、`audio_id` 和运行日志命令。
+- [ ] 右栏可切换“AI辅助 / 证据与评测 / Agent Trace / 安全校验”分区。
 
 ## 文本链路检查
 
@@ -27,6 +29,7 @@
 - [ ] 能看到安全校验。
 - [ ] 能看到 Agent 决策轨迹，且导出决策为 `export_allowed=false`、`reason=doctor_review_required`。
 - [ ] 能看到 LLM Provider / model / fallback 状态；默认应为 `mock`，真实 LLM 卡住时应自动 fallback。
+- [ ] 能说明“保存草稿到SQLite”保存当前字段到 Task `result_json`，不生成导出文件。
 - [ ] 任务状态进入 `WAITING_DOCTOR_REVIEW`。
 
 ## 音频链路检查
@@ -54,12 +57,14 @@
 - [ ] 调试台能展示 Task JSON。
 - [ ] 调试台能展示 Steps JSON。
 - [ ] 调试台能展示 Safety JSON。
+- [ ] 调试台能展示运行日志命令和草稿保存说明。
 - [ ] 能说明 `agent_task`、`agent_task_step`、`audit_log` 的用途。
 
 ## 运行日志检查
 
 - [ ] 已记录本次演示的 `task_id`。
 - [ ] 已记录本次演示的 `audio_id`。
+- [ ] 已通过医生端或调试台复制运行日志命令。
 - [ ] 可运行：
 
 ```powershell

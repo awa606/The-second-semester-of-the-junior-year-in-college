@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>医生端工作台 - AI生成式电子病历辅助系统</title>
-    <link rel="stylesheet" href="./doctor.css?v=2026060803" />
+    <link rel="stylesheet" href="./doctor.css?v=2026061103" />
   </head>
   <body>
     <div class="doctor-app">
@@ -71,6 +71,22 @@
         <ol id="workflowSteps" class="workflow-steps"></ol>
       </section>
 
+      <section class="run-context" aria-label="当前运行与保存信息">
+        <div>
+          <span class="meta-label">当前 task_id</span>
+          <strong id="currentTaskIdValue">-</strong>
+        </div>
+        <div>
+          <span class="meta-label">当前 audio_id</span>
+          <strong id="currentAudioIdValue">-</strong>
+        </div>
+        <div class="run-command-box">
+          <span class="meta-label">保存运行日志命令</span>
+          <code id="runLogCommand">python scripts/save_run_log.py --task-id xxx --audio-id xxx --title fever_01_demo</code>
+        </div>
+        <button type="button" id="copyRunLogCommandButton">复制运行日志命令</button>
+      </section>
+
       <main class="workbench" aria-label="医生工作台主体">
         <aside class="column field-column">
           <div class="panel-header">
@@ -112,7 +128,7 @@
         </div>
         <div class="button-group">
           <button type="button" id="regenerateButton">重新生成</button>
-          <button type="button" id="saveDraftButton">保存草稿</button>
+          <button type="button" id="saveDraftButton">保存草稿到SQLite</button>
           <button type="button" id="confirmFieldsButton">确认字段</button>
           <button type="button" class="danger-action" id="exportButton">确认导出</button>
         </div>
@@ -157,6 +173,10 @@
 
       <section id="debugPanel" class="drawer-panel">
         <details open>
+          <summary>运行日志命令</summary>
+          <pre id="debugRunLogCommand">python scripts/save_run_log.py --task-id xxx --audio-id xxx --title fever_01_demo</pre>
+        </details>
+        <details open>
           <summary>ASRResult JSON</summary>
           <pre id="debugAsrJson">-</pre>
         </details>
@@ -180,6 +200,6 @@
     </aside>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="./doctor.js?v=2026061101"></script>
+    <script src="./doctor.js?v=2026061103"></script>
   </body>
 </html>

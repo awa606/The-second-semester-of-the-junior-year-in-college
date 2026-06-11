@@ -204,6 +204,8 @@ Prompt 链讲解：
 
 > 这是医生端工作台，左边是病历字段，中间是对话转写，右边是 AI 辅助和安全校验。主页面不展示大段 JSON，避免医生端变成调试页。
 
+> 顶部这里会显示当前 task_id、audio_id 和运行日志命令。演示完成后可以一键复制命令，把本次运行沉淀成 Markdown 日志。
+
 ### 5.2 上传 fever_01.wav 生成病历
 
 操作：
@@ -223,6 +225,7 @@ Prompt 链讲解：
 - 左栏：主诉、现病史、伴随症状、过敏史、查体等字段。
 - 右栏：缺失项提醒、候选诊断、安全校验。
 - 右栏：Agent 决策轨迹，展示输入类型、感知结果、计划步骤、当前状态、导出决策和医生审核边界。
+- 底部：“保存草稿到SQLite”只保存当前字段审核结果，不生成导出文件；真正导出要点击“确认导出”。
 
 Agent Trace 话术：
 
@@ -263,6 +266,8 @@ Agent Trace 话术：
 > 调试台保留了 ASRResult、Task、Steps、Safety JSON。这里可以看到每一步输入输出和安全校验结果，用于证明系统过程可追踪，不是黑箱生成。
 
 > 调试抽屉还会展示完整 Agent Trace JSON，老师如果问“Agent 体现在哪里”，可以直接展示 agent_mode、perception、plan、executed_steps 和 decision。
+
+> Task JSON 的 result_json 可以查看已经保存的字段、草稿和安全校验；运行日志命令会把 task_id 和 audio_id 汇总为 `docs/dev_logs/runs/` 下的演示日志。
 
 ## 6. ASR 卡顿备用方案话术
 

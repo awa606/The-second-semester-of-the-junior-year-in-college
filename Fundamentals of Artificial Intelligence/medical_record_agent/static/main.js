@@ -73,6 +73,22 @@ function renderJson(element, value) {
   element.textContent = value ? JSON.stringify(value, null, 2) : "-";
 }
 
+function runLogCommand() {
+  const taskId = appState.currentTaskId || "xxx";
+  const audioId = appState.currentAudioId || "xxx";
+  return `python scripts/save_run_log.py --task-id ${taskId} --audio-id ${audioId} --title fever_01_demo`;
+}
+
+async function copyRunLogCommand() {
+  const command = runLogCommand();
+  try {
+    await navigator.clipboard.writeText(command);
+    alert("运行日志命令已复制");
+  } catch (_error) {
+    alert(command);
+  }
+}
+
 async function api(path, options = {}) {
   const response = await fetch(path, options);
   const data = await response.json().catch(() => ({}));
@@ -93,6 +109,8 @@ function updateTopbar() {
   $("llmProviderLabel").textContent = llm.provider;
   $("llmModelLabel").textContent = llm.model;
   $("llmFallbackLabel").textContent = llm.fallbackLabel;
+  if ($("debugTaskIdLabel")) $("debugTaskIdLabel").textContent = appState.currentTaskId || "-";
+  if ($("debugAudioIdLabel")) $("debugAudioIdLabel").textContent = appState.currentAudioId || "-";
 }
 
 function llmDisplayState() {
@@ -501,6 +519,8 @@ function renderRightColumn() {
 
 function renderDebugJson() {
   const llm = currentAgentTrace().llm || {};
+  const debugRunLog = $("debugRunLogCommand");
+  if (debugRunLog) debugRunLog.textContent = runLogCommand();
   renderJson($("debugAsrJson"), appState.currentAsrResult);
   renderJson($("debugAgentTraceJson"), currentAgentTrace());
   renderJson($("debugLlmTraceJson"), {
@@ -768,6 +788,7 @@ Object.assign(window, {
   openEvaluationDrawer,
   openDebugDrawer,
   testLlmConnection,
+  copyRunLogCommand,
   closeDrawer,
   submitTextRecord,
   submitAudioTranscribe,

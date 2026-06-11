@@ -12,6 +12,7 @@ const appState = {
   currentLlmStatus: null,
   currentInputText: "",
   selectedEngine: "funasr",
+  assistTab: "ai",
   audioMode: "transcribe",
   uploadedFilename: "",
   taskStatus: "CREATED",
@@ -120,6 +121,28 @@ function showToast(text) {
   toast.classList.add("active");
   window.clearTimeout(showToast.timer);
   showToast.timer = window.setTimeout(() => toast.classList.remove("active"), 2200);
+}
+
+function runLogCommand() {
+  const taskId = appState.currentTaskId || "xxx";
+  const audioId = appState.currentAudioId || "xxx";
+  return `python scripts/save_run_log.py --task-id ${taskId} --audio-id ${audioId} --title fever_01_demo`;
+}
+
+async function copyRunLogCommand() {
+  const command = runLogCommand();
+  try {
+    await navigator.clipboard.writeText(command);
+    showToast("运行日志命令已复制");
+  } catch (_error) {
+    showToast(command);
+  }
+}
+
+function renderRunContext() {
+  $("currentTaskIdValue").textContent = appState.currentTaskId || "-";
+  $("currentAudioIdValue").textContent = appState.currentAudioId || "-";
+  $("runLogCommand").textContent = runLogCommand();
 }
 
 function openDrawer(panelId, title) {
@@ -515,6 +538,49 @@ async function refreshLlmStatus({ test = false } = {}) {
   }
 }
 
+function saveBehaviorBlock() {
+  return `
+    <section class="assist-block">
+      <div class="assist-title">
+        <h3>草稿保存说明</h3>
+        <span class="status-badge info">SQLite</span>
+      </div>
+      <div class="assist-body">
+        <div class="storage-note">
+          <strong>“保存草稿到SQLite”会调用 <code>POST /api/tasks/{task_id}/review</code>。</strong>
+          <ul>
+            <li>写入 SQLite：是，更新当前 Task 的审核结果并记录审计日志。</li>
+            <li>保存病历字段：是，保存医生端当前字段卡片内容。</li>
+            <li>保存 ASRResult：不是此按钮负责；转写完成时已保存在 <code>data/uploads/{audio_id}.transcript.json</code>。</li>
+            <li>保存 Agent Trace：不单独写库；可通过 <code>/api/tasks/{task_id}/trace</code> 和调试抽屉查看。</li>
+            <li>生成文件：不会；只有点击“确认导出”后才写入 <code>data/outputs/</code>。</li>
+          </ul>
+        </div>
+        <div class="safety-strip">
+          <strong>草稿查看位置</strong><br>
+          doctor.html 左侧字段卡片 / debug.html Task JSON 的 result_json / docs/dev_logs/runs/ 运行日志 / 导出后的 data/outputs/
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function runLogBlock() {
+  return `
+    <section class="assist-block">
+      <div class="assist-title">
+        <h3>演示运行日志</h3>
+        <span class="status-badge info">Run Log</span>
+      </div>
+      <div class="assist-body">
+        <div class="safety-strip"><strong>task_id</strong><br>${escapeHtml(appState.currentTaskId || "-")}</div>
+        <div class="safety-strip"><strong>audio_id</strong><br>${escapeHtml(appState.currentAudioId || "-")}</div>
+        <div class="safety-strip"><strong>生成命令</strong><br><code>${escapeHtml(runLogCommand())}</code></div>
+      </div>
+    </section>
+  `;
+}
+
 function renderAssist() {
   const fields = appState.currentRecordFields;
   const safety = appState.currentSafetyCheck;
@@ -526,8 +592,15 @@ function renderAssist() {
     warnings.unshift("医生/患者角色需人工校正");
   }
   const errors = safety?.errors || [];
+  const tabs = [
+    ["ai", "AI辅助"],
+    ["evidence", "证据与评测"],
+    ["trace", "Agent Trace"],
+    ["safety", "安全校验"],
+  ];
+  const activeTab = tabs.some(([key]) => key === appState.assistTab) ? appState.assistTab : "ai";
 
-  $("assistPanels").innerHTML = `
+  const aiContent = `
     <section class="assist-block">
       <div class="assist-title">
         <h3>缺失项提醒</h3>
@@ -562,7 +635,10 @@ function renderAssist() {
         <div class="draft-block">${escapeHtml(appState.currentDraft || "暂无病历草稿。")}</div>
       </div>
     </section>
+    ${saveBehaviorBlock()}
+  `;
 
+  const evidenceContent = `
     <section class="assist-block">
       <div class="assist-title">
         <h3>字段证据</h3>
@@ -582,9 +658,10 @@ function renderAssist() {
         ${renderEvaluationBlock()}
       </div>
     </section>
+    ${runLogBlock()}
+  `;
 
-    ${renderAgentTraceSummary()}
-
+  const safetyContent = `
     <section class="assist-block">
       <div class="assist-title">
         <h3>安全校验结果</h3>
@@ -597,9 +674,29 @@ function renderAssist() {
       </div>
     </section>
   `;
+
+  const contentByTab = {
+    ai: aiContent,
+    evidence: evidenceContent,
+    trace: `${renderAgentTraceSummary()}${runLogBlock()}`,
+    safety: safetyContent,
+  };
+
+  $("assistPanels").innerHTML = `
+    <div class="assist-tabs" role="tablist" aria-label="右栏分区">
+      ${tabs.map(([key, label]) => `
+        <button type="button" class="assist-tab ${key === activeTab ? "active" : ""}" data-assist-tab="${key}" role="tab" aria-selected="${key === activeTab ? "true" : "false"}">
+          ${escapeHtml(label)}
+        </button>
+      `).join("")}
+    </div>
+    ${contentByTab[activeTab]}
+  `;
 }
 
 function renderDebug() {
+  const debugRunLog = $("debugRunLogCommand");
+  if (debugRunLog) debugRunLog.textContent = runLogCommand();
   renderJson($("debugAsrJson"), appState.currentAsrResult);
   renderJson($("debugAgentTraceJson"), currentAgentTrace());
   renderJson($("debugTaskJson"), appState.currentTask);
@@ -616,6 +713,7 @@ function renderFooter() {
 
 function renderAll() {
   renderPatientBar();
+  renderRunContext();
   renderWorkflow();
   renderFields();
   renderTranscript();
@@ -835,7 +933,7 @@ async function regenerateRecord() {
 async function saveDraftReview() {
   try {
     if (!appState.currentTaskId || !appState.currentRecordFields) throw new Error("暂无可保存的病历字段");
-    setBusy(true, "正在保存草稿...");
+    setBusy(true, "正在保存草稿到 SQLite...");
     appState.currentTask = await api(`/api/tasks/${appState.currentTaskId}/review`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -843,7 +941,7 @@ async function saveDraftReview() {
     });
     await refreshTask(appState.currentTaskId, appState.currentTask);
     setBusy(false);
-    showToast("草稿已保存");
+    showToast("草稿已保存到 SQLite");
   } catch (error) {
     setBusy(false);
     showToast(error.message);
@@ -932,6 +1030,7 @@ function bindEvents() {
   $("openEvaluationButton").addEventListener("click", openEvaluation);
   $("testLlmButton").addEventListener("click", testLlmConnection);
   $("openDebugButton").addEventListener("click", openDebug);
+  $("copyRunLogCommandButton").addEventListener("click", copyRunLogCommand);
   $("closeDrawerButton").addEventListener("click", closeDrawer);
   $("drawerBackdrop").addEventListener("click", closeDrawer);
   $("submitTextButton").addEventListener("click", submitTextImport);
@@ -945,6 +1044,12 @@ function bindEvents() {
     if (event.target.matches("[data-evidence-toggle]")) {
       event.target.closest(".field-card").classList.toggle("open");
     }
+  });
+  $("assistPanels").addEventListener("click", (event) => {
+    const tabButton = event.target.closest("[data-assist-tab]");
+    if (!tabButton) return;
+    appState.assistTab = tabButton.dataset.assistTab;
+    renderAssist();
   });
   $("regenerateButton").addEventListener("click", regenerateRecord);
   $("saveDraftButton").addEventListener("click", saveDraftReview);

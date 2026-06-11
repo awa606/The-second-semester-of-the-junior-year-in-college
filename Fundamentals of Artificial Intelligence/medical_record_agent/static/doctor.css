@@ -91,7 +91,7 @@ pre {
 .doctor-app {
   height: 100vh;
   display: grid;
-  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto 1fr auto;
   gap: 12px;
   padding: 14px 16px 16px;
   overflow: hidden;
@@ -100,6 +100,7 @@ pre {
 .topbar,
 .patient-bar,
 .workflow-panel,
+.run-context,
 .column,
 .bottom-actions {
   border: 1px solid var(--line);
@@ -190,7 +191,7 @@ pre {
 
 .patient-bar {
   display: grid;
-  grid-template-columns: minmax(150px, 1.25fr) repeat(5, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1px;
   overflow: hidden;
   border-radius: 14px;
@@ -252,6 +253,49 @@ pre {
   border-color: #bfdbfe;
   background: var(--primary-soft);
   color: var(--primary-strong);
+}
+
+.run-context {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.7fr) minmax(160px, 1fr) minmax(360px, 2.5fr) auto;
+  align-items: stretch;
+  gap: 1px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.run-context > div,
+.run-context > button {
+  min-height: 58px;
+  display: grid;
+  align-content: center;
+  gap: 5px;
+  padding: 10px 14px;
+  background: #fff;
+}
+
+.run-context strong {
+  font-size: 14px;
+}
+
+.run-command-box code {
+  overflow: hidden;
+  color: #1f2937;
+  font-size: 12px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.run-context > button {
+  border: 0;
+  border-left: 1px solid var(--line);
+  color: var(--primary-strong);
+  font-weight: 900;
+}
+
+.run-context > button:hover {
+  background: var(--primary-soft);
 }
 
 .workbench {
@@ -492,6 +536,34 @@ pre {
   background: #fff;
 }
 
+.assist-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 2px 2px 4px;
+  background: var(--surface);
+}
+
+.assist-tab {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px 8px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.assist-tab.active {
+  border-color: #bfdbfe;
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+}
+
 .assist-title {
   display: flex;
   justify-content: space-between;
@@ -551,7 +623,8 @@ pre {
 
 .safety-strip,
 .diagnosis-card,
-.question-card {
+.question-card,
+.storage-note {
   border-left: 4px solid var(--primary);
   border-radius: 10px;
   padding: 9px 10px;
@@ -575,6 +648,20 @@ pre {
 .safety-strip.success {
   border-left-color: var(--green);
   background: var(--green-soft);
+}
+
+.storage-note {
+  background: #fff;
+  border-left-color: var(--primary);
+}
+
+.storage-note ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.storage-note li + li {
+  margin-top: 4px;
 }
 
 .diagnosis-card strong,
@@ -746,6 +833,7 @@ pre {
   }
 
   .patient-bar,
+  .run-context,
   .workbench {
     grid-template-columns: 1fr;
   }

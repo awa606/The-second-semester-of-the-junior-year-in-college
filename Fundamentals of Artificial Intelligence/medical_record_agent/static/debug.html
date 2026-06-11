@@ -16,6 +16,8 @@
         <div class="top-meta">
           <span>患者：<strong>模拟患者 / 女 / 32岁</strong></span>
           <span>会话：<strong id="sessionId">未创建</strong></span>
+          <span>task_id：<strong id="debugTaskIdLabel">-</strong></span>
+          <span>audio_id：<strong id="debugAudioIdLabel">-</strong></span>
           <span>ASR Engine：<strong id="currentEngineLabel">FunASR</strong></span>
           <span>LLM Provider：<strong id="llmProviderLabel">-</strong></span>
           <span>LLM Model：<strong id="llmModelLabel">-</strong></span>
@@ -30,6 +32,7 @@
         <button type="button" onclick="uploadAudioGenerateRecord()">上传生成病历</button>
         <button type="button" onclick="openEvaluationDrawer()">ASR评测</button>
         <button type="button" onclick="testLlmConnection()">LLM自检</button>
+        <button type="button" onclick="copyRunLogCommand()">复制运行日志命令</button>
         <button type="button" onclick="openDebugDrawer()">调试详情</button>
       </nav>
 
@@ -67,7 +70,7 @@
             <h2>操作区</h2>
             <div class="action-grid">
               <button type="button" onclick="regenerateRecord()">重新生成</button>
-              <button type="button" onclick="saveDraftReview()">保存草稿</button>
+              <button type="button" onclick="saveDraftReview()">保存草稿到SQLite</button>
               <button type="button" onclick="confirmFields()">确认字段</button>
               <button type="button" class="danger-button" onclick="exportRecord()">确认导出</button>
             </div>
@@ -114,6 +117,18 @@
 
       <section id="debugDrawer" class="drawer-section">
         <details open>
+          <summary>运行日志命令</summary>
+          <pre id="debugRunLogCommand">python scripts/save_run_log.py --task-id xxx --audio-id xxx --title fever_01_demo</pre>
+        </details>
+        <details open>
+          <summary>草稿保存说明</summary>
+          <pre>保存草稿到SQLite：调用 POST /api/tasks/{task_id}/review，保存当前病历字段到 Task result_json 并记录审计日志。
+ASRResult：转写完成时保存到 data/uploads/{audio_id}.transcript.json，不由保存草稿按钮生成。
+Agent Trace：由 /api/tasks/{task_id}/trace 动态组装，可在本调试抽屉查看完整 JSON。
+文件导出：只有点击确认导出后才写入 data/outputs/。
+运行日志：复制命令后执行 scripts/save_run_log.py，输出到 docs/dev_logs/runs/。</pre>
+        </details>
+        <details open>
           <summary>ASRResult JSON</summary>
           <pre id="debugAsrJson">-</pre>
         </details>
@@ -140,6 +155,6 @@
       </section>
     </aside>
 
-    <script src="./main.js?v=2026061102"></script>
+    <script src="./main.js?v=2026061103"></script>
   </body>
 </html>
