@@ -470,7 +470,21 @@ function currentAgentTrace() {
   return appState.currentAgentTrace || buildLocalAgentTrace();
 }
 
-function renderAgentTraceSummary() {
+function assistDetails({ title, badgeClass = "neutral", badgeText = "-", body = "", open = false, tone = "" }) {
+  return `
+    <details class="assist-block assist-details ${tone}" ${open ? "open" : ""}>
+      <summary class="assist-title">
+        <h3>${escapeHtml(title)}</h3>
+        <span class="status-badge ${badgeClass}">${escapeHtml(badgeText)}</span>
+      </summary>
+      <div class="assist-body">
+        ${body}
+      </div>
+    </details>
+  `;
+}
+
+function renderAgentTraceSummary({ open = false } = {}) {
   const trace = currentAgentTrace();
   const perception = trace.perception || {};
   const llm = trace.llm || {};
@@ -478,13 +492,12 @@ function renderAgentTraceSummary() {
   const perceptionText = trace.input_type === "audio"
     ? `${perception.asr_engine || "ASR"} / role_strategy=${perception.role_strategy || "none"}`
     : `${perception.source || "text_input"} / length=${perception.text_length || 0}`;
-  return `
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>Agent 决策轨迹</h3>
-        <span class="status-badge info">Trace</span>
-      </div>
-      <div class="assist-body">
+  return assistDetails({
+    title: "Agent 决策轨迹",
+    badgeClass: "info",
+    badgeText: "Trace",
+    open,
+    body: `
         <div class="safety-strip"><strong>输入类型</strong><br>${escapeHtml(trace.input_type)}</div>
         <div class="safety-strip"><strong>感知结果</strong><br>${escapeHtml(perceptionText)}</div>
         <div class="safety-strip ${llm.fallback ? "warning" : "success"}"><strong>LLM Provider</strong><br>${escapeHtml(llm.llm_provider || "mock")} / ${escapeHtml(llm.model || "mock-deterministic-extractor")}</div>
@@ -493,9 +506,8 @@ function renderAgentTraceSummary() {
         <div class="safety-strip"><strong>当前状态</strong><br>${escapeHtml(decision.next_state || "-")}</div>
         <div class="safety-strip danger"><strong>导出决策</strong><br>禁止自动导出：${escapeHtml(decision.reason || "doctor_review_required")}</div>
         <div class="safety-strip warning"><strong>医生审核边界</strong><br>Human-in-the-loop required before final export</div>
-      </div>
-    </section>
-  `;
+    `,
+  });
 }
 
 async function refreshAgentTrace(taskId) {
@@ -592,6 +604,16 @@ function renderAssist() {
     warnings.unshift("医生/患者角色需人工校正");
   }
   const errors = safety?.errors || [];
+  const safetyHasRisk = warnings.length > 0 || errors.length > 0 || Boolean(safety && (!safety.passed || safety.blocked));
+  const evaluationMissing = appState.currentEvaluation?.medical_keywords?.missing || [];
+  const trace = currentAgentTrace();
+  const traceLlm = trace.llm || {};
+  const traceHasRisk = missing.length > 0
+    || diagnoses.length > 0
+    || safetyHasRisk
+    || evaluationMissing.length > 0
+    || Boolean(traceLlm.fallback)
+    || appState.currentAsrResult?.role_strategy === "single_segment_needs_review";
   const tabs = [
     ["ai", "AI辅助"],
     ["evidence", "证据与评测"],
@@ -601,84 +623,78 @@ function renderAssist() {
   const activeTab = tabs.some(([key]) => key === appState.assistTab) ? appState.assistTab : "ai";
 
   const aiContent = `
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>缺失项提醒</h3>
-        <span class="status-badge ${missing.length ? "missing" : "confirmed"}">${missing.length ? `${missing.length}项` : "无"}</span>
-      </div>
-      <div class="assist-body">
-        ${missing.length ? `<div class="safety-strip danger">${escapeHtml(missing.join("、"))}</div>` : `<div class="safety-strip success">暂无结构化字段缺失。</div>`}
-      </div>
-    </section>
+    ${assistDetails({
+      title: "缺失项提醒",
+      badgeClass: missing.length ? "missing" : "confirmed",
+      badgeText: missing.length ? `${missing.length}项` : "无",
+      open: missing.length > 0,
+      tone: missing.length ? "risk-danger" : "normal-success",
+      body: missing.length ? `<div class="safety-strip danger">${escapeHtml(missing.join("、"))}</div>` : `<div class="safety-strip success">暂无结构化字段缺失。</div>`,
+    })}
 
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>候选诊断</h3>
-        <span class="status-badge candidate">${diagnoses.length ? "待确认" : "暂无"}</span>
-      </div>
-      <div class="assist-body">
-        ${diagnoses.length ? diagnoses.map((diagnosis) => `
+    ${assistDetails({
+      title: "候选诊断",
+      badgeClass: diagnoses.length ? "candidate" : "confirmed",
+      badgeText: diagnoses.length ? "待确认" : "暂无",
+      open: diagnoses.length > 0,
+      tone: diagnoses.length ? "risk-warning" : "normal-success",
+      body: diagnoses.length ? diagnoses.map((diagnosis) => `
           <div class="diagnosis-card">
             <strong>${escapeHtml(diagnosis.name || "未命名诊断")}</strong>
             ${escapeHtml(diagnosis.status || "候选/待医生确认")}
           </div>
-        `).join("") : `<div class="empty-state">暂无候选诊断。</div>`}
-      </div>
-    </section>
+        `).join("") : `<div class="safety-strip success">暂无候选诊断。</div>`,
+    })}
 
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>病历草稿</h3>
-        <span class="status-badge ${appState.currentDraft ? "info" : "neutral"}">${appState.currentDraft ? "已生成" : "待生成"}</span>
-      </div>
-      <div class="assist-body">
-        <div class="draft-block">${escapeHtml(appState.currentDraft || "暂无病历草稿。")}</div>
-      </div>
-    </section>
+    ${assistDetails({
+      title: "病历草稿",
+      badgeClass: appState.currentDraft ? "info" : "neutral",
+      badgeText: appState.currentDraft ? "已生成" : "待生成",
+      open: Boolean(appState.currentDraft),
+      body: `<div class="draft-block">${escapeHtml(appState.currentDraft || "暂无病历草稿。")}</div>`,
+    })}
     ${saveBehaviorBlock()}
   `;
 
   const evidenceContent = `
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>字段证据</h3>
-        <span class="status-badge info">${evidence.length ? "可追溯" : "暂无"}</span>
-      </div>
-      <div class="assist-body">
-        ${evidence.length ? evidence.map((item) => `<button type="button" class="evidence-chip">${escapeHtml(item)}</button>`).join("") : `<div class="empty-state">暂无字段证据。</div>`}
-      </div>
-    </section>
+    ${assistDetails({
+      title: "字段证据",
+      badgeClass: "info",
+      badgeText: evidence.length ? "可追溯" : "暂无",
+      open: evidence.length > 0,
+      body: evidence.length ? evidence.map((item) => `<button type="button" class="evidence-chip">${escapeHtml(item)}</button>`).join("") : `<div class="empty-state">暂无字段证据。</div>`,
+    })}
 
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>ASR评测摘要</h3>
-        <span class="status-badge info">CER / Recall</span>
-      </div>
-      <div class="assist-body">
-        ${renderEvaluationBlock()}
-      </div>
-    </section>
+    ${assistDetails({
+      title: "ASR评测摘要",
+      badgeClass: evaluationMissing.length ? "candidate" : "info",
+      badgeText: "CER / Recall",
+      open: evaluationMissing.length > 0,
+      tone: evaluationMissing.length ? "risk-warning" : "",
+      body: renderEvaluationBlock(),
+    })}
     ${runLogBlock()}
   `;
 
   const safetyContent = `
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>安全校验结果</h3>
-        <span class="status-badge ${safety?.passed && !safety?.blocked ? "confirmed" : "missing"}">${safety ? (safety.passed && !safety.blocked ? "通过" : "需处理") : "待校验"}</span>
-      </div>
-      <div class="assist-body">
+    ${assistDetails({
+      title: "安全校验结果",
+      badgeClass: safety?.passed && !safety?.blocked ? "confirmed" : "missing",
+      badgeText: safety ? (safety.passed && !safety.blocked ? "通过" : "需处理") : "待校验",
+      open: safetyHasRisk,
+      tone: safetyHasRisk ? "risk-danger" : "normal-success",
+      body: `
         ${warnings.map((item) => `<div class="safety-strip warning">${escapeHtml(item)}</div>`).join("")}
         ${errors.map((item) => `<div class="safety-strip danger">${escapeHtml(item)}</div>`).join("")}
         ${safety ? `<div class="safety-strip ${safety.passed && !safety.blocked ? "success" : "danger"}">安全校验：${safety.passed ? "通过" : "未通过"}${safety.blocked ? " / 阻止导出" : ""}</div>` : `<div class="empty-state">暂无AI校验结果。</div>`}
-      </div>
-    </section>
+      `,
+    })}
   `;
 
   const contentByTab = {
     ai: aiContent,
     evidence: evidenceContent,
-    trace: `${renderAgentTraceSummary()}${runLogBlock()}`,
+    trace: `${renderAgentTraceSummary({ open: traceHasRisk })}${runLogBlock()}`,
     safety: safetyContent,
   };
 

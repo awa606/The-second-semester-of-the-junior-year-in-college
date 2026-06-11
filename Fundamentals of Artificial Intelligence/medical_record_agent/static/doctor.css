@@ -375,6 +375,12 @@ pre {
   padding: 12px;
 }
 
+.assist-column .assist-list {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+}
+
 .empty-state {
   border: 1px dashed var(--line-strong);
   border-radius: 12px;
@@ -534,6 +540,50 @@ pre {
   border-radius: 12px;
   overflow: hidden;
   background: #fff;
+}
+
+.assist-details {
+  display: block;
+}
+
+.assist-details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.assist-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.assist-details > summary::after {
+  content: "展开";
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.assist-details[open] > summary::after {
+  content: "收起";
+  border-color: #bfdbfe;
+  background: var(--primary-soft);
+  color: var(--primary-strong);
+}
+
+.assist-details.risk-danger {
+  border-left: 4px solid var(--red);
+}
+
+.assist-details.risk-warning {
+  border-left: 4px solid var(--yellow);
+}
+
+.assist-details.normal-success {
+  border-left: 4px solid var(--green);
 }
 
 .assist-tabs {
