@@ -6,10 +6,10 @@ import json
 import os
 import re
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -24,7 +24,10 @@ AUDIO_SUFFIXES = {".wav", ".mp3", ".m4a", ".flac", ".ogg"}
 DEFAULT_UPLOAD_DIR = PROJECT_ROOT / "data" / "uploads"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "docs" / "dev_logs" / "runs"
 DEFAULT_ASR_EVAL_DIR = PROJECT_ROOT / "data" / "asr_eval"
-LOCAL_TZ = ZoneInfo("Asia/Shanghai")
+try:
+    LOCAL_TZ = ZoneInfo("Asia/Shanghai")
+except ZoneInfoNotFoundError:
+    LOCAL_TZ = timezone(timedelta(hours=8), name="Asia/Shanghai")
 
 
 def parse_args() -> argparse.Namespace:
