@@ -27,6 +27,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Arial, "Microsoft YaHei", "PingFang SC", sans-serif;
+  overflow-x: hidden;
 }
 
 button,
@@ -80,6 +81,7 @@ pre {
   overflow: auto;
   white-space: pre-wrap;
   word-break: break-word;
+  overflow-wrap: anywhere;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 10px;
@@ -91,7 +93,7 @@ pre {
 .doctor-app {
   height: 100vh;
   display: grid;
-  grid-template-rows: auto auto auto auto 1fr auto;
+  grid-template-rows: auto auto auto auto auto auto minmax(0, 1fr) auto;
   gap: 12px;
   padding: 14px 16px 16px;
   overflow: hidden;
@@ -100,7 +102,9 @@ pre {
 .topbar,
 .patient-bar,
 .workflow-panel,
+.step-prompt,
 .run-context,
+.start-guide,
 .column,
 .bottom-actions {
   border: 1px solid var(--line);
@@ -159,6 +163,26 @@ pre {
   justify-content: flex-end;
 }
 
+.mode-switch {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 2px;
+  background: var(--surface-soft);
+}
+
+.mode-switch button {
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+}
+
+.mode-switch button.active {
+  background: var(--primary);
+  color: #fff;
+}
+
 .top-actions a,
 .top-actions button,
 .button-group button {
@@ -187,6 +211,67 @@ pre {
 
 .button-group .danger-action {
   background: var(--red);
+}
+
+.top-actions .mode-switch button {
+  min-height: 30px;
+  border: 0;
+  border-radius: 8px;
+  padding: 5px 10px;
+  background: transparent;
+  color: var(--muted);
+}
+
+.top-actions .mode-switch button.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+body.doctor-mode .debug-only {
+  display: none !important;
+}
+
+.debug-tools {
+  position: relative;
+}
+
+.debug-tools summary {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 7px 12px;
+  background: #fff;
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+}
+
+.debug-tools summary::-webkit-details-marker {
+  display: none;
+}
+
+.debug-tool-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 8;
+  min-width: 180px;
+  display: grid;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.debug-tool-menu a,
+.debug-tool-menu button {
+  width: 100%;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .patient-bar {
@@ -255,6 +340,27 @@ pre {
   color: var(--primary-strong);
 }
 
+.step-prompt {
+  border-radius: 14px;
+  padding: 11px 14px;
+  background: var(--primary-soft);
+  color: #1e40af;
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.step-prompt.risk {
+  border-color: #fcd34d;
+  background: var(--yellow-soft);
+  color: #92400e;
+}
+
+.step-prompt.danger {
+  border-color: #fecaca;
+  background: var(--red-soft);
+  color: #991b1b;
+}
+
 .run-context {
   display: grid;
   grid-template-columns: minmax(130px, 0.7fr) minmax(160px, 1fr) minmax(360px, 2.5fr) auto;
@@ -283,8 +389,9 @@ pre {
   color: #1f2937;
   font-size: 12px;
   line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .run-context > button {
@@ -298,11 +405,54 @@ pre {
   background: var(--primary-soft);
 }
 
+.start-guide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+}
+
+.start-guide[hidden] {
+  display: none;
+}
+
+.start-guide h2 {
+  margin: 4px 0 8px;
+  font-size: 18px;
+}
+
+.start-guide ol {
+  margin: 0;
+  padding-left: 20px;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.guide-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.guide-actions button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 13px;
+  background: #fff;
+  font-weight: 900;
+}
+
 .workbench {
   min-height: 0;
   display: grid;
   grid-template-columns: 360px minmax(420px, 1fr) 340px;
   gap: 12px;
+  overflow-x: hidden;
 }
 
 .column {
@@ -312,6 +462,13 @@ pre {
   flex-direction: column;
   border-radius: 14px;
   overflow: hidden;
+}
+
+.assist-column {
+  max-height: calc(100vh - 260px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .panel-header {
@@ -376,7 +533,9 @@ pre {
 }
 
 .assist-column .assist-list {
+  max-height: calc(100vh - 260px);
   overflow-y: auto;
+  overflow-x: hidden;
   overscroll-behavior: contain;
   align-content: start;
 }
@@ -598,6 +757,7 @@ pre {
 }
 
 .assist-tab {
+  min-width: 0;
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -606,6 +766,9 @@ pre {
   color: var(--muted);
   font-size: 12px;
   font-weight: 900;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .assist-tab.active {
@@ -615,6 +778,7 @@ pre {
 }
 
 .assist-title {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -624,20 +788,34 @@ pre {
 }
 
 .assist-title h3 {
+  min-width: 0;
   margin: 0;
   font-size: 14px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .assist-body {
   display: grid;
   gap: 8px;
+  max-height: 220px;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   padding: 10px 12px 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .draft-block {
-  max-height: 180px;
-  overflow: auto;
+  max-height: none;
+  min-width: 0;
+  overflow: visible;
   white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
   border-radius: 10px;
   padding: 10px;
   background: var(--surface-soft);
@@ -675,6 +853,7 @@ pre {
 .diagnosis-card,
 .question-card,
 .storage-note {
+  min-width: 0;
   border-left: 4px solid var(--primary);
   border-radius: 10px;
   padding: 9px 10px;
@@ -682,6 +861,17 @@ pre {
   color: #1f2937;
   line-height: 1.5;
   font-size: 13px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.safety-strip code,
+.storage-note code,
+.assist-body code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .safety-strip.danger {
@@ -725,6 +915,9 @@ pre {
   width: 100%;
   text-align: left;
   background: #fff;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .bottom-actions {
@@ -884,6 +1077,7 @@ pre {
 
   .patient-bar,
   .run-context,
+  .start-guide,
   .workbench {
     grid-template-columns: 1fr;
   }
@@ -899,9 +1093,14 @@ pre {
   }
 
   .topbar,
-  .bottom-actions {
+  .bottom-actions,
+  .start-guide {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .start-guide {
+    display: flex;
   }
 
   .patient-bar,

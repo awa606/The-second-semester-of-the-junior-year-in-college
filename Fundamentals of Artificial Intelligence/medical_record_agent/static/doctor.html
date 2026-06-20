@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>医生端工作台 - AI生成式电子病历辅助系统</title>
-    <link rel="stylesheet" href="./doctor.css?v=2026061104" />
+    <link rel="stylesheet" href="./doctor.css?v=2026061501" />
   </head>
-  <body>
+  <body class="doctor-mode">
     <div class="doctor-app">
       <header class="topbar">
         <div class="brand-block">
@@ -18,13 +18,22 @@
         </div>
         <nav class="top-actions" aria-label="全局操作">
           <a href="./index.html">首页</a>
-          <a href="./debug.html">调试页</a>
+          <div class="mode-switch" aria-label="显示模式">
+            <button type="button" id="doctorModeButton" class="active">医生模式</button>
+            <button type="button" id="debugModeButton">调试模式</button>
+          </div>
+          <button type="button" class="primary-action" id="openAudioGenerateButton">上传音频</button>
           <button type="button" id="openTextImportButton">文本导入</button>
-          <button type="button" id="openAudioTranscribeButton">上传转写</button>
-          <button type="button" id="openAudioGenerateButton">上传生成病历</button>
-          <button type="button" id="openEvaluationButton">ASR评测</button>
-          <button type="button" id="testLlmButton">LLM自检</button>
-          <button type="button" class="primary-action" id="openDebugButton">调试</button>
+          <details id="debugTools" class="debug-tools debug-only">
+            <summary>调试工具</summary>
+            <div class="debug-tool-menu">
+              <button type="button" id="openAudioTranscribeButton">上传转写</button>
+              <button type="button" id="openEvaluationButton">ASR评测</button>
+              <button type="button" id="testLlmButton">LLM自检</button>
+              <button type="button" id="openDebugButton">调试详情</button>
+              <a href="./debug.html">打开调试页</a>
+            </div>
+          </details>
         </nav>
       </header>
 
@@ -49,15 +58,15 @@
           <span class="meta-label">ASR Engine</span>
           <strong id="asrEngine">-</strong>
         </div>
-        <div>
+        <div class="debug-only">
           <span class="meta-label">LLM Provider</span>
           <strong id="llmProvider">-</strong>
         </div>
-        <div>
+        <div class="debug-only">
           <span class="meta-label">LLM Model</span>
           <strong id="llmModel">-</strong>
         </div>
-        <div>
+        <div class="debug-only">
           <span class="meta-label">LLM Fallback</span>
           <strong id="llmFallback">-</strong>
         </div>
@@ -71,7 +80,11 @@
         <ol id="workflowSteps" class="workflow-steps"></ol>
       </section>
 
-      <section class="run-context" aria-label="当前运行与保存信息">
+      <section id="stepPrompt" class="step-prompt" aria-live="polite">
+        请上传问诊音频或粘贴问诊文本开始。
+      </section>
+
+      <section class="run-context debug-only" aria-label="当前运行与保存信息">
         <div>
           <span class="meta-label">当前 task_id</span>
           <strong id="currentTaskIdValue">-</strong>
@@ -87,12 +100,28 @@
         <button type="button" id="copyRunLogCommandButton">复制运行日志命令</button>
       </section>
 
+      <section id="startGuide" class="start-guide" aria-label="开始使用引导">
+        <div>
+          <span class="meta-label">开始一次病历生成</span>
+          <h2>按医生审核流程生成电子病历草稿</h2>
+          <ol>
+            <li>选择输入方式：文本导入 / 上传音频。</li>
+            <li>系统自动完成：转写、字段抽取、草稿生成、安全校验。</li>
+            <li>医生需要完成：核对字段、确认候选诊断、补充缺失项、确认导出。</li>
+          </ol>
+        </div>
+        <div class="guide-actions">
+          <button type="button" class="primary-action" id="guideUploadAudioButton">上传问诊音频</button>
+          <button type="button" id="guideTextImportButton">粘贴问诊文本</button>
+        </div>
+      </section>
+
       <main class="workbench" aria-label="医生工作台主体">
         <aside class="column field-column">
           <div class="panel-header">
             <div>
               <h2>病历字段</h2>
-              <p>AI 已抽取，待医生逐项复核</p>
+              <p>用于逐项核对主诉、现病史、查体和处理建议，缺失项需医生补充。</p>
             </div>
             <span id="fieldCountBadge" class="status-badge neutral">-</span>
           </div>
@@ -103,7 +132,7 @@
           <div class="panel-header">
             <div>
               <h2>对话转写</h2>
-              <p>文本导入或 ASR 转写结果</p>
+              <p>用于核对问诊原文和医生/患者角色，是字段证据的来源。</p>
             </div>
             <span id="transcriptBadge" class="status-badge info">-</span>
           </div>
@@ -114,7 +143,7 @@
           <div class="panel-header">
             <div>
               <h2>AI辅助与安全校验</h2>
-              <p>缺失项、候选诊断、证据与风险提示</p>
+              <p>用于查看缺失提醒、候选诊断、证据、风险和导出前校验。</p>
             </div>
           </div>
           <div id="assistPanels" class="assist-list"></div>
@@ -200,6 +229,6 @@
     </aside>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="./doctor.js?v=2026061104"></script>
+    <script src="./doctor.js?v=2026061501"></script>
   </body>
 </html>

@@ -13,6 +13,7 @@ const appState = {
   currentInputText: "",
   selectedEngine: "funasr",
   assistTab: "ai",
+  viewMode: "doctor",
   audioMode: "transcribe",
   uploadedFilename: "",
   taskStatus: "CREATED",
@@ -143,6 +144,84 @@ function renderRunContext() {
   $("currentTaskIdValue").textContent = appState.currentTaskId || "-";
   $("currentAudioIdValue").textContent = appState.currentAudioId || "-";
   $("runLogCommand").textContent = runLogCommand();
+}
+
+function hasActiveSession() {
+  return Boolean(
+    appState.currentTaskId
+      || appState.currentAudioId
+      || appState.currentAsrResult
+      || appState.currentRecordFields
+      || appState.currentDraft
+      || appState.currentInputText,
+  );
+}
+
+function riskSummary() {
+  const missing = missingItems();
+  const diagnoses = appState.currentRecordFields?.candidate_diagnoses || [];
+  const safety = appState.currentSafetyCheck;
+  const warnings = [...(appState.currentAsrResult?.warnings || []), ...(safety?.warnings || [])];
+  const errors = safety?.errors || [];
+  const evaluationMissing = appState.currentEvaluation?.medical_keywords?.missing || [];
+  const roleNeedsReview = appState.currentAsrResult?.role_strategy === "single_segment_needs_review";
+  return {
+    hasRisk: missing.length > 0
+      || diagnoses.length > 0
+      || warnings.length > 0
+      || errors.length > 0
+      || evaluationMissing.length > 0
+      || roleNeedsReview
+      || Boolean(safety && (!safety.passed || safety.blocked)),
+    hasError: errors.length > 0 || Boolean(safety?.blocked) || Boolean(safety && !safety.passed),
+    missing,
+    diagnoses,
+    warnings,
+    errors,
+    evaluationMissing,
+    roleNeedsReview,
+  };
+}
+
+function renderMode() {
+  const isDebug = appState.viewMode === "debug";
+  document.body.classList.toggle("debug-mode", isDebug);
+  document.body.classList.toggle("doctor-mode", !isDebug);
+  $("doctorModeButton").classList.toggle("active", !isDebug);
+  $("debugModeButton").classList.toggle("active", isDebug);
+}
+
+function setViewMode(mode) {
+  appState.viewMode = mode === "debug" ? "debug" : "doctor";
+  if (appState.viewMode === "doctor" && appState.assistTab === "trace") {
+    appState.assistTab = "ai";
+  }
+  renderAll();
+}
+
+function renderStartGuide() {
+  $("startGuide").hidden = hasActiveSession();
+}
+
+function renderStepPrompt() {
+  const risk = riskSummary();
+  const prompt = $("stepPrompt");
+  let text = "请上传问诊音频或粘贴问诊文本开始。";
+  let tone = "";
+
+  if (hasActiveSession() && risk.hasRisk) {
+    text = "请优先处理红色/黄色提示。";
+    tone = risk.hasError ? "danger" : "risk";
+  } else if (appState.taskStatus === "WAITING_DOCTOR_REVIEW" || appState.taskStatus === "reviewed" || appState.taskStatus === "approved") {
+    text = "请确认字段和候选诊断，确认后才能导出。";
+  } else if (appState.currentDraft || appState.taskStatus === "GENERATING_DRAFT" || appState.taskStatus === "SAFETY_CHECKING") {
+    text = "病历草稿已生成，请逐项核对字段。";
+  } else if (appState.taskStatus === "TRANSCRIBED" || appState.currentAsrResult) {
+    text = "对话已转写，请核对医生/患者角色。";
+  }
+
+  prompt.textContent = text;
+  prompt.className = `step-prompt ${tone}`.trim();
 }
 
 function openDrawer(panelId, title) {
@@ -551,13 +630,12 @@ async function refreshLlmStatus({ test = false } = {}) {
 }
 
 function saveBehaviorBlock() {
-  return `
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>草稿保存说明</h3>
-        <span class="status-badge info">SQLite</span>
-      </div>
-      <div class="assist-body">
+  return assistDetails({
+    title: "草稿保存说明",
+    badgeClass: "info",
+    badgeText: "SQLite",
+    open: false,
+    body: `
         <div class="storage-note">
           <strong>“保存草稿到SQLite”会调用 <code>POST /api/tasks/{task_id}/review</code>。</strong>
           <ul>
@@ -572,25 +650,22 @@ function saveBehaviorBlock() {
           <strong>草稿查看位置</strong><br>
           doctor.html 左侧字段卡片 / debug.html Task JSON 的 result_json / docs/dev_logs/runs/ 运行日志 / 导出后的 data/outputs/
         </div>
-      </div>
-    </section>
-  `;
+    `,
+  });
 }
 
 function runLogBlock() {
-  return `
-    <section class="assist-block">
-      <div class="assist-title">
-        <h3>演示运行日志</h3>
-        <span class="status-badge info">Run Log</span>
-      </div>
-      <div class="assist-body">
+  return assistDetails({
+    title: "演示运行日志",
+    badgeClass: "info",
+    badgeText: "Run Log",
+    open: false,
+    body: `
         <div class="safety-strip"><strong>task_id</strong><br>${escapeHtml(appState.currentTaskId || "-")}</div>
         <div class="safety-strip"><strong>audio_id</strong><br>${escapeHtml(appState.currentAudioId || "-")}</div>
         <div class="safety-strip"><strong>生成命令</strong><br><code>${escapeHtml(runLogCommand())}</code></div>
-      </div>
-    </section>
-  `;
+    `,
+  });
 }
 
 function renderAssist() {
@@ -599,27 +674,31 @@ function renderAssist() {
   const missing = missingItems();
   const diagnoses = fields?.candidate_diagnoses || [];
   const evidence = allEvidence();
-  const warnings = [...(appState.currentAsrResult?.warnings || []), ...(safety?.warnings || [])];
+  const risk = riskSummary();
+  const warnings = risk.warnings;
   if (appState.currentAsrResult?.role_strategy === "single_segment_needs_review") {
     warnings.unshift("医生/患者角色需人工校正");
   }
-  const errors = safety?.errors || [];
+  const errors = risk.errors;
   const safetyHasRisk = warnings.length > 0 || errors.length > 0 || Boolean(safety && (!safety.passed || safety.blocked));
-  const evaluationMissing = appState.currentEvaluation?.medical_keywords?.missing || [];
+  const evaluationMissing = risk.evaluationMissing;
   const trace = currentAgentTrace();
   const traceLlm = trace.llm || {};
-  const traceHasRisk = missing.length > 0
-    || diagnoses.length > 0
-    || safetyHasRisk
+  const traceHasRisk = Boolean(traceLlm.fallback)
+    || errors.length > 0
+    || Boolean(safety?.blocked)
+    || Boolean(safety && !safety.passed)
+    || missing.length > 0
     || evaluationMissing.length > 0
-    || Boolean(traceLlm.fallback)
-    || appState.currentAsrResult?.role_strategy === "single_segment_needs_review";
+    || Boolean(trace.decision?.safety_blocked);
   const tabs = [
     ["ai", "AI辅助"],
     ["evidence", "证据与评测"],
-    ["trace", "Agent Trace"],
     ["safety", "安全校验"],
   ];
+  if (appState.viewMode === "debug") {
+    tabs.splice(2, 0, ["trace", "Agent Trace"]);
+  }
   const activeTab = tabs.some(([key]) => key === appState.assistTab) ? appState.assistTab : "ai";
 
   const aiContent = `
@@ -650,7 +729,7 @@ function renderAssist() {
       title: "病历草稿",
       badgeClass: appState.currentDraft ? "info" : "neutral",
       badgeText: appState.currentDraft ? "已生成" : "待生成",
-      open: Boolean(appState.currentDraft),
+      open: false,
       body: `<div class="draft-block">${escapeHtml(appState.currentDraft || "暂无病历草稿。")}</div>`,
     })}
     ${saveBehaviorBlock()}
@@ -661,19 +740,19 @@ function renderAssist() {
       title: "字段证据",
       badgeClass: "info",
       badgeText: evidence.length ? "可追溯" : "暂无",
-      open: evidence.length > 0,
+      open: false,
       body: evidence.length ? evidence.map((item) => `<button type="button" class="evidence-chip">${escapeHtml(item)}</button>`).join("") : `<div class="empty-state">暂无字段证据。</div>`,
     })}
 
-    ${assistDetails({
+    ${appState.viewMode === "debug" ? assistDetails({
       title: "ASR评测摘要",
       badgeClass: evaluationMissing.length ? "candidate" : "info",
       badgeText: "CER / Recall",
       open: evaluationMissing.length > 0,
       tone: evaluationMissing.length ? "risk-warning" : "",
       body: renderEvaluationBlock(),
-    })}
-    ${runLogBlock()}
+    }) : ""}
+    ${appState.viewMode === "debug" ? runLogBlock() : ""}
   `;
 
   const safetyContent = `
@@ -728,8 +807,11 @@ function renderFooter() {
 }
 
 function renderAll() {
+  renderMode();
   renderPatientBar();
   renderRunContext();
+  renderStartGuide();
+  renderStepPrompt();
   renderWorkflow();
   renderFields();
   renderTranscript();
@@ -1040,9 +1122,13 @@ async function testLlmConnection() {
 }
 
 function bindEvents() {
+  $("doctorModeButton").addEventListener("click", () => setViewMode("doctor"));
+  $("debugModeButton").addEventListener("click", () => setViewMode("debug"));
   $("openTextImportButton").addEventListener("click", openTextImport);
   $("openAudioTranscribeButton").addEventListener("click", openAudioTranscribe);
   $("openAudioGenerateButton").addEventListener("click", openAudioGenerate);
+  $("guideUploadAudioButton").addEventListener("click", openAudioGenerate);
+  $("guideTextImportButton").addEventListener("click", openTextImport);
   $("openEvaluationButton").addEventListener("click", openEvaluation);
   $("testLlmButton").addEventListener("click", testLlmConnection);
   $("openDebugButton").addEventListener("click", openDebug);
